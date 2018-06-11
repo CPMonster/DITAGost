@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Правила форматирования контента
+-->
+<rules xmlns:fo="http://www.w3.org/1999/XSL/Format" version="2.0">
+
+    <!-- =================== -->
+    <!--  Разделы документа  -->
+    <!-- =================== -->
+
+    <!-- 
+        Импорт готовых описаний страниц и разделов в формате FO
+    -->
+    <xsl-import href="layout-master-set.xsl"/>
+
+    <!-- Раздел для листа утверждения -->
+    <section master-alias="LU" master-name="LU"/>
+
+    <!-- Разделы для основных документов -->
+    <section master-alias="ESKD.Cover" master-name="ESKD.Cover.A4"/>
+    <section master-alias="ESKD.TOC" master-name="ESKD.TOC"/>
+    <section master-alias="ESKD.Content.Portrait" master-name="ESKD.Text.A4.Portrait"/>
+    <section master-alias="ESKD.Content.PortraitRotated" master-name="ESKD.Text.A4.PortraitRotated"/>
+
+
+
+    <!-- =========== -->
+    <!--  Нумерация  -->
+    <!-- =========== -->
+
+    <!-- 
+        Последовательность нумерации элементов должна быть описана 
+        с помощью элемента numseq. Атрибуты элемента numseq описаны
+        ниже.
+                
+        @name - имя последовательности. Допускается задавать любые нужные 
+                последовательности с любыми именами. Никакой поддержке 
+                в коде кастомизации для новой последовательности  
+                не требуется.
+                
+        @mode - способ нумерации. 
+                flat    - последовательная нумерация; 
+                decimal - многоуровневая нумерация через разделитель (по умолчанию).     
+        
+        @base - имя опорной последовательности, например, для нумерации рисунков
+                можно указать в качестве опорной нумерацию разделов. Тогда 
+                номер рисунка будет образован номером раздела и номером 
+                рисунка в разделе. При этом последовательность рисунков
+                может иметь тип flat.
+                
+        @type - тип последовательности. 
+                arabic      - арабские цифры (используется по умолчанию);
+                charset     - нумерация символами из заданного набора;
+                custom      - пользовательская нумерация; 
+                dummy       - нумерация отсутствует; 
+                latin-caps  - латинские буквы прописные;
+                latin-small - латинские буквы строчные;
+                roman       - нумерация римскими цифрами (пока не работает).
+                                
+        @chars - последовательность символов для нумерации буквами (если указан, 
+                 то автоматически используется тип charset);    
+        
+        @start-from - номер первого элемента последовательности. В качестве 
+                      значения обязательно должно быть указано число. По 
+                      умолчанию используется значение 1.                       
+        
+        @caption - основная часть заголовка нумерованного элемента. Подстановка
+                   %n обозначает фактический номер элемента. Например, если 
+                   в атрибуте @caption задана строка "Таблица %n", то при
+                   формировании выходного документа вместо подстроки %n
+                   будут подставлены фактические номера таблиц.
+                   
+        @navcaption - основная часть заголовка нумерованного элемента при 
+                      формировании ссылок на них из списков. Например, 
+                      в документе хотим Рисунок 48, а в списке рисунков
+                      Рис. 48. 
+    -->
+
+    <numseq name="Без номеров" type="dummy"/>
+
+    <numseq name="Разделы" caption="%n&#8199;"/>
+
+    <numseq name="Приложения" caption="Приложение&#8199;%n.&#8199;"
+        chars="АБВГДЕЖИКЛМППРСТУФХЦЧШЩЭЮЯ"/>
+
+    <numseq name="Разделы приложений" caption="%n&#8199;" base="Приложения"/>
+
+    <numseq name="Таблицы" mode="flat" caption="Таблица&#8199;%n&#8199;—&#8199;"/>
+
+    <numseq name="Таблицы в приложении" mode="flat" caption="Таблица&#8199;%n&#8199;—&#8199;"
+        base="Приложения"/>
+
+    <numseq name="Рисунки" mode="flat" caption="Рисунок&#8199;%n&#8199;—&#8199;"/>
+
+    <numseq name="Рисунки в приложении" mode="flat" caption="Рисунок&#8199;%n&#8199;—&#8199;"
+        base="Приложения"/>
+
+    <numseq name="Блок списка" type="dummy"/>
+
+    <numseq name="Пункт списка" mode="flat" base="Блок списка" caption="%n."/>
+
+
+
+    <!-- ============================================================== -->
+    <!--  Привязка оформления к элементам с учетом контекста последних  -->
+    <!-- ============================================================== -->
+
+    <!-- 
+        Следующие свойства определяют оформление элемента:
+        
+        - элемент FO, которым будет представлен этот элемент;
+        
+        - стиль (аналогичен стилю в большинстве текстовых процессоров);
+        
+        - последовательность нумерации (см. выше).
+        
+        Привязка оформления к элементу осуществляется с помощью элемента element.
+        Атрибуты элемента element описаны ниже. 
+        
+        @context - XPath-выражение, определяющее контекст элемента. В простейшем
+                   случае в качестве контекста используют имя элемента. Тогда привязка 
+                   оформления к этому элементу действует вне зависимости от его 
+                   контекста. Например, запись context="term" привязывает заданное 
+                   оформление к элементу term, где бы тот ни находился. 
+                   
+                   Допускается указание не только имени элемента, но и условий, задающих 
+                   контекст этого элемента в документе. Тогда оформление применяется только 
+                   к тем элементам, которые поставлены в указанный контекст. Условие, задающее 
+                   контекст элемента, записывают в квадратных скобках. Например, запись
+                   title[cpm:sectype(.)='intro'] означает, что оформление должно быть применено
+                   только к тем элементам title, для которых функция cpm:sectype() возвращает 
+                   значение intro. О функциях см. ниже.
+                   
+                   Допускается указание указание символа * вместо конкретного имени элемента. 
+                   Такая запись означает, что привязка оформления относится в любому 
+                   элементу вне зависимости от его имени.
+                   
+                   Настоятельно не рекомендуется описывать контексты таким образом, чтобы 
+                   к одному и тому же контексту оказывались привязаны разные способы 
+                   оформления. 
+                   
+                   В качестве значения атрибута @contect допускается использование любого
+                   выражения на языке XPath. На практике достаточно всмотреться в варианты, 
+                   используемые в этом файле, и вносить в них изменения по мере необходимости.
+                   
+                   Атрибут @context обязательный. 
+                   
+        @numseq - название последовательности нумерации, в которую должен быть включен
+                  любой элемент, отвечающий условию, указанному атрибуте @context.      
+                  
+                  Атрибут @numseq факультативный. 
+                   
+        @style - название стиля, которым следует оформить любой элемент, отвечающий
+                 условию, указанному атрибуте @context. 
+                 
+                 Допускается использование в названии стиля подстановки %l. Эта подстановка 
+                 означает, что привязка должна быть сделана для нескольких уровней нумерации. 
+                 Например, привязка, у которой style="Заголовок %l" будет трактоваться нак 
+                 набор привязок для уровней нумерации с 1 до 6, причем к элементу на первом 
+                 уровне нумерации будет привязан стиль Заголовок 1, к элементу на втором уровне 
+                 нумерации будет привязан стиль Заголовок 2 и т.д. Подстановка %l нужна для 
+                 экономии времени. Пользоваться ей не обязательно. При необходимости или 
+                 при желании допускается явное указание привязки для каждого уровня нумерации.
+                 Следующие привязки действуют одинаково:
+                 
+                 <element context="title" style="Заголовок %l" numseq="Разделы"/>
+                 
+                 и 
+                 
+                 <element context="title[cpm:numlevel(.)=1] style="Заголовок 1" numseq="Разделы"/>
+                 <element context="title[cpm:numlevel(.)=2] style="Заголовок 2" numseq="Разделы"/>
+                 ...
+                 <element context="title[cpm:numlevel(.)=6 style="Заголовок 2" numseq="Разделы"/>
+                 
+                 Атрибут @style факультативный. 
+                 
+        @from-numlevel - органичение действия подставновки %l снизу, например, если привязка должна
+                         начинаться не с уровня 1, а с уровня 2 (как в приложениях). 
+                         
+                         Атрибут @from-numlevel факультативный. Атрибут @from-numlevel имеет смысл 
+                         только при использовании подстановки %l в названии стиля.  
+                         
+        @to-numlevel - органичение действия подставновки %l сверху, например, если привязка должна
+                       продолжаться не до уровня 6, а с уровня 3 (как в оглавлении).   
+                       
+                       Атрибут @to-numlevel факультативный. Атрибут @to-numlevel имеет смысл 
+                       только при использовании подстановки %l в названии стиля.  
+                       
+        @name - имя элемента FO, в который следует преобразовать элемент, указанный в 
+                атрибуте @context. В большинстве случаев имя элемента FO определяется
+                автоматически на основании стиля (блочный он или строчный), поэтому 
+                атрибут @name следует использовать только в том случае, если 
+                по каким-то причинам результирующий элемент FO необходимо задать явно.
+                
+                Атрибут @name факультативный.
+                                                                       
+        При описании контекстов с условиями допускается использование перечисленных ниже функций.
+     
+        cpm:numlevel(.) - уровень элемента в той нумерованной последовательности,
+                          в которую он включен. Например, уровень элемента
+                          li в многоуровневом списке.
+                          
+        cpm:sectype(.) -  тип раздела который представлен с помощью этого элемента.
+                          Набор типов разделов, вообще говоря, определяется конкретной
+                          кастомизацией. 
+                          
+        Типы разделов в случае ЕСКД:
+        appendix   - приложение или его подраздел;
+        auxiliary  - вспомогательный раздел, например, аннотация;
+        intro      - введение или его подраздел;
+        main       - обычный раздел основной части документа; 
+        signatures - набор подписей (на ЛУ или титульник);
+        slacking   - "провисший" текст, например, текст между 4.1 и 4.1.1;
+        toctopic   - топик оглавления;
+        tontopic   - топик со списком таблиц, рисунков и т.п.
+        
+        cpm:oclass(.) - значение, обозначающее роль элемента в документе или
+                        требуемый способ его оформления. В большинстве случаев
+                        функция cpm:oclass() возвращает значение атрибута
+                        @outputclass. Однако для некоторых контекстов 
+                        в кастомизации может быть предусмотре особый порядок
+                        определения значения этой функции. Набор значений 
+                        функции cpm:oclass(), имеющих смысл, определяется
+                        конкретной кастомизацией.     
+    -->
+
+    <!-- Титульный лист -->
+    <element context="p[cpm:oclass(.)='cover.approved']" style="Титул. Утвержден"/>
+    <element context="p[cpm:oclass(.)='cover.LU']" style="Титул. ЛУ"/>
+    <element context="p[cpm:oclass(.)='cover.title']" style="Титул. Заголовок"/>
+    <element context="p[cpm:oclass(.)='cover.subtitle']" style="Титул. Подзаголовок"/>
+    <element context="p[cpm:oclass(.)='cover.docnumber']" style="Титул. Обозначение"/>
+    <element context="p[cpm:oclass(.)='cover.pages']" style="Титул. Страницы"/>
+    <element context="p[cpm:oclass(.)='cover.year']" style="Титул. Год"/>    
+
+    <!-- Заголовки вспомогательных разделов (аннотация и т.п.) -->
+    <element context="title[cpm:sectype(.)='auxiliary']" style="Заголовок перечня"
+        numseq="Без номеров"/>
+
+    <!-- Введение и его подразделы  -->
+    <element context="title[cpm:sectype(.)='intro']" to-numlevel="4" style="Заголовок %l"/>
+
+    <!-- Разделы основной части -->
+    <element context="title[cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
+        style="Заголовок %l" numseq="Разделы"/>
+
+    <!-- Заголовок "провисшего" текста (его надо спрятать) -->
+    <element context="title[cpm:sectype(.)='slacking']" style="Пустой заголовок"/>
+
+    <!-- Заголовок приложения -->
+    <element context="title[cpm:numlevel(.)=1 and cpm:sectype(.)='appendix']"
+        style="Приложение. Заголовок" numseq="Приложения"/>
+
+    <!-- Заголовок раздела внутри приложения -->
+    <element context="title[ancestor::*[cpm:sectype(.)='appendix']]" from-numlevel="2"
+        style="Заголовок %l" numseq="Разделы приложений"/>
+
+    <!-- Оглавления и перечни -->
+    <element context="title[cpm:sectype(.)='toctopic']" style="Оглавление. Заголовок"/>
+    <element context="title[cpm:sectype(.)='tontopic']" style="Заголовок перечня"/>
+    <element context="fo:leader" name="fo:leader" style="Оглавление. Точки"/>
+    <element context="fo:block[cpm:oclass(.)='tocentry']" from-numlevel="0" to-numlevel="3"
+        style="Оглавление %l"/>
+
+    <!-- Абзац основного текста -->
+    <!--
+    <element
+        context="*[contains(@class, 'topic/body')]//p[not(@outputclass) and not(ancestor::entry)]"
+        style="Основной"/>
+    -->
+    <element context="*[cpm:eclass(., 'topic/body')]//p[not(@outputclass) and not(ancestor::entry)]"
+        style="Основной"/>
+
+    <!-- Подзаголовки внутри топиков -->
+    <element context="section/title" style="Заголовок 4"/>
+
+    <!-- Таблицы -->
+    <element context="tgroup" style="Таблица"/>
+    <element context="*[cpm:sectype(.)!='appendix']//table/title" style="Таблица. Название"
+        numseq="Таблицы"/>
+    <element context="*[cpm:sectype(.)='appendix']//table/title" style="Таблица. Название"
+        numseq="Таблицы в приложении"/>
+    <element context="thead/row" style="Таблица. Шапка"/>
+    <element context="table[not(@outputclass)]//entry" style="Таблица. Ячейка"/>
+    <element context="table[not(@outputclass)]//entry[@outputclass='subtitle']"
+        style="Таблица. Подзаголовок"/>
+    <element
+        context="tbody//entry[position()=1 and ../../../thead/row/entry[1]/@outputclass='number']"
+        style="Таблица. Номер строки"/>
+    <element
+        context="tbody//entry[count(following-sibling::*)=0 and ../../../thead/row/entry[last()]/@outputclass='total']"
+        style="Таблица. Итог по строке"/>
+
+    <!-- Рисунки -->
+    <element context="fig" numseq="fo:block" style="Рисунок"/>
+    <element context="*[cpm:sectype(.)='main']//fig/title" numseq="Рисунки"
+        style="Рисунок. Название"/>
+    <element context="*[cpm:sectype(.)='appendix']//fig/title" style="Рисунок. Название"
+        numseq="Рисунки в приложении"/>
+    <element context="fo:block[cpm:oclass(.)='image']" style="Рисунок. Изображение"/>
+    <element context="image" name="fo:external-graphic"/>
+    <!--
+    <element context="fig/image[not(@outputclass)]" name="fo:external-graphic"/>
+    -->
+    <element context="fig/p" style="Рисунок. Описание"/>
+
+    <!-- Списки -->
+    <element context="fo:list-item-label/fo:block[not(@role)]" style="Маркер списка. Текст"/>
+
+    <element context="fo:list-item-body[not(@role)]" to-numlevel="3" style="Пункт списка %l. Текст"/>
+
+    <!-- Списки в таблице -->
+    <element context="fo:list-item-label/fo:block[@role='table']"
+        style="Таблица. Маркер списка. Текст"/>
+
+    <element context="fo:list-item-body[@role='table']" to-numlevel="3"
+        style="Таблица. Пункт списка %l. Текст"/>
+
+    <!-- Маркированные списки -->
+    <element context="ul" style="Главный список"/>
+    <element context="ul[ancestor::li]|ul[ancestor::entry and not(preceding-sibling::*)]"
+        numseq="Блок списка" style="Вложенный список"/>
+    <element context="ul/li[not(ancestor::li) and position()=1]" style="Первый пункт списка"/>
+    <element context="ul/li[ancestor::li or position()!=1]" style="Непервый пункт списка"/>
+
+    <!-- Нумерованные списки -->
+    <element context="ol" numseq="Блок списка" style="Главный список"/>
+    <element context="ol[ancestor::li]|ol[ancestor::entry and not(preceding-sibling::*)]"
+        numseq="Блок списка" style="Вложенный список"/>
+    <element context="ol/li[not(ancestor::li) and position()=1]" style="Первый пункт списка"
+        numseq="Пункт списка" base="Блок списка"/>
+    <element context="ol/li[ancestor::li or position()!=1]" style="Непервый пункт списка"
+        numseq="Пункт списка" base="Блок списка"/>
+
+    <!-- Шаги и другие элементы процедуры -->
+    <element context="steps" numseq="Блок списка" style="Главный список"/>
+
+    <element context="step[position()=1]" style="Первый пункт списка" numseq="Пункт списка"
+        base="Блок списка"/>
+
+    <element context="step[position()!=1]" style="Непервый пункт списка" numseq="Пункт списка"
+        base="Блок списка"/>
+
+    <!-- Примечания -->
+    <element context="*[cpm:oclass(.)='notecaption']" style="ВНИМАНИЕ"/>
+
+    <!-- Фиксированный текст -->
+    <element context="pre" style="Листинг"/>
+
+    <!-- Формы -->
+    <element context="div[cpm:oclass(.)='form']" style="Форма"/>
+    <element context="div[cpm:oclass(.)='form']/p" style="Абзац в форме"/>
+
+    <!-- Лист регистрации изменений -->
+    <element context="title[cpm:sectype(.)='listregizm']" style="Заголовок 1"/>
+    <element context="table[cpm:oclass(.)='listregizm']//thead/row/entry" style="ЛРИ. Шапка"/>
+    <element context="table[cpm:oclass(.)='listregizm']//tbody/row/entry" style="ЛРИ. Ячейка"/>
+    <element context="table[cpm:oclass(.)='listregizm']//tbody/row" style="ЛРИ. Строка"/>
+
+    <!-- Строчные элементы -->
+    <element context="apiname" style="Код в строке"/>
+    <element context="cite" style="Цитата в строке"/>
+    <element context="codeph" style="Код в строке"/>
+    <element context="filepath" style="Файл"/>
+    <element context="keyword" style="Основной шрифт"/>
+    <element context="menucascade" style="Меню"/>
+    <element context="term" style="Термин"/>
+    <element context="uicontrol" style="Кнопки и все такое"/>
+    <element context="userinput" style="Код в строке"/>
+    <element context="xmlatt" style="Код в строке"/>
+    <element context="xmlelement" style="Код в строке"/>
+
+    <!-- Элементы, для которых не нашлось подходящих правил -->
+    <element context="cpm:wrapper" style="Основной"/>
+    <element context="cpm:keyword" style="Основной"/>
+    <element context="*[contains(@class, 'topic/body')]//p[cpm:oclass(.)='shortdesc']"
+        style="Основной"/>
+
+</rules>
