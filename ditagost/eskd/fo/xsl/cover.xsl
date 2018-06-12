@@ -71,13 +71,6 @@
         </cpm:cover>
 
     </xsl:template>
-    
-   
-    <!-- 
-        Providing a master page sequence for a cover page 
-    -->
-    <xsl:template match="cpm:cover" mode="sequence">
-        <xsl:text>ESKD.Cover</xsl:text>
-    </xsl:template>          
+                  
 
 </xsl:stylesheet>

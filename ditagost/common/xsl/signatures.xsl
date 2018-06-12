@@ -39,13 +39,6 @@
         <xsl:value-of select="boolean($tmp)"/>
 
     </xsl:function>
-
-
-    <!-- 
-        Excluding signatures from a TOC 
-    -->
-    <xsl:template match="*[cpm:is_signatures(.)]" mode="is_tocmamber">
-        <xsl:value-of select="false()"/>
-    </xsl:template>
+    
 
 </xsl:stylesheet>

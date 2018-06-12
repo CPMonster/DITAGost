@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- * * ** *** ***** ******** ************* ********************* --> 
 <!--
-    Product:    DITA OT Customization for Azimut
+    Product:    DITA GOST
     
-    Level:      DITA OT customization shared files
+    Level:      Standalone library
         
-    Part:       Common shared files  
+    Part:       Common  
     Module:     resource.xsl
     
-    Scope:      DITA, DITA OT, Russian
+    Scope:      DITA, DITA OT
     
     Func:       Detecting resource topics
 -->   

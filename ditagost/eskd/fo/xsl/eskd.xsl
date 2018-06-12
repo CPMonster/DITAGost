@@ -16,29 +16,85 @@
 -->   
 <!-- * * ** *** ***** ******** ************* ********************* -->  
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    exclude-result-prefixes="xs"
-    version="2.0">
-    
+    xmlns:cpm="http://cpmonster.com/xmlns/cpm" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    exclude-result-prefixes="cpm xs" version="2.0">
+
     <!-- 
         Modules
     -->
-    
+
     <!-- FastCust publishing engine -->
-    <xsl:import href="../../../lib/fastcust/xsl-2.0/dita.xsl"/>        
+    <xsl:import href="../../../lib/fastcust/xsl-2.0/dita.xsl"/>
+
+    <!-- Detecting section types -->
+    <xsl:import href="sections.xsl"/>
+
+
+    <!-- 
+        Reassembling a document
+    -->
+    <xsl:template match="bookmap | map" mode="complete">
+
+        <bookmap>
+
+            <!-- Copying attributes -->
+            <xsl:copy-of select="@*"/>
+
+            <!-- Assembling cover page content -->
+            <xsl:call-template name="cover"/>
+
+            <!-- Assembling a TOC -->
+            <xsl:call-template name="toctopic">
+                <xsl:with-param name="title" select="'Содержание'"/>
+                <xsl:with-param name="maxlevel" select="3"/>
+            </xsl:call-template>
+
+            <!-- Appending DITA OT preprocessor output -->
+            <xsl:apply-templates select="*[cpm:sectype(.) != 'appendix']" mode="complete"/>
+
+            <!-- Assembling a topic containing a list of figures -->
+            <xsl:if test=".//fig">
+                <xsl:call-template name="tontopic">
+                    <xsl:with-param name="numseq" select="'Рисунки'"/>
+                    <xsl:with-param name="title" select="'Перечень рисунков'"/>
+                </xsl:call-template>
+            </xsl:if>
+
+            <!-- Assembling a topic containing a list of tables -->
+            <xsl:if test=".//table[title]">
+                <xsl:call-template name="tontopic">
+                    <xsl:with-param name="numseq" select="'Таблицы'"/>
+                    <xsl:with-param name="title" select="'Перечень таблиц'"/>
+                </xsl:call-template>
+            </xsl:if>
+
+            <xsl:apply-templates select="*[cpm:sectype(.) = 'appendix']" mode="complete"/>
+
+            <xsl:call-template name="listregizm"/>
+
+        </bookmap>
+
+    </xsl:template>
     
-    <!-- A ESKD cover page -->
-    <xsl:import href="cover.xsl"/>
     
-    <!-- A ESKD TOC -->
-    <xsl:import href="toc.xsl"/>
-    
-    <!-- ESKD tables of figures, tables, etc. -->
-    <xsl:import href="../../../common/xsl/ton.xsl"/>
-    
-    <!-- A final useless page -->
-    <xsl:import href="listregizm.xsl"/>        
-    
-    <xsl:import href="../../../common/xsl/sections.xsl"/>
-    
+    <!-- 
+        Formatting a ESKD-style note 
+    -->
+    <xsl:template match="note" mode="cpm.fastcust.improve">
+        
+        <p outputclass="notecaption">ВНИМАНИЕ!</p>
+        
+        <xsl:choose>
+            <xsl:when test="p|li|table|fig">
+                <xsl:apply-templates select="*" mode="cpm.fastcust.improve"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <p>
+                    <xsl:apply-templates select="node()" mode="cpm.fastcust.improve"/>
+                </p>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+    </xsl:template>    
+
 </xsl:stylesheet>

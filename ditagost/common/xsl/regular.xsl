@@ -28,9 +28,7 @@
     <xsl:import href="appendix.xsl"/>
 
     <xsl:template match="*" mode="is_slacking">
-
-        
-        
+                
         <xsl:variable name="supreor_title">            
             <xsl:value-of select="normalize-space(ancestor::*[cpm:is_section(.)][1]/title)"/>                       
         </xsl:variable>
@@ -68,41 +66,7 @@
     </xsl:function>
     
     
-    <xsl:template match="*[cpm:is_slacking(.)]" mode="is_tocmamber">
-        <xsl:value-of select="false()"/>
-    </xsl:template>
-
-
-    <!--
-    <xsl:function name="cpm:is_tontopic" as="xs:boolean">
-
-        <xsl:param name="element"/>
-
-
-        <xsl:choose>
-            <xsl:when test="$element/title = 'Перечень сокращений'">
-                <xsl:value-of select="true()"/>
-            </xsl:when>
-            <xsl:when test="$element/title = 'Перечень терминов'">
-                <xsl:value-of select="true()"/>
-            </xsl:when>
-            <xsl:when test="$element/title = 'Перечень таблиц'">
-                <xsl:value-of select="true()"/>
-            </xsl:when>
-            <xsl:when test="$element/title = 'Перечень рисунков'">
-                <xsl:value-of select="true()"/>
-            </xsl:when>
-            <xsl:when test="$element/title = 'Перечень приложений'">
-                <xsl:value-of select="true()"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="false()"/>
-            </xsl:otherwise>
-        </xsl:choose>
-
-
-    </xsl:function>
-    -->
+    
     
     <xsl:template match="*[contains(title, 'Перечень')]" mode="is_tontopic" as="xs:boolean">
                 
@@ -147,16 +111,14 @@
             </xsl:when>
             <xsl:when test="cpm:is_slacking($element)">
                 <xsl:value-of select="false()"/>
-            </xsl:when>
-            <!--
-            <xsl:when test="cpm:is_listopic($element)">
-                <xsl:value-of select="false()"/>
-            </xsl:when>
-            -->
+            </xsl:when>            
             <xsl:when test="cpm:fastcust.is_toctopic($element)">
                 <xsl:value-of select="false()"/>
             </xsl:when>
             <xsl:when test="cpm:fastcust.is_tontopic($element)">
+                <xsl:value-of select="false()"/>
+            </xsl:when>
+            <xsl:when test="cpm:is_listregizm($element)">
                 <xsl:value-of select="false()"/>
             </xsl:when>
             <xsl:otherwise>

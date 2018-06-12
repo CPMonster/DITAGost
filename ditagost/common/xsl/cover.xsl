@@ -18,16 +18,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="cpm xs"
     version="2.0">
-    
-    
-    <!-- 
-        Providing the level of a cover page  
-    -->
-    <xsl:template match="cpm:cover" mode="level">
-        <xsl:value-of select="1"/>        
-    </xsl:template>
-    
-    
+                    
     <!-- 
         Transforming a cover page to FO
     -->
