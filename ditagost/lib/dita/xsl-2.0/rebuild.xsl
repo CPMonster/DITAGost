@@ -22,35 +22,63 @@
     -->
 
     <!-- A default @class value is empty -->
-    <xsl:template match="*" mode="cmp.dita.class_value"/>
+    <xsl:template match="*" mode="cpm.dita.class_value"/>
 
     <!-- Explicit values -->
 
-    <xsl:template match="concept" mode="cmp.dita.class_value">
+    <xsl:template match="concept" mode="cpm.dita.class_value">
         <xsl:text>- topic/topic concept/concept</xsl:text>
     </xsl:template>
 
-    <xsl:template match="topic/title" mode="cmp.dita.class_value">
+    <xsl:template match="topic/title" mode="cpm.dita.class_value">
         <xsl:text>- topic/title</xsl:text>
     </xsl:template>
 
-    <xsl:template match="concept/title" mode="cmp.dita.class_value">
+    <xsl:template match="concept/title" mode="cpm.dita.class_value">
         <xsl:text>- topic/title</xsl:text>
     </xsl:template>
 
-    <xsl:template match="task/title" mode="cmp.dita.class_value">
+    <xsl:template match="task/title" mode="cpm.dita.class_value">
         <xsl:text>- topic/title</xsl:text>
     </xsl:template>
 
-    <xsl:template match="reference/title" mode="cmp.dita.class_value">
+    <xsl:template match="reference/title" mode="cpm.dita.class_value">
         <xsl:text>- topic/title</xsl:text>
     </xsl:template>
 
-    <xsl:template match="conbody" mode="cmp.dita.class_value">
+    <xsl:template match="conbody" mode="cpm.dita.class_value">
         <xsl:text>- topic/body concept/conbody</xsl:text>
     </xsl:template>
 
-    <xsl:template match="entry" mode="cmp.dita.class_value">
+    <xsl:template match="table" mode="cpm.dita.class_value">
+        <xsl:text>- topic/table</xsl:text>
+    </xsl:template>
+
+    <xsl:template match="tgroup" mode="cpm.dita.class_value">
+        <xsl:text>- topic/tgroup</xsl:text>
+    </xsl:template>
+
+    <xsl:template match="colspec" mode="cpm.dita.class_value">
+        <xsl:text>- topic/colspec</xsl:text>
+    </xsl:template>
+
+    <xsl:template match="thead" mode="cpm.dita.class_value">
+        <xsl:text>- topic/thead</xsl:text>
+    </xsl:template>
+
+    <xsl:template match="tbody" mode="cpm.dita.class_value">
+        <xsl:text>- topic/tbody</xsl:text>
+    </xsl:template>
+
+    <xsl:template match="tfoot" mode="cpm.dita.class_value">
+        <xsl:text>- topic/tfoot</xsl:text>
+    </xsl:template>
+
+    <xsl:template match="row" mode="cpm.dita.class_value">
+        <xsl:text>- topic/row</xsl:text>
+    </xsl:template>
+
+    <xsl:template match="entry" mode="cpm.dita.class_value">
         <xsl:text>- topic/entry</xsl:text>
     </xsl:template>
 
@@ -60,11 +88,16 @@
         <!-- A DITA element -->
         <xsl:param name="element"/>
 
-        <xsl:variable name="tmp">
-            <xsl:apply-templates select="$element" mode="cmp.dita.class_value"/>
+        <xsl:variable name="tmp1">
+            <xsl:apply-templates select="$element" mode="cpm.dita.class_value"/>
         </xsl:variable>
 
-        <xsl:if test="$tmp != ''">
+        <xsl:variable name="tmp2">
+            <xsl:value-of select="normalize-space($tmp1)"/>
+        </xsl:variable>
+
+        <xsl:if test="$tmp2 != ''">
+            <xsl:value-of select="$tmp2"/>
             <xsl:text>&#32;</xsl:text>
         </xsl:if>
 
@@ -100,10 +133,9 @@
     -->
     <xsl:template match="node() | @*" mode="cpm.dita.class">
 
-        <xsl:copy>
-            <xsl:apply-templates select="@*" mode="#current"/>
-            <xsl:apply-templates select="." mode="cmp.dita.class_attr"/>            
-            <xsl:apply-templates select="node()" mode="#current"/>
+        <xsl:copy>            
+            <xsl:apply-templates select="." mode="cpm.dita.class_attr"/>
+            <xsl:apply-templates select="node() | @*" mode="#current"/>
         </xsl:copy>
 
     </xsl:template>

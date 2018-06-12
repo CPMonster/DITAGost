@@ -39,4 +39,6 @@
     <!-- A final useless page -->
     <xsl:import href="listregizm.xsl"/>        
     
+    <xsl:import href="../../../common/xsl/sections.xsl"/>
+    
 </xsl:stylesheet>

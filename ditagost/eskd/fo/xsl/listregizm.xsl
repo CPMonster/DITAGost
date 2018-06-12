@@ -44,6 +44,14 @@
     </xsl:function>
 
 
+    <xsl:template match="*[cpm:is_listregizm(.)]" mode="level">
+        <xsl:value-of select="1"/>
+    </xsl:template>
+
+    <xsl:template match="*[cpm:is_listregizm(.)]" mode="sequence">
+        <xsl:text>ESKD.Content.Portrait</xsl:text>
+    </xsl:template>
+
     <!-- 
         Excluding a final useless page from a TOC
     -->
@@ -107,7 +115,7 @@
             <concept xml:lang="ru" id="listregizm">
                 <title>Лист регистрации изменений</title>
                 <conbody>
-                    <table>
+                    <table frame="all" closep="1" rowsep="1">
                         <tgroup cols="{$cols}">
                             <xsl:for-each select="1 to $cols">
                                 <colspec colname="{concat('col', .)}"/>
@@ -125,10 +133,14 @@
                     </table>
                 </conbody>
             </concept>
-        </xsl:variable>
-
-        <xsl:apply-templates select="$topic/concept" mode="cpm.dita.class"/>
-
+        </xsl:variable>        
+        
+        <xsl:message>
+            <xsl:apply-templates select="$topic/concept" mode="cpm.dita.class"/>
+        </xsl:message>
+        
+        <xsl:apply-templates select="$topic/concept" mode="cpm.dita.class"/>        
+        
     </xsl:template>
 
 </xsl:stylesheet>

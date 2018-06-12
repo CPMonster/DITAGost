@@ -44,52 +44,40 @@
     <!-- Working with tables of named objects -->
     <xsl:import href="ton.xsl"/>
 
-
-    
-
-
+   
     <!-- 
         Detecting a section type
     -->
     <xsl:template match="*" mode="sectype">
 
-        <xsl:choose>
-            
-            <xsl:when test="cpm:is_listregizm(.)">
-                <xsl:text>listregizm</xsl:text>
+        <xsl:choose>                                  
+            <xsl:when test="cpm:is_signatures(.)">
+                <xsl:text>signatures</xsl:text>
             </xsl:when>
-           
-            
+            <xsl:when test="cpm:fastcust.is_toctopic(.)">
+                <xsl:text>toctopic</xsl:text>
+            </xsl:when>
+            <xsl:when test="cpm:fastcust.is_auxiliary(.)">
+                <xsl:text>auxiliary</xsl:text>
+            </xsl:when>    
             <xsl:when test="cpm:is_slacking(.)">
                 <xsl:text>slacking</xsl:text>
-            </xsl:when>
-            
+            </xsl:when>            
             <xsl:when test="cpm:is_intro(.)">
                 <xsl:text>intro</xsl:text>
+            </xsl:when>                                
+            <xsl:when test="cpm:is_main(.)">
+                <xsl:text>main</xsl:text>
+            </xsl:when>                                    
+            <xsl:when test="cpm:fastcust.is_tontopic(.)">
+                <xsl:text>tontopic</xsl:text>
             </xsl:when>
             <xsl:when test="cpm:is_appendix(.)">
                 <xsl:text>appendix</xsl:text>
             </xsl:when>
-            <xsl:when test="cpm:fastcust.is_auxiliary(.)">
-                <xsl:text>auxiliary</xsl:text>
-            </xsl:when>
-            <xsl:when test="cpm:is_signatures(.)">
-                <xsl:text>signatures</xsl:text>
-            </xsl:when>
-            <xsl:when test="cpm:is_main(.)">
-                <xsl:text>main</xsl:text>
-            </xsl:when>            
-            <!--
-            <xsl:when test="cpm:is_listopic(.)">
-                <xsl:text>listopic</xsl:text>
-            </xsl:when>
-            -->
-            <xsl:when test="cpm:fastcust.is_toctopic(.)">
-                <xsl:text>toctopic</xsl:text>
-            </xsl:when>
-            <xsl:when test="cpm:fastcust.is_tontopic(.)">
-                <xsl:text>tontopic</xsl:text>
-            </xsl:when>
+            <xsl:when test="cpm:is_listregizm(.)">
+                <xsl:text>listregizm</xsl:text>
+            </xsl:when> 
             <xsl:otherwise>
                 <xsl:text>other</xsl:text>
             </xsl:otherwise>
