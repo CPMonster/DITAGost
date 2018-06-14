@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- * * ** *** ***** ******** ************* ********************* --> 
 <!--
-    Product:    DITA OT Customization for Azimut
+    Product:    DITA GOST
     
-    Level:      DITA OT customization shared files
+    Level:      Standalone library
         
-    Part:       Common files for DITA OT customizations    
+    Part:       ESKD    
     Module:     sections.xsl
     
     Scope:      DITA, DITA OT
     
-    Func:       Detecting section types, etc.
+    Func:       Assigning levels, page sequences, etc. to sections
 -->   
 <!-- * * ** *** ***** ******** ************* ********************* -->    
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -30,8 +30,14 @@
     <!-- Detecting resource topics -->
     <xsl:import href="../../../common/xsl/resource.xsl"/>
 
+    <!-- Working with slacking text -->
+    <xsl:import href="../../../common/xsl/slacking.xsl"/>
+
     <!-- A ESKD TOC -->
     <xsl:import href="../../../common/xsl/toc.xsl"/>
+
+    <!-- Auxiliary topics -->
+    <xsl:import href="../../../common/xsl/auxiliary.xsl"/>
 
     <!-- ESKD tables of figures, tables, etc. -->
     <xsl:import href="../../../common/xsl/ton.xsl"/>
@@ -42,14 +48,11 @@
     <!-- Working with introduction topics -->
     <xsl:import href="../../../common/xsl/intro.xsl"/>
 
-    <!-- Working with topics that belong to a main part of a document -->
-    <xsl:import href="../../../common/xsl/regular.xsl"/>
+    <!-- Working with tables of named objects -->
+    <xsl:import href="../../../common/xsl/ton.xsl"/>
 
     <!-- Working with appendices -->
     <xsl:import href="appendix.xsl"/>
-
-    <!-- Working with tables of named objects -->
-    <xsl:import href="../../../common/xsl/ton.xsl"/>
 
     <!-- A final useless page -->
     <xsl:import href="../../../common/xsl/listregizm.xsl"/>
@@ -61,13 +64,16 @@
     <xsl:template match="*" mode="sectype">
 
         <xsl:choose>
+            <xsl:when test="cpm:is_cover(.)">
+                <xsl:text>cover</xsl:text>
+            </xsl:when>
             <xsl:when test="cpm:is_signatures(.)">
                 <xsl:text>signatures</xsl:text>
             </xsl:when>
-            <xsl:when test="cpm:fastcust.is_toctopic(.)">
+            <xsl:when test="cpm:is_toctopic(.)">
                 <xsl:text>toctopic</xsl:text>
             </xsl:when>
-            <xsl:when test="cpm:fastcust.is_auxiliary(.)">
+            <xsl:when test="cpm:is_auxiliary(.)">
                 <xsl:text>auxiliary</xsl:text>
             </xsl:when>
             <xsl:when test="cpm:is_slacking(.)">
@@ -76,10 +82,7 @@
             <xsl:when test="cpm:is_intro(.)">
                 <xsl:text>intro</xsl:text>
             </xsl:when>
-            <xsl:when test="cpm:is_main(.)">
-                <xsl:text>main</xsl:text>
-            </xsl:when>
-            <xsl:when test="cpm:fastcust.is_tontopic(.)">
+            <xsl:when test="cpm:is_tontopic(.)">
                 <xsl:text>tontopic</xsl:text>
             </xsl:when>
             <xsl:when test="cpm:is_appendix(.)">
@@ -89,7 +92,7 @@
                 <xsl:text>listregizm</xsl:text>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>other</xsl:text>
+                <xsl:text>main</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
 
@@ -124,21 +127,11 @@
     <xsl:template match="*[cpm:is_signatures(.)]" mode="level">
         <xsl:value-of select="-1"/>
     </xsl:template>
-
-    <!-- Excluding signatures from a TOC -->
-    <xsl:template match="*[cpm:is_signatures(.)]" mode="is_tocmamber" as="xs:boolean">
-        <xsl:value-of select="false()"/>
-    </xsl:template>
-
+    
 
     <!-- 
         A TOC
     -->
-
-    <!-- Including a TOC to a document -->
-    <xsl:template match="*[cpm:fastcust.is_toctopic(.)]" mode="level">
-        <xsl:value-of select="1"/>
-    </xsl:template>
 
     <!-- Including a TOC to a document -->
     <xsl:template match="*[cpm:fastcust.is_toctopic(.)]" mode="sequence">
@@ -165,8 +158,37 @@
         Regular topics
     -->
 
+    <!-- Detecting regular topics -->
+    <xsl:function name="cpm:is_regular" as="xs:boolean">
+        
+        <xsl:param name="element"/>
+        
+        <xsl:choose>
+            <xsl:when test="cpm:is_cover($element)">
+                <xsl:value-of select="false()"/>
+            </xsl:when>
+            <xsl:when test="cpm:is_toctopic($element)">
+                <xsl:value-of select="false()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="true()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+    </xsl:function>
+
+    <!-- Detecting a main part topics -->
+    <xsl:function name="cpm:is_main" as="xs:boolean">
+
+        <!-- An element representing a section -->
+        <xsl:param name="element"/>
+
+        <xsl:value-of select="cpm:sectype($element) = 'main'"/>
+
+    </xsl:function>
+
     <!-- Selecting a page sequence for a regular topic -->
-    <xsl:template match="*[cpm:is_main(.)]" mode="sequence">
+    <xsl:template match="*[cpm:is_regular(.)]" mode="sequence">
 
         <xsl:choose>
 
@@ -185,17 +207,7 @@
 
     <!-- 
         A final useless page    
-    -->
-
-    <!-- Including a final useless page into a document -->
-    <xsl:template match="*[cpm:is_listregizm(.)]" mode="level">
-        <xsl:value-of select="1"/>
-    </xsl:template>
-
-    <!-- Selecting a page sequence for a final useless page -->
-    <xsl:template match="*[cpm:is_listregizm(.)]" mode="sequence">
-        <xsl:text>ESKD.Content.Portrait</xsl:text>
-    </xsl:template>
+    -->    
 
     <!-- Excluding a final useless page from a TOC -->
     <xsl:template match="*[cpm:is_listregizm(.)]" mode="is_tocmamber" as="xs:boolean">

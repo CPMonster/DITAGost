@@ -1067,13 +1067,16 @@
         <xsl:param name="element"/>
 
         <!-- Improved document -->
-
-        <xsl:variable name="tmp" as="xs:boolean">
-            <xsl:apply-templates select="$element" mode="is_tocmamber"/>
-        </xsl:variable>
-
-        <xsl:value-of select="boolean($tmp)"/>
-
+        
+        <xsl:choose>
+            <xsl:when test="cpm:fastcust.level($element) &gt; -1">
+                <xsl:apply-templates select="$element" mode="is_tocmamber"/>    
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="false()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+                
     </xsl:function>
 
 

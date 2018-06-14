@@ -19,19 +19,19 @@
 
     <!-- 
         Modules
-    -->       
-            
+    -->
+
     <!-- Accessing document parameters -->
-    <xsl:import href="../../../common/xsl/docparams.xsl"/> 
-    
+    <xsl:import href="../../../common/xsl/docparams.xsl"/>
+
     <!-- Common templates and functions for cover pages -->
     <xsl:import href="../../../common/xsl/cover.xsl"/>
-    
-    
+
+
     <!-- 
         Assembling content for a cover page
     -->
-    <xsl:template name="cover">               
+    <xsl:template name="cover">
 
         <cpm:cover>
 
@@ -71,6 +71,26 @@
         </cpm:cover>
 
     </xsl:template>
-                  
+
+
+    <!-- 
+        Detecting a cover page
+    -->
+    <xsl:function name="cpm:is_cover" as="xs:boolean">
+
+        <!-- An element of a document after the "complete" stage -->
+        <xsl:param name="element"/>
+
+        <xsl:choose>
+            <xsl:when test="name($element) = 'cpm:cover'">
+                <xsl:value-of select="true()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="false()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+
+    </xsl:function>
+
 
 </xsl:stylesheet>

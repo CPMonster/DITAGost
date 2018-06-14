@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- * * ** *** ***** ******** ************* ********************* --> 
 <!--
-    Product:    DITA OT Customization for Azimut 
+    Product:    DITA GOST 
     
-    Level:      DITA OT customozation shared files
+    Level:      Standalone library
     
-    Part:       Tables of named objects (tables, figures, etc.)
+    Part:       Common
     Module:     ton.xsl
     
     Scope:      ESKD
@@ -15,7 +15,7 @@
 <!-- * * ** *** ***** ******** ************* ********************* --> 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:cpm="http://cpmonster.com/xmlns/cpm" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    exclude-result-prefixes="xs" version="2.0">
+    exclude-result-prefixes="cpm xs" version="2.0">
     
     <!-- 
         Modules
@@ -103,5 +103,45 @@
         </xsl:call-template>
        
     </xsl:template>
+    
+    
+    <!-- 
+        Detecting TON topics
+    -->
+    
+    <!-- A template -->
+    <xsl:template match="*[contains(title, 'Перечень')]" mode="is_tontopic" as="xs:boolean">
+        
+        <xsl:choose>
+            <xsl:when test="title = 'Перечень сокращений'">
+                <xsl:value-of select="true()"/>
+            </xsl:when>
+            <xsl:when test="title = 'Перечень терминов'">
+                <xsl:value-of select="true()"/>
+            </xsl:when>
+            <xsl:when test="title = 'Перечень таблиц'">
+                <xsl:value-of select="true()"/>
+            </xsl:when>
+            <xsl:when test="title = 'Перечень рисунков'">
+                <xsl:value-of select="true()"/>
+            </xsl:when>
+            <xsl:when test="title = 'Перечень приложений'">
+                <xsl:value-of select="true()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="false()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+    </xsl:template>
+        
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:is_tontopic" as="xs:boolean">
+        
+        <xsl:param name="element"/>
+        
+        <xsl:value-of select="cpm:fastcust.is_tontopic($element)"/>
+        
+    </xsl:function>
 
 </xsl:stylesheet>

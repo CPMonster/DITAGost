@@ -26,6 +26,15 @@
 
     <!-- TOCs and TONs -->
     <xsl:import href="../../lib/fastcust/xsl-2.0/tocton.xsl"/>
+    
+    
+    <!-- 
+        A wrapper function
+    -->
+    <xsl:function name="cpm:is_toctopic" as="xs:boolean">        
+        <xsl:param name="element"/>        
+        <xsl:value-of select="cpm:fastcust.is_toctopic($element)"/>        
+    </xsl:function>
 
 
     <!-- 
