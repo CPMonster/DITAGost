@@ -14,7 +14,7 @@
             <xsl:text>ESKD.Cover.A4</xsl:text>
          </xsl:when>
          <xsl:when test="$master_alias='ESKD.TOC'">
-            <xsl:text>ESKD.TOC</xsl:text>
+            <xsl:text>ESKD.TOC.A4</xsl:text>
          </xsl:when>
          <xsl:when test="$master_alias='ESKD.Content.Portrait'">
             <xsl:text>ESKD.Text.A4.Portrait</xsl:text>

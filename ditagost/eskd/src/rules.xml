@@ -18,7 +18,7 @@
 
     <!-- Разделы для основных документов -->
     <section master-alias="ESKD.Cover" master-name="ESKD.Cover.A4"/>
-    <section master-alias="ESKD.TOC" master-name="ESKD.TOC"/>
+    <section master-alias="ESKD.TOC" master-name="ESKD.TOC.A4"/>
     <section master-alias="ESKD.Content.Portrait" master-name="ESKD.Text.A4.Portrait"/>
     <section master-alias="ESKD.Content.PortraitRotated" master-name="ESKD.Text.A4.PortraitRotated"/>
 

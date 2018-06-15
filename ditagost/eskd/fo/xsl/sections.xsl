@@ -134,12 +134,12 @@
     -->
 
     <!-- Including a TOC to a document -->
-    <xsl:template match="*[cpm:fastcust.is_toctopic(.)]" mode="sequence">
+    <xsl:template match="*[cpm:is_toctopic(.)]" mode="sequence">
         <xsl:text>ESKD.Content.Portrait</xsl:text>
     </xsl:template>
 
     <!-- Excluding a TOC from a TOC -->
-    <xsl:template match="*[cpm:fastcust.is_toctopic(.)]" mode="is_tocmamber" as="xs:boolean">
+    <xsl:template match="*[cpm:is_toctopic(.)]" mode="is_tocmamber" as="xs:boolean">
         <xsl:value-of select="false()"/>
     </xsl:template>
 
