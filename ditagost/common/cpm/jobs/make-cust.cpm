@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<project name="Building Customizations">
+
+    <property name="cpm.log_path" value="report.txt"/>
+	
+		
+    <target name="ESKD-Styles">
+        <xslt style="FastCust\toolbox\xsl\task-assemble.xsl"/>
+        <property name="cpm.src_path" value="..\..\..\eskd\src\layout.xml"/>
+        <property name="cpm.out_path" value="..\..\..\eskd\xsl"/>
+        <!-- <property name="cpm.tmp_path" value="tmp/5"/> -->
+        <property name="layout" value="layout.xsl"/>
+    </target>
+
+
+    <!--		
+    <target name="ESKD-lu">
+        <xslt style="FastCust\toolbox\xsl\task-assemble.xsl"/>
+        <property name="cpm.src_path" value="eskd-lu\src\layout.xml"/>
+        <property name="cpm.out_path" value="eskd-lu\fo\xsl"/>
+        <property name="cpm.tmp_path" value="tmp\tmp-lu"/>
+        <property name="layout" value="layout.xsl"/>
+    </target>
+    -->
+	
+
+    <target name="Libraries">
+        <xslt style="FastCust\toolbox\xsl\task-copylibs.xsl"/>
+        <property name="cpm.src_path" value="..\lib"/>
+        <property name="cpm.out_path" value="..\lib"/>
+	<!-- <property name="cpm.tmp_path" value="tmp\libs"/> -->
+    </target>
+
+
+</project>
