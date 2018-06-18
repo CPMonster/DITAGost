@@ -175,7 +175,7 @@
                         <xsl:when test="descendant::cpm:toc">
                             <xsl:value-of select="true()"/>
                         </xsl:when>
-                        <xsl:when test="descendant::*[@outputclass = 'tocentry']">
+                        <xsl:when test="descendant::*[@role = 'toc']">
                             <xsl:value-of select="true()"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -213,6 +213,9 @@
                 <xsl:when test="cpm:fastcust.is_topic(.)">
                     <xsl:choose>
                         <xsl:when test="descendant::cpm:ton">
+                            <xsl:value-of select="true()"/>
+                        </xsl:when>
+                        <xsl:when test="descendant::*[@role = 'ton']">
                             <xsl:value-of select="true()"/>
                         </xsl:when>
                         <xsl:otherwise>

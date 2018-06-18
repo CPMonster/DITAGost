@@ -281,7 +281,15 @@
             autodetecting output class in some cases.
         -->
 
-        <xsl:value-of select="@outputclass"/>
+        <xsl:choose>
+            <xsl:when test="@outputclass">
+                <xsl:value-of select="@outputclass"/>        
+            </xsl:when>
+            <xsl:when test="namespace-uri() = 'http://www.w3.org/1999/XSL/Format'">
+                <xsl:value-of select="@role"/>        
+            </xsl:when>
+            <xsl:otherwise/>
+        </xsl:choose>        
 
     </xsl:template>
 

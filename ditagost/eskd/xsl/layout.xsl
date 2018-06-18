@@ -328,6 +328,18 @@
       <xsl:attribute name="margin-bottom">9pt</xsl:attribute>
       <xsl:attribute name="text-align">right</xsl:attribute>
    </xsl:attribute-set>
+   <!-- Рамка. Боковик -->
+<xsl:attribute-set name="Ramka._Bokovik">
+      <xsl:attribute name="font-family">GOST type B</xsl:attribute>
+   </xsl:attribute-set>
+   <!-- Рамка. Штамп -->
+<xsl:attribute-set name="Ramka._Wtamp">
+      <xsl:attribute name="font-family">GOST type B</xsl:attribute>
+   </xsl:attribute-set>
+   <!-- Рамка. Крупный -->
+<xsl:attribute-set name="Ramka._Krupnyi">
+      <xsl:attribute name="font-family">GOST type B</xsl:attribute>
+   </xsl:attribute-set>
    <!-- Титул -->
 <xsl:attribute-set name="Titul" use-attribute-sets="Bazovyi">
       <xsl:attribute name="font-size">14pt</xsl:attribute>
@@ -468,6 +480,12 @@
    </xsl:template>
    <xsl:template match="p[cpm:oclass(.)='cover.year']" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='border.sidebar']" mode="cpm.fastcust.foname">
+      <xsl:value-of select="name()"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='border.details']" mode="cpm.fastcust.foname">
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="title[cpm:sectype(.)='auxiliary']" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
@@ -654,10 +672,10 @@
       <xsl:text>fo:list-block</xsl:text>
    </xsl:template>
    <xsl:template match="ul/li[not(ancestor::li) and position()=1]" mode="cpm.fastcust.foname">
-      <xsl:text>cpm:none</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="ul/li[ancestor::li or position()!=1]" mode="cpm.fastcust.foname">
-      <xsl:text>cpm:none</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="ol" mode="cpm.fastcust.foname">
       <xsl:text>fo:list-block</xsl:text>
@@ -667,19 +685,19 @@
       <xsl:text>fo:list-block</xsl:text>
    </xsl:template>
    <xsl:template match="ol/li[not(ancestor::li) and position()=1]" mode="cpm.fastcust.foname">
-      <xsl:text>cpm:none</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="ol/li[ancestor::li or position()!=1]" mode="cpm.fastcust.foname">
-      <xsl:text>cpm:none</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="steps" mode="cpm.fastcust.foname">
       <xsl:text>fo:list-block</xsl:text>
    </xsl:template>
    <xsl:template match="step[position()=1]" mode="cpm.fastcust.foname">
-      <xsl:text>cpm:none</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="step[position()!=1]" mode="cpm.fastcust.foname">
-      <xsl:text>cpm:none</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="*[cpm:oclass(.)='notecaption']" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
@@ -932,6 +950,60 @@
                   <xsl:value-of select="name()"/>
                   <xsl:text>/</xsl:text>
                   <xsl:text>Титул. Год</xsl:text>
+               </xsl:attribute>
+               <xsl:apply-templates select="." mode="foattrs"/>
+               <xsl:copy-of select="$foinner"/>
+            </xsl:element>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='border.sidebar']" mode="cpm.fastcust.foxml">
+      <xsl:param name="foinner"/>
+      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
+      <xsl:choose>
+         <xsl:when test="$foname=''"/>
+         <xsl:when test="$foname='cpm:none'">
+            <xsl:copy-of select="$foinner"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:element name="{$foname}" use-attribute-sets="Ramka._Bokovik">
+               <xsl:attribute name="id">
+                  <xsl:value-of select="cpm:fastcust.id(.)"/>
+               </xsl:attribute>
+               <xsl:attribute name="language">
+                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
+               </xsl:attribute>
+               <xsl:attribute name="role">
+                  <xsl:value-of select="name()"/>
+                  <xsl:text>/</xsl:text>
+                  <xsl:text>Рамка. Боковик</xsl:text>
+               </xsl:attribute>
+               <xsl:apply-templates select="." mode="foattrs"/>
+               <xsl:copy-of select="$foinner"/>
+            </xsl:element>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='border.details']" mode="cpm.fastcust.foxml">
+      <xsl:param name="foinner"/>
+      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
+      <xsl:choose>
+         <xsl:when test="$foname=''"/>
+         <xsl:when test="$foname='cpm:none'">
+            <xsl:copy-of select="$foinner"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:element name="{$foname}" use-attribute-sets="Ramka._Wtamp">
+               <xsl:attribute name="id">
+                  <xsl:value-of select="cpm:fastcust.id(.)"/>
+               </xsl:attribute>
+               <xsl:attribute name="language">
+                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
+               </xsl:attribute>
+               <xsl:attribute name="role">
+                  <xsl:value-of select="name()"/>
+                  <xsl:text>/</xsl:text>
+                  <xsl:text>Рамка. Штамп</xsl:text>
                </xsl:attribute>
                <xsl:apply-templates select="." mode="foattrs"/>
                <xsl:copy-of select="$foinner"/>

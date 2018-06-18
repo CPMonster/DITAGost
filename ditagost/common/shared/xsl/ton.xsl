@@ -128,6 +128,9 @@
             <xsl:when test="title = 'Перечень приложений'">
                 <xsl:value-of select="true()"/>
             </xsl:when>
+            <xsl:when test="conbody//cpm:ton">
+                <xsl:value-of select="true()"/>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="false()"/>
             </xsl:otherwise>

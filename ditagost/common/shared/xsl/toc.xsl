@@ -40,9 +40,11 @@
     <!-- 
         Providing the level for a TOC topic 
     -->
+    <!--
     <xsl:template match="*[cpm:fastcust.is_toctopic(.)]" mode="level">
         <xsl:value-of select="1"/>
     </xsl:template>
+    -->
 
 
     <!-- 

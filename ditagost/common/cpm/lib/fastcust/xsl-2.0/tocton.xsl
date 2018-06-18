@@ -305,7 +305,7 @@
         <xsl:variable name="maxlevel" select="@maxlevel"/>
 
         <!-- Assembling a TOC entry for each mamber element -->
-        <fo:block>
+        <fo:block role="toc">
 
             <xsl:copy-of select="@outputclass"/>            
 
@@ -352,7 +352,7 @@
         </xsl:variable>
 
         <!-- Assembling an TON entry for each mamber element -->
-        <fo:block>
+        <fo:block role="ton">
 
             <xsl:copy-of select="@outputclass"/>
 

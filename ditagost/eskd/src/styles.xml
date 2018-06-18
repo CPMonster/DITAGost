@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <array cpm-name="styles">
 
-   <!-- 
+   <!-- колонт
       Базовые стили
    -->
 
@@ -621,6 +621,35 @@
          <property cpm-name="page-break-before" cpm-value="always"/>
          <property cpm-name="margin-bottom" cpm-value="9pt"/>
          <property cpm-name="text-align" cpm-value="right"/>
+      </record>
+   </record>
+
+
+   <!-- 
+      Текст в рамках   
+   -->
+   
+   <record cpm-name="style">
+      <property cpm-name="name" cpm-void="yes" cpm-value="Рамка. Боковик"/>
+      <property cpm-name="type" cpm-void="yes" cpm-value="copy"/>
+      <record cpm-name="font">
+         <property cpm-name="font-family" cpm-value="GOST type B"/>
+      </record>
+   </record>
+   
+   <record cpm-name="style">
+      <property cpm-name="name" cpm-void="yes" cpm-value="Рамка. Штамп"/>
+      <property cpm-name="type" cpm-void="yes" cpm-value="copy"/>
+      <record cpm-name="font">
+         <property cpm-name="font-family" cpm-value="GOST type B"/>
+      </record>
+   </record>
+      
+   <record cpm-name="style">
+      <property cpm-name="name" cpm-void="yes" cpm-value="Рамка. Крупный"/>
+      <property cpm-name="type" cpm-void="yes" cpm-value="copy"/>
+      <record cpm-name="font">
+         <property cpm-name="font-family" cpm-value="GOST type B"/>
       </record>
    </record>
 

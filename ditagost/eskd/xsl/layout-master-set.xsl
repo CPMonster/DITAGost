@@ -36,9 +36,9 @@
                 page-height="297mm" margin-right="20mm">
                 <fo:region-body margin-top="20mm" margin-bottom="60mm"
                     margin-left="30mm"/>
-                <fo:region-before background-color="#00eeee" region-name="Cover-first-before" extent="20mm"/>
-                <fo:region-after background-color="#eeee00" region-name="Cover-first-after" extent="20mm"/>
-                <fo:region-start background-color="#eeeeee" region-name="Cover-first-start" extent="30mm"/>
+                <fo:region-before region-name="Cover-first-before" extent="20mm"/>
+                <fo:region-after region-name="Cover-first-after" extent="20mm"/>
+                <fo:region-start region-name="Cover-first-start" extent="30mm"/>
             </fo:simple-page-master>
 
             <!-- Portrait A4, TOC, the 1st page -->
@@ -63,11 +63,11 @@
             -->
             <fo:simple-page-master master-name="ESKD.Text.A4.Portrait.Regular" page-width="210mm"
                 page-height="297mm" margin-right="20mm">
-                <fo:region-body background-color="#00eeee" margin-top="20mm" margin-bottom="30mm"
+                <fo:region-body margin-top="20mm" margin-bottom="30mm"
                     margin-left="30mm"/>
-                <fo:region-before background-color="#eeee00" region-name="A4-portrait-before"
+                <fo:region-before region-name="A4-portrait-before"
                     extent="20mm"/>
-                <fo:region-start background-color="#eeeeee" region-name="A4-portrait-start" extent="30mm"/>
+                <fo:region-start region-name="A4-portrait-start" extent="30mm"/>
             </fo:simple-page-master>
 
             <!-- Portrait A4, a rotated regular page -->

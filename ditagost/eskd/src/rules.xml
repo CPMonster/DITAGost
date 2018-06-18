@@ -224,6 +224,10 @@
                         конкретной кастомизацией.     
     -->
 
+    <!-- Рамки -->
+    <element context="*[cpm:oclass(.)='border.sidebar']" style="Рамка. Боковик"/>
+    <element context="*[cpm:oclass(.)='border.details']" style="Рамка. Штамп"/>
+        
     <!-- Титульный лист -->
     <element context="p[cpm:oclass(.)='cover.approved']" style="Титул. Утвержден"/>
     <element context="p[cpm:oclass(.)='cover.LU']" style="Титул. ЛУ"/>
@@ -231,7 +235,7 @@
     <element context="p[cpm:oclass(.)='cover.subtitle']" style="Титул. Подзаголовок"/>
     <element context="p[cpm:oclass(.)='cover.docnumber']" style="Титул. Обозначение"/>
     <element context="p[cpm:oclass(.)='cover.pages']" style="Титул. Страницы"/>
-    <element context="p[cpm:oclass(.)='cover.year']" style="Титул. Год"/>    
+    <element context="p[cpm:oclass(.)='cover.year']" style="Титул. Год"/>            
 
     <!-- Заголовки вспомогательных разделов (аннотация и т.п.) -->
     <element context="title[cpm:sectype(.)='auxiliary']" style="Заголовок перечня"
