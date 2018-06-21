@@ -580,41 +580,6 @@
             <property name="{$name}" value="{$value}"/>
         </xsl:if>
 
-    </xsl:template>
-
-
-
-    <!-- ======= -->
-    <!--  DEBUG  -->
-    <!-- ======= -->
-
-    <xsl:template match="/">
-
-        <xsl:variable name="settings">
-            <record>
-                <record name="style">
-                    <property name="name" value="style1"/>
-                    <property name="foo" value="123456"/>
-                    <property name="bar" value="QWERTY"/>
-                </record>
-                <record name="style">
-                    <property name="name" value="style2"/>
-                    <property name="foo" value="7890"/>
-                    <property name="bar" value="ASDFG"/>
-                </record>
-                <record name="style">
-                    <property name="name" value="Цыпа дрипа ежкин кот"/>
-                    <property name="foo" value="Получилось"/>
-                    <property name="bar" value="ASDFG"/>
-                </record>
-            </record>
-        </xsl:variable>
-
-        <xsl:value-of
-            select="cpm:props.ht_get($settings, 'style', 'name', 'Цыпа, Дрипа ежкин кот', 'foo')"/>
-
-        <xsl:value-of select="cpm:props.ht_get($settings, 'style', 'name', 'Style1', 'foo')"/>
-
-    </xsl:template>
+    </xsl:template>   
 
 </xsl:stylesheet>

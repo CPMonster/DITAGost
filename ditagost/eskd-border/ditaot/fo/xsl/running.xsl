@@ -22,10 +22,7 @@
     -->
 
     <!-- Paths & URIs -->
-    <xsl:import href="../../../../common/cpm/lib/common/xsl-2.0/pathuri.xsl"/>
-
-    <!-- Default layout settings -->
-    <xsl:import href="../../../../common/shared/xsl/settings.xsl"/>
+    <xsl:import href="../../../../common/cpm/lib/common/xsl-2.0/pathuri.xsl"/>   
 
     <!-- Retrieving document parameters -->
     <xsl:import href="../../../../common/shared/xsl/docparams.xsl"/>
@@ -560,7 +557,6 @@
         <xsl:attribute name="border-width">0pt</xsl:attribute>
         <xsl:attribute name="width">185mm</xsl:attribute>
     </xsl:attribute-set>
-
 
 
     <!-- 

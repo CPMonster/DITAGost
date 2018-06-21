@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record name="settings">
+    <property name="name" value="Docset Captions"/>
+    <property name="originator" value="Организация;Производитель"/>
+    <property name="subject" value="Изделие;Продукт;Предмет"/>
+    <property name="genre" value="Жанр;Документ;Тип документа"/>
+    <property name="refcode" value="Шифр;Шифр темы"/>
+    <property name="docnumber" value="Обозначение"/>
+    <property name="year" value="Год;Год выпуска"/>
+</record>
