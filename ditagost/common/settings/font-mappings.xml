@@ -1,75 +1,34 @@
 <?xml version="1.0"?>
+<!-- 
+    ВНИМАНИЕ! 
+    Правила подмены шрифтов, заданные в этом файле, действуют только 
+    в том случае, если параметру сборки org.dita.pdf2.i18n.enabled 
+    присвоено значение true. При непосредственном использовании 
+    пакета DITA OT значение параметра org.dita.pdf2.i18n.enabled 
+    задают в билд-файле. При запуске формирования выходного документа 
+    из среды XML-редактора oXygen значение параметра 
+    org.dita.pdf2.i18n.enabled указывают в диалоговом окне 
+    Edit DITA Scenario на вкладке Parameters.     
+-->
 <font-mappings>
+  
   <font-table>
-
-    <!-- Backwards compatibility aliases -->
-    <aliases>
-      <alias name="serif">Serif</alias>
-    </aliases>
-    <aliases>
-      <alias name="sans-serif">Sans</alias>
-    </aliases>
-    <aliases>
-      <alias name="monospace">Monospaced</alias>
-    </aliases>
-    <aliases>
-      <alias name="Helvetica">Normal</alias>
-    </aliases>
-    <aliases>
-      <alias name="Courier">Monospaced</alias>
-    </aliases>
-
+   
     <logical-font name="">
       <physical-font char-set="default">
-        <font-face>GOST type B</font-face>
+        <font-face>Arial Narrow, Helvetica</font-face>
       </physical-font>
       <physical-font char-set="Cyrillic">
-        <font-face>GOST type B</font-face>
+        <font-face>Arial Narrow, Helvetica</font-face>
       </physical-font>
     </logical-font>
-
-    <logical-font name="Arial">
-      <physical-font char-set="default">
-        <font-face>GOST type B</font-face>
-      </physical-font>
-      <physical-font char-set="Cyrillic">
-        <font-face>Arial</font-face>
-      </physical-font>
-    </logical-font>
-
-    <logical-font name="Times New Roman">
-      <physical-font char-set="default">
-        <font-face>GOST type B</font-face>
-      </physical-font>
-      <physical-font char-set="Cyrillic">
-        <font-face>GOST type B</font-face>
-      </physical-font>
-    </logical-font>
-
-
-    <logical-font name="GOST type B">
-      <physical-font char-set="default">
-        <font-face>GOST type B</font-face>
-      </physical-font>
-      <physical-font char-set="Cyrillic">
-        <font-face>GOST type B</font-face>
-      </physical-font>
-    </logical-font>
-
-
-
+              
     <logical-font name="Sans">
       <physical-font char-set="default">
-        <font-face>Helvetica, Arial Unicode MS</font-face>
-      </physical-font>
-      <physical-font char-set="Simplified Chinese">
-        <font-face>AdobeSongStd-Light</font-face>
-      </physical-font>
-      <physical-font char-set="Japanese">
-        <font-face>KozMinProVI-Regular</font-face>
-      </physical-font>
-      <physical-font char-set="Korean">
-        <font-face>AdobeMyungjoStd-Medium</font-face>
+        <font-face>Arial Narrow, Helvetica</font-face>
+      </physical-font>      
+      <physical-font char-set="Cyrillic">
+        <font-face>Arial Narrow, Helvetica</font-face>
       </physical-font>
       <physical-font char-set="Symbols">
         <font-face>ZapfDingbats</font-face>
@@ -78,7 +37,7 @@
         <font-face>ZapfDingbats</font-face>
       </physical-font>
       <physical-font char-set="SymbolsSuperscript">
-        <font-face>Helvetica, Arial Unicode MS</font-face>
+        <font-face>Arial</font-face>
         <baseline-shift>20%</baseline-shift>
         <override-size>smaller</override-size>
       </physical-font>
@@ -88,15 +47,9 @@
       <physical-font char-set="default">
         <font-face>Times New Roman, Times</font-face>
       </physical-font>
-      <physical-font char-set="Simplified Chinese">
-        <font-face>AdobeSongStd-Light</font-face>
-      </physical-font>
-      <physical-font char-set="Japanese">
-        <font-face>KozMinProVI-Regular</font-face>
-      </physical-font>
-      <physical-font char-set="Korean">
-        <font-face>AdobeMyungjoStd-Medium</font-face>
-      </physical-font>
+      <physical-font char-set="Cyrillic">
+        <font-face>Times New Roman, Times</font-face>
+      </physical-font>          
       <physical-font char-set="Symbols">
         <font-face>ZapfDingbats</font-face>
       </physical-font>
@@ -113,25 +66,14 @@
     <logical-font name="Monospaced">
       <physical-font char-set="default">
         <font-face>Courier New, Courier</font-face>
-      </physical-font>
-      <physical-font char-set="Simplified Chinese">
-        <font-face>AdobeSongStd-Light</font-face>
-      </physical-font>
-      <physical-font char-set="Japanese">
-        <font-face>KozMinProVI-Regular</font-face>
-      </physical-font>
-      <physical-font char-set="Korean">
-        <font-face>AdobeMyungjoStd-Medium</font-face>
-      </physical-font>
-      <physical-font char-set="Symbols">
-        <font-face>ZapfDingbats</font-face>
-      </physical-font>
+      </physical-font>      
       <physical-font char-set="SymbolsSuperscript">
         <font-face>Courier New, Courier</font-face>
         <baseline-shift>20%</baseline-shift>
         <override-size>smaller</override-size>
       </physical-font>
     </logical-font>
+    
   </font-table>
 
 </font-mappings>

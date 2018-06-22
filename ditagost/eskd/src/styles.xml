@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <array cpm-name="styles">
 
-   <!-- колонт
+   <!-- 
       Базовые стили
    -->
+   
+   <!-- Праотец всех стилей -->
+   <record cpm-name="style">
+      <property cpm-name="name" cpm-void="yes" cpm-value="Шрифт"/>          
+      <record cpm-name="font">
+         <property cpm-name="font-family" cpm-value="Arial"/>
+         <property cpm-name="font-size" cpm-value="12pt"/>
+      </record>
+   </record>
 
    <!-- Праотец всех блоков -->
    <record cpm-name="style">
       <property cpm-name="name" cpm-void="yes" cpm-value="Базовый"/>
+      <property cpm-name="base" cpm-void="yes" cpm-value="Шрифт"/>
       <property cpm-name="type" cpm-void="yes" cpm-value="block"/>
       <record cpm-name="paragraph-format">
-         <property cpm-name="line-height" cpm-value="16pt"/>
-      </record>
-      <record cpm-name="font">
-         <property cpm-name="font-family" cpm-value="GOST type B"/>
-         <property cpm-name="font-size" cpm-value="14pt"/>
-      </record>
+         <property cpm-name="line-height" cpm-value="18pt"/>
+      </record>      
    </record>
 
    <!-- Праотец всех блоков текста (например, таблица блок, но не текст) -->
    <record cpm-name="style">
       <property cpm-name="name" cpm-void="yes" cpm-value="Блок основного текста"/>
-      <property cpm-name="base" cpm-void="yes" cpm-value="Базовый"/>
-      <record cpm-name="paragraph-format">
-         <property cpm-name="margin-top" cpm-value="0.21cm"/>
-         <property cpm-name="margin-bottom" cpm-value="0.21cm"/>
-      </record>
+      <property cpm-name="base" cpm-void="yes" cpm-value="Базовый"/>            
    </record>
 
    <!-- Праотец всех отрезков строк -->
@@ -96,7 +98,7 @@
       <property cpm-name="base" cpm-value="Заголовок базовый" cpm-key="yes" cpm-void="yes"/>
       <record cpm-name="paragraph-format">
          <property cpm-name="text-align" cpm-value="left"/>
-         <property cpm-name="margin-left" cpm-value="1.63cm"/>
+         <property cpm-name="margin-left" cpm-value="1cm"/>
       </record>
    </record>
 
@@ -241,8 +243,7 @@
       <property cpm-name="name" cpm-value="Основной" cpm-key="yes" cpm-void="yes"/>
       <property cpm-name="base" cpm-value="Блок основного текста" cpm-key="yes" cpm-void="yes"/>
       <record cpm-name="paragraph-format">
-         <property cpm-name="text-indent" cpm-value="1.63cm"/>
-         <property cpm-name="line-height" cpm-value="21pt"/>
+         <property cpm-name="text-indent" cpm-value="1cm"/>         
          <property cpm-name="text-align" cpm-value="justify"/>
       </record>
    </record>
@@ -264,6 +265,9 @@
       <property cpm-name="name" cpm-value="Главный список" cpm-key="yes" cpm-void="yes"/>
       <property cpm-name="type" cpm-value="list" cpm-key="yes" cpm-void="yes"/>
       <property cpm-name="base" cpm-value="Список" cpm-key="yes" cpm-void="yes"/>
+      <record cpm-name="paragraph-format">
+         <property cpm-name="margin-left" cpm-value="1cm"/>
+      </record>
    </record>
 
    <record cpm-name="style">
@@ -298,10 +302,7 @@
    <record cpm-name="style">
       <property cpm-name="name" cpm-value="Непервый пункт списка" cpm-key="yes" cpm-void="yes"/>
       <property cpm-name="type" cpm-value="list-item" cpm-key="yes" cpm-void="yes"/>
-      <property cpm-name="base" cpm-value="Пункт списка" cpm-key="yes" cpm-void="yes"/>
-      <record cpm-name="paragraph-format">
-         <property cpm-name="margin-top" cpm-value="0.21cm"/>
-      </record>
+      <property cpm-name="base" cpm-value="Пункт списка" cpm-key="yes" cpm-void="yes"/>      
    </record>
 
    <record cpm-name="style">
@@ -309,7 +310,7 @@
       <property cpm-name="type" cpm-value="list-item-body" cpm-key="yes" cpm-void="yes"/>
       <property cpm-name="base" cpm-value="Базовый" cpm-key="yes" cpm-void="yes"/>
       <record cpm-name="paragraph-format">
-         <property cpm-name="line-height" cpm-value="21pt"/>
+         <property cpm-name="line-height" cpm-value="18pt"/>
          <property cpm-name="text-align" cpm-value="justify"/>
       </record>
    </record>
@@ -319,7 +320,7 @@
       <property cpm-name="type" cpm-value="block" cpm-key="yes" cpm-void="yes"/>
       <property cpm-name="base" cpm-value="Базовый" cpm-key="yes" cpm-void="yes"/>
       <record cpm-name="paragraph-format">
-         <property cpm-name="line-height" cpm-value="21pt"/>
+         <property cpm-name="line-height" cpm-value="18pt"/>
       </record>
    </record>
 
@@ -327,7 +328,7 @@
       <property cpm-name="name" cpm-value="Пункт списка 1. Текст" cpm-key="yes" cpm-void="yes"/>
       <property cpm-name="base" cpm-value="Пункт списка. Текст" cpm-key="yes" cpm-void="yes"/>
       <record cpm-name="paragraph-format">
-         <property cpm-name="start-indent" cpm-value="0.45cm"/>
+         <property cpm-name="start-indent" cpm-value="1.45cm"/>
       </record>
    </record>
 
@@ -335,7 +336,7 @@
       <property cpm-name="name" cpm-value="Пункт списка 2. Текст" cpm-key="yes" cpm-void="yes"/>
       <property cpm-name="base" cpm-value="Пункт списка. Текст" cpm-key="yes" cpm-void="yes"/>
       <record cpm-name="paragraph-format">
-         <property cpm-name="start-indent" cpm-value="0.90cm"/>
+         <property cpm-name="start-indent" cpm-value="1.90cm"/>
       </record>
    </record>
 
@@ -343,7 +344,7 @@
       <property cpm-name="name" cpm-value="Пункт списка 3. Текст" cpm-key="yes" cpm-void="yes"/>
       <property cpm-name="base" cpm-value="Пункт списка. Текст" cpm-key="yes" cpm-void="yes"/>
       <record cpm-name="paragraph-format">
-         <property cpm-name="start-indent" cpm-value="1.35cm"/>
+         <property cpm-name="start-indent" cpm-value="2.35cm"/>
       </record>
    </record>
 
@@ -451,6 +452,7 @@
       <property cpm-name="name" cpm-void="yes" cpm-value="Таблица"/>
       <property cpm-name="base" cpm-void="yes" cpm-value="Базовый"/>
       <record cpm-name="paragraph-format">
+         <property cpm-name="margin-bottom" cpm-value="18pt"/>
          <property cpm-name="text-align" cpm-value="left"/>
          <property cpm-name="text-indent" cpm-value="0cm"/>
          <property cpm-name="start-indent" cpm-value="0cm"/>
@@ -505,7 +507,7 @@
       <property cpm-name="name" cpm-void="yes" cpm-value="Таблица. Ячейка"/>
       <property cpm-name="base" cpm-void="yes" cpm-value="Таблица. Строка"/>
       <record cpm-name="paragraph-format">
-         <property cpm-name="line-height" cpm-value="14pt"/>
+         <property cpm-name="line-height" cpm-value="18pt"/>
          <property cpm-name="padding-left" cpm-value="2.85pt"/>
          <property cpm-name="padding-right" cpm-value="2.85pt"/>
          <property cpm-name="padding-bottom" cpm-value="4pt"/>
@@ -633,7 +635,7 @@
       <property cpm-name="name" cpm-void="yes" cpm-value="Рамка. Боковик"/>
       <property cpm-name="type" cpm-void="yes" cpm-value="copy"/>
       <record cpm-name="font">
-         <property cpm-name="font-family" cpm-value="GOST type B"/>
+         <property cpm-name="font-family" cpm-value="Arial"/>
       </record>
    </record>
    
@@ -641,7 +643,7 @@
       <property cpm-name="name" cpm-void="yes" cpm-value="Рамка. Штамп"/>
       <property cpm-name="type" cpm-void="yes" cpm-value="copy"/>
       <record cpm-name="font">
-         <property cpm-name="font-family" cpm-value="GOST type B"/>
+         <property cpm-name="font-family" cpm-value="Arial"/>
       </record>
    </record>
       
@@ -649,7 +651,7 @@
       <property cpm-name="name" cpm-void="yes" cpm-value="Рамка. Крупный"/>
       <property cpm-name="type" cpm-void="yes" cpm-value="copy"/>
       <record cpm-name="font">
-         <property cpm-name="font-family" cpm-value="GOST type B"/>
+         <property cpm-name="font-family" cpm-value="Arial"/>
       </record>
    </record>
 

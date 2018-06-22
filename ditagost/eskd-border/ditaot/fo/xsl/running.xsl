@@ -80,7 +80,7 @@
     <xsl:template name="cpm.ditagost.product_and_logo">
         <fo:table height="100%">
             <fo:table-body>
-                <fo:table-row diaplay-align="center">
+                <fo:table-row>
 
                     <fo:table-cell>
                         <fo:block xsl:use-attribute-sets="cpm.ditagost.large_block">
@@ -204,22 +204,19 @@
     <!-- Small cell attributes -->
     <xsl:attribute-set name="cpm.ditagost.eskd.sidebar_5_attrs">
         <xsl:attribute name="width">5mm</xsl:attribute>
-        <xsl:attribute name="text-align">center</xsl:attribute>
-        <xsl:attribute name="overflow">visible</xsl:attribute>
+        <xsl:attribute name="text-align">center</xsl:attribute>        
     </xsl:attribute-set>
 
     <!-- Middle size cell attributes -->
     <xsl:attribute-set name="cpm.ditagost.eskd.sidebar_25_attrs">
         <xsl:attribute name="width">25mm</xsl:attribute>
-        <xsl:attribute name="text-align">center</xsl:attribute>
-        <xsl:attribute name="overflow">visible</xsl:attribute>
+        <xsl:attribute name="text-align">center</xsl:attribute>        
     </xsl:attribute-set>
 
     <!-- Large cell attributes -->
     <xsl:attribute-set name="cpm.ditagost.eskd.sidebar_35_attrs">
         <xsl:attribute name="width">35mm</xsl:attribute>
-        <xsl:attribute name="text-align">center</xsl:attribute>
-        <xsl:attribute name="overflow">visible</xsl:attribute>
+        <xsl:attribute name="text-align">center</xsl:attribute>        
     </xsl:attribute-set>
 
     <!-- Entire sidebar attributes -->
@@ -275,8 +272,7 @@
 
     <!-- A block nested into a small cell -->
     <xsl:attribute-set name="cpm.ditagost.small_block">
-        <xsl:attribute name="font-size">8pt</xsl:attribute>
-        <xsl:attribute name="font-style">italic</xsl:attribute>
+        <xsl:attribute name="font-size">8pt</xsl:attribute>        
         <xsl:attribute name="display-align">center</xsl:attribute>
     </xsl:attribute-set>
 

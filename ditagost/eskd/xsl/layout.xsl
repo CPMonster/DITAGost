@@ -24,17 +24,17 @@
          </xsl:when>
       </xsl:choose>
    </xsl:template>
+   <!-- Шрифт -->
+<xsl:attribute-set name="Wrift">
+      <xsl:attribute name="font-family">Arial</xsl:attribute>
+      <xsl:attribute name="font-size">12pt</xsl:attribute>
+   </xsl:attribute-set>
    <!-- Базовый -->
-<xsl:attribute-set name="Bazovyi">
-      <xsl:attribute name="line-height">16pt</xsl:attribute>
-      <xsl:attribute name="font-family">GOST type B</xsl:attribute>
-      <xsl:attribute name="font-size">14pt</xsl:attribute>
+<xsl:attribute-set name="Bazovyi" use-attribute-sets="Wrift">
+      <xsl:attribute name="line-height">18pt</xsl:attribute>
    </xsl:attribute-set>
    <!-- Блок основного текста -->
-<xsl:attribute-set name="Blok_osnovnogo_teksta" use-attribute-sets="Bazovyi">
-      <xsl:attribute name="margin-top">0.21cm</xsl:attribute>
-      <xsl:attribute name="margin-bottom">0.21cm</xsl:attribute>
-   </xsl:attribute-set>
+<xsl:attribute-set name="Blok_osnovnogo_teksta" use-attribute-sets="Bazovyi"/>
    <!-- Основной шрифт -->
 <xsl:attribute-set name="Osnovnoi_wrift"/>
    <!-- header_subject -->
@@ -63,7 +63,7 @@
    <!-- Заголовок с отступом -->
 <xsl:attribute-set name="Zagolovok_s_otstupom" use-attribute-sets="Zagolovok_bazovyi">
       <xsl:attribute name="text-align">left</xsl:attribute>
-      <xsl:attribute name="margin-left">1.63cm</xsl:attribute>
+      <xsl:attribute name="margin-left">1cm</xsl:attribute>
    </xsl:attribute-set>
    <!-- Заголовок перечня -->
 <xsl:attribute-set name="Zagolovok_perecna" use-attribute-sets="Zagolovok_bazovyi">
@@ -145,14 +145,15 @@
    </xsl:attribute-set>
    <!-- Основной -->
 <xsl:attribute-set name="Osnovnoi" use-attribute-sets="Blok_osnovnogo_teksta">
-      <xsl:attribute name="text-indent">1.63cm</xsl:attribute>
-      <xsl:attribute name="line-height">21pt</xsl:attribute>
+      <xsl:attribute name="text-indent">1cm</xsl:attribute>
       <xsl:attribute name="text-align">justify</xsl:attribute>
    </xsl:attribute-set>
    <!-- Список -->
 <xsl:attribute-set name="Spisok" use-attribute-sets="Blok_osnovnogo_teksta"/>
    <!-- Главный список -->
-<xsl:attribute-set name="Glavnyi_spisok" use-attribute-sets="Spisok"/>
+<xsl:attribute-set name="Glavnyi_spisok" use-attribute-sets="Spisok">
+      <xsl:attribute name="margin-left">1cm</xsl:attribute>
+   </xsl:attribute-set>
    <!-- Главный список в таблице -->
 <xsl:attribute-set name="Glavnyi_spisok_v_tablice" use-attribute-sets="Spisok"/>
    <!-- Вложенный список -->
@@ -165,29 +166,27 @@
    <!-- Первый пункт списка -->
 <xsl:attribute-set name="Pervyi_punkt_spiska" use-attribute-sets="Punkt_spiska"/>
    <!-- Непервый пункт списка -->
-<xsl:attribute-set name="Nepervyi_punkt_spiska" use-attribute-sets="Punkt_spiska">
-      <xsl:attribute name="margin-top">0.21cm</xsl:attribute>
-   </xsl:attribute-set>
+<xsl:attribute-set name="Nepervyi_punkt_spiska" use-attribute-sets="Punkt_spiska"/>
    <!-- Пункт списка. Текст -->
 <xsl:attribute-set name="Punkt_spiska._Tekst" use-attribute-sets="Bazovyi">
-      <xsl:attribute name="line-height">21pt</xsl:attribute>
+      <xsl:attribute name="line-height">18pt</xsl:attribute>
       <xsl:attribute name="text-align">justify</xsl:attribute>
    </xsl:attribute-set>
    <!-- Маркер списка. Текст -->
 <xsl:attribute-set name="Marker_spiska._Tekst" use-attribute-sets="Bazovyi">
-      <xsl:attribute name="line-height">21pt</xsl:attribute>
+      <xsl:attribute name="line-height">18pt</xsl:attribute>
    </xsl:attribute-set>
    <!-- Пункт списка 1. Текст -->
 <xsl:attribute-set name="Punkt_spiska_1._Tekst" use-attribute-sets="Punkt_spiska._Tekst">
-      <xsl:attribute name="start-indent">0.45cm</xsl:attribute>
+      <xsl:attribute name="start-indent">1.45cm</xsl:attribute>
    </xsl:attribute-set>
    <!-- Пункт списка 2. Текст -->
 <xsl:attribute-set name="Punkt_spiska_2._Tekst" use-attribute-sets="Punkt_spiska._Tekst">
-      <xsl:attribute name="start-indent">0.90cm</xsl:attribute>
+      <xsl:attribute name="start-indent">1.90cm</xsl:attribute>
    </xsl:attribute-set>
    <!-- Пункт списка 3. Текст -->
 <xsl:attribute-set name="Punkt_spiska_3._Tekst" use-attribute-sets="Punkt_spiska._Tekst">
-      <xsl:attribute name="start-indent">1.35cm</xsl:attribute>
+      <xsl:attribute name="start-indent">2.35cm</xsl:attribute>
    </xsl:attribute-set>
    <!-- Таблица. Пункт списка. Текст -->
 <xsl:attribute-set name="Tablica._Punkt_spiska._Tekst" use-attribute-sets="Bazovyi">
@@ -237,6 +236,7 @@
    </xsl:attribute-set>
    <!-- Таблица -->
 <xsl:attribute-set name="Tablica" use-attribute-sets="Bazovyi">
+      <xsl:attribute name="margin-bottom">18pt</xsl:attribute>
       <xsl:attribute name="text-align">left</xsl:attribute>
       <xsl:attribute name="text-indent">0cm</xsl:attribute>
       <xsl:attribute name="start-indent">0cm</xsl:attribute>
@@ -268,7 +268,7 @@
    </xsl:attribute-set>
    <!-- Таблица. Ячейка -->
 <xsl:attribute-set name="Tablica._Aceika" use-attribute-sets="Tablica._Stroka">
-      <xsl:attribute name="line-height">14pt</xsl:attribute>
+      <xsl:attribute name="line-height">18pt</xsl:attribute>
       <xsl:attribute name="padding-left">2.85pt</xsl:attribute>
       <xsl:attribute name="padding-right">2.85pt</xsl:attribute>
       <xsl:attribute name="padding-bottom">4pt</xsl:attribute>
@@ -330,15 +330,15 @@
    </xsl:attribute-set>
    <!-- Рамка. Боковик -->
 <xsl:attribute-set name="Ramka._Bokovik">
-      <xsl:attribute name="font-family">GOST type B</xsl:attribute>
+      <xsl:attribute name="font-family">Arial</xsl:attribute>
    </xsl:attribute-set>
    <!-- Рамка. Штамп -->
 <xsl:attribute-set name="Ramka._Wtamp">
-      <xsl:attribute name="font-family">GOST type B</xsl:attribute>
+      <xsl:attribute name="font-family">Arial</xsl:attribute>
    </xsl:attribute-set>
    <!-- Рамка. Крупный -->
 <xsl:attribute-set name="Ramka._Krupnyi">
-      <xsl:attribute name="font-family">GOST type B</xsl:attribute>
+      <xsl:attribute name="font-family">Arial</xsl:attribute>
    </xsl:attribute-set>
    <!-- Титул -->
 <xsl:attribute-set name="Titul" use-attribute-sets="Bazovyi">
@@ -460,6 +460,12 @@
 <xsl:attribute-set name="Citata_v_stroke" use-attribute-sets="Osnovnoi_wrift">
       <xsl:attribute name="font-style">italic</xsl:attribute>
    </xsl:attribute-set>
+   <xsl:template match="*[cpm:oclass(.)='border.sidebar']" mode="cpm.fastcust.foname">
+      <xsl:value-of select="name()"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='border.details']" mode="cpm.fastcust.foname">
+      <xsl:value-of select="name()"/>
+   </xsl:template>
    <xsl:template match="p[cpm:oclass(.)='cover.approved']" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
    </xsl:template>
@@ -480,12 +486,6 @@
    </xsl:template>
    <xsl:template match="p[cpm:oclass(.)='cover.year']" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="*[cpm:oclass(.)='border.sidebar']" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
-   </xsl:template>
-   <xsl:template match="*[cpm:oclass(.)='border.details']" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="title[cpm:sectype(.)='auxiliary']" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
@@ -768,6 +768,60 @@
                  mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
    </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='border.sidebar']" mode="cpm.fastcust.foxml">
+      <xsl:param name="foinner"/>
+      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
+      <xsl:choose>
+         <xsl:when test="$foname=''"/>
+         <xsl:when test="$foname='cpm:none'">
+            <xsl:copy-of select="$foinner"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:element name="{$foname}" use-attribute-sets="Ramka._Bokovik">
+               <xsl:attribute name="id">
+                  <xsl:value-of select="cpm:fastcust.id(.)"/>
+               </xsl:attribute>
+               <xsl:attribute name="language">
+                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
+               </xsl:attribute>
+               <xsl:attribute name="role">
+                  <xsl:value-of select="name()"/>
+                  <xsl:text>/</xsl:text>
+                  <xsl:text>Рамка. Боковик</xsl:text>
+               </xsl:attribute>
+               <xsl:apply-templates select="." mode="foattrs"/>
+               <xsl:copy-of select="$foinner"/>
+            </xsl:element>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='border.details']" mode="cpm.fastcust.foxml">
+      <xsl:param name="foinner"/>
+      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
+      <xsl:choose>
+         <xsl:when test="$foname=''"/>
+         <xsl:when test="$foname='cpm:none'">
+            <xsl:copy-of select="$foinner"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:element name="{$foname}" use-attribute-sets="Ramka._Wtamp">
+               <xsl:attribute name="id">
+                  <xsl:value-of select="cpm:fastcust.id(.)"/>
+               </xsl:attribute>
+               <xsl:attribute name="language">
+                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
+               </xsl:attribute>
+               <xsl:attribute name="role">
+                  <xsl:value-of select="name()"/>
+                  <xsl:text>/</xsl:text>
+                  <xsl:text>Рамка. Штамп</xsl:text>
+               </xsl:attribute>
+               <xsl:apply-templates select="." mode="foattrs"/>
+               <xsl:copy-of select="$foinner"/>
+            </xsl:element>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
    <xsl:template match="p[cpm:oclass(.)='cover.approved']" mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
@@ -950,60 +1004,6 @@
                   <xsl:value-of select="name()"/>
                   <xsl:text>/</xsl:text>
                   <xsl:text>Титул. Год</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="*[cpm:oclass(.)='border.sidebar']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Ramka._Bokovik">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Рамка. Боковик</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="*[cpm:oclass(.)='border.details']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Ramka._Wtamp">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Рамка. Штамп</xsl:text>
                </xsl:attribute>
                <xsl:apply-templates select="." mode="foattrs"/>
                <xsl:copy-of select="$foinner"/>
