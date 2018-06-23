@@ -227,7 +227,7 @@
     <!-- Рамки -->
     <element context="*[cpm:oclass(.)='border.sidebar']" style="Рамка. Боковик"/>
     <element context="*[cpm:oclass(.)='border.details']" style="Рамка. Штамп"/>
-        
+
     <!-- Титульный лист -->
     <element context="p[cpm:oclass(.)='cover.approved']" style="Титул. Утвержден"/>
     <element context="p[cpm:oclass(.)='cover.LU']" style="Титул. ЛУ"/>
@@ -235,7 +235,7 @@
     <element context="p[cpm:oclass(.)='cover.subtitle']" style="Титул. Подзаголовок"/>
     <element context="p[cpm:oclass(.)='cover.docnumber']" style="Титул. Обозначение"/>
     <element context="p[cpm:oclass(.)='cover.pages']" style="Титул. Страницы"/>
-    <element context="p[cpm:oclass(.)='cover.year']" style="Титул. Год"/>            
+    <element context="p[cpm:oclass(.)='cover.year']" style="Титул. Год"/>
 
     <!-- Заголовки вспомогательных разделов (аннотация и т.п.) -->
     <element context="title[cpm:sectype(.)='auxiliary']" style="Заголовок перечня"
@@ -279,6 +279,7 @@
     <element context="section/title" style="Заголовок 4"/>
 
     <!-- Таблицы -->
+    <element context="table" style="Таблица. Блок"/>
     <element context="tgroup" style="Таблица"/>
     <element context="*[cpm:sectype(.)!='appendix']//table/title" style="Таблица. Название"
         numseq="Таблицы"/>
@@ -286,14 +287,6 @@
         numseq="Таблицы в приложении"/>
     <element context="thead/row" style="Таблица. Шапка"/>
     <element context="table[not(@outputclass)]//entry" style="Таблица. Ячейка"/>
-    <element context="table[not(@outputclass)]//entry[@outputclass='subtitle']"
-        style="Таблица. Подзаголовок"/>
-    <element
-        context="tbody//entry[position()=1 and ../../../thead/row/entry[1]/@outputclass='number']"
-        style="Таблица. Номер строки"/>
-    <element
-        context="tbody//entry[count(following-sibling::*)=0 and ../../../thead/row/entry[last()]/@outputclass='total']"
-        style="Таблица. Итог по строке"/>
 
     <!-- Рисунки -->
     <element context="fig" numseq="fo:block" style="Рисунок"/>
@@ -310,27 +303,25 @@
 
     <!-- Списки -->
     <element context="fo:list-item-label/fo:block[not(@role)]" style="Маркер списка. Текст"/>
-
     <element context="fo:list-item-body[not(@role)]" to-numlevel="3" style="Пункт списка %l. Текст"/>
 
     <!-- Списки в таблице -->
     <element context="fo:list-item-label/fo:block[@role='table']"
         style="Таблица. Маркер списка. Текст"/>
-
     <element context="fo:list-item-body[@role='table']" to-numlevel="3"
         style="Таблица. Пункт списка %l. Текст"/>
 
     <!-- Маркированные списки -->
     <element context="ul" style="Главный список"/>
-    <element context="ul[ancestor::li]|ul[ancestor::entry and not(preceding-sibling::*)]"
-        numseq="Блок списка" style="Вложенный список"/>
+    <element context="ul[ancestor::li]|ul[ancestor::entry]" numseq="Блок списка"
+        style="Вложенный список"/>
     <element context="ul/li[not(ancestor::li) and position()=1]" style="Первый пункт списка"/>
     <element context="ul/li[ancestor::li or position()!=1]" style="Непервый пункт списка"/>
 
     <!-- Нумерованные списки -->
     <element context="ol" numseq="Блок списка" style="Главный список"/>
-    <element context="ol[ancestor::li]|ol[ancestor::entry and not(preceding-sibling::*)]"
-        numseq="Блок списка" style="Вложенный список"/>
+    <element context="ol[ancestor::li]|ol[ancestor::entry]" numseq="Блок списка"
+        style="Вложенный список"/>
     <element context="ol/li[not(ancestor::li) and position()=1]" style="Первый пункт списка"
         numseq="Пункт списка" base="Блок списка"/>
     <element context="ol/li[ancestor::li or position()!=1]" style="Непервый пункт списка"

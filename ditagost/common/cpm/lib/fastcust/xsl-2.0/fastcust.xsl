@@ -432,16 +432,7 @@
             <xsl:apply-templates select="." mode="foname"/>
         </xsl:variable>
 
-        <xsl:choose>
-            <xsl:when test="$name = ''">
-                <xsl:text>inline</xsl:text>
-            </xsl:when>
-            <xsl:when test="$name = 'fo:inline'">
-                <xsl:text>inline</xsl:text>
-            </xsl:when>
-            <xsl:when test="$name = 'fo:external-graphic'">
-                <xsl:text>inline</xsl:text>
-            </xsl:when>
+        <xsl:choose>            
             <xsl:when test="$name = 'cpm:none'">
                 <xsl:text>block</xsl:text>
             </xsl:when>
@@ -461,7 +452,7 @@
                 <xsl:text>block</xsl:text>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>special</xsl:text>
+                <xsl:text>span</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
 
@@ -1127,9 +1118,10 @@
     -->
 
     <!-- 
-        Supressing @role attributes 
+        Supressing redundant attributes 
     -->
     <xsl:template match="@role" mode="cpm.fastcust.fofinal"/>
+    <xsl:template match="@*[starts-with(name(),'cpm:')]" mode="cpm.fastcust.fofinal"/>
 
 
     <!-- 

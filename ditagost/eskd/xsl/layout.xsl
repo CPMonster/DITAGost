@@ -26,7 +26,7 @@
    </xsl:template>
    <!-- Шрифт -->
 <xsl:attribute-set name="Wrift">
-      <xsl:attribute name="font-family">Arial</xsl:attribute>
+      <xsl:attribute name="font-family">Sans</xsl:attribute>
       <xsl:attribute name="font-size">12pt</xsl:attribute>
    </xsl:attribute-set>
    <!-- Базовый -->
@@ -35,38 +35,44 @@
    </xsl:attribute-set>
    <!-- Блок основного текста -->
 <xsl:attribute-set name="Blok_osnovnogo_teksta" use-attribute-sets="Bazovyi"/>
+   <!-- Блок иллюстрации -->
+<xsl:attribute-set name="Blok_illqstracii" use-attribute-sets="Blok_osnovnogo_teksta">
+      <xsl:attribute name="margin-top">18pt</xsl:attribute>
+      <xsl:attribute name="margin-bottom">18pt</xsl:attribute>
+   </xsl:attribute-set>
+   <!-- Внутренний блок текста -->
+<xsl:attribute-set name="Vnutrennii_blok_teksta" use-attribute-sets="Bazovyi"/>
    <!-- Основной шрифт -->
-<xsl:attribute-set name="Osnovnoi_wrift"/>
-   <!-- header_subject -->
-<xsl:attribute-set name="header_subject" use-attribute-sets="Bazovyi">
+<xsl:attribute-set name="Osnovnoi_wrift" use-attribute-sets="Wrift"/>
+   <!-- Верхний колонтитул. Обозначение -->
+<xsl:attribute-set name="Verhnii_kolontitul._Oboznacenie" use-attribute-sets="Bazovyi">
       <xsl:attribute name="font-size">9pt</xsl:attribute>
    </xsl:attribute-set>
-   <!-- header_pagenumber -->
-<xsl:attribute-set name="header_pagenumber" use-attribute-sets="Bazovyi">
+   <!-- Верхний колонтитул. Номер страницы -->
+<xsl:attribute-set name="Verhnii_kolontitul._Nomer_stranicy" use-attribute-sets="Bazovyi">
       <xsl:attribute name="font-size">14pt</xsl:attribute>
    </xsl:attribute-set>
-   <!-- Пустой заголовок -->
-<xsl:attribute-set name="Pustoi_zagolovok" use-attribute-sets="Bazovyi">
-      <xsl:attribute name="font-size">1pt</xsl:attribute>
-      <xsl:attribute name="color">#ffffff</xsl:attribute>
-      <xsl:attribute name="line-height">1pt</xsl:attribute>
-   </xsl:attribute-set>
-   <!-- Заголовок базовый -->
-<xsl:attribute-set name="Zagolovok_bazovyi" use-attribute-sets="Bazovyi">
+   <!-- Заголовок -->
+<xsl:attribute-set name="Zagolovok" use-attribute-sets="Bazovyi">
       <xsl:attribute name="font-weight">bold</xsl:attribute>
       <xsl:attribute name="keep-with-next">always</xsl:attribute>
+      <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
+      <xsl:attribute name="hyphenate">false</xsl:attribute>
    </xsl:attribute-set>
-   <!-- Заголовок центрированный -->
-<xsl:attribute-set name="Zagolovok_centrirovannyi" use-attribute-sets="Zagolovok_bazovyi">
+   <!-- Пустой заголовок -->
+<xsl:attribute-set name="Pustoi_zagolovok" use-attribute-sets="Zagolovok">
+      <xsl:attribute name="visibility">hidden </xsl:attribute>
+   </xsl:attribute-set>
+   <!-- Заголовок по центру -->
+<xsl:attribute-set name="Zagolovok_po_centru" use-attribute-sets="Zagolovok">
       <xsl:attribute name="text-align">center</xsl:attribute>
    </xsl:attribute-set>
    <!-- Заголовок с отступом -->
-<xsl:attribute-set name="Zagolovok_s_otstupom" use-attribute-sets="Zagolovok_bazovyi">
-      <xsl:attribute name="text-align">left</xsl:attribute>
+<xsl:attribute-set name="Zagolovok_s_otstupom" use-attribute-sets="Zagolovok">
       <xsl:attribute name="margin-left">1cm</xsl:attribute>
    </xsl:attribute-set>
    <!-- Заголовок перечня -->
-<xsl:attribute-set name="Zagolovok_perecna" use-attribute-sets="Zagolovok_bazovyi">
+<xsl:attribute-set name="Zagolovok_perecna" use-attribute-sets="Zagolovok">
       <xsl:attribute name="font-size">18pt</xsl:attribute>
       <xsl:attribute name="text-transform">uppercase</xsl:attribute>
       <xsl:attribute name="text-align">center</xsl:attribute>
@@ -75,27 +81,11 @@
       <xsl:attribute name="margin-bottom">20pt</xsl:attribute>
       <xsl:attribute name="page-break-before">always</xsl:attribute>
    </xsl:attribute-set>
-   <!-- Заголовок без нумерации 1 -->
-<xsl:attribute-set name="Zagolovok_bez_numeracii_1" use-attribute-sets="Zagolovok_bazovyi">
-      <xsl:attribute name="color">#005EB8</xsl:attribute>
-      <xsl:attribute name="font-size">18pt</xsl:attribute>
-      <xsl:attribute name="keep-with-next">always</xsl:attribute>
-      <xsl:attribute name="line-height">22pt</xsl:attribute>
-      <xsl:attribute name="margin-bottom">22pt</xsl:attribute>
-   </xsl:attribute-set>
-   <!-- Заголовок без нумерации 2 -->
-<xsl:attribute-set name="Zagolovok_bez_numeracii_2" use-attribute-sets="Zagolovok_bazovyi">
-      <xsl:attribute name="font-size">16pt</xsl:attribute>
-      <xsl:attribute name="line-height">20pt</xsl:attribute>
-      <xsl:attribute name="margin-bottom">20pt</xsl:attribute>
-      <xsl:attribute name="margin-top">20pt</xsl:attribute>
-   </xsl:attribute-set>
    <!-- Заголовок 1 -->
-<xsl:attribute-set name="Zagolovok_1" use-attribute-sets="Zagolovok_centrirovannyi">
+<xsl:attribute-set name="Zagolovok_1" use-attribute-sets="Zagolovok_po_centru">
       <xsl:attribute name="font-size">18pt</xsl:attribute>
       <xsl:attribute name="text-transform">uppercase</xsl:attribute>
       <xsl:attribute name="text-align">center</xsl:attribute>
-      <xsl:attribute name="keep-with-next">always</xsl:attribute>
       <xsl:attribute name="line-height">22pt</xsl:attribute>
       <xsl:attribute name="page-break-before">always</xsl:attribute>
       <xsl:attribute name="margin-bottom">22pt</xsl:attribute>
@@ -104,7 +94,6 @@
 <xsl:attribute-set name="Zagolovok_2" use-attribute-sets="Zagolovok_s_otstupom">
       <xsl:attribute name="font-size">18pt</xsl:attribute>
       <xsl:attribute name="font-variant">small-caps</xsl:attribute>
-      <xsl:attribute name="keep-with-next">always</xsl:attribute>
       <xsl:attribute name="line-height">22pt</xsl:attribute>
       <xsl:attribute name="margin-bottom">22pt</xsl:attribute>
       <xsl:attribute name="margin-top">22pt</xsl:attribute>
@@ -112,7 +101,6 @@
    <!-- Заголовок 3 -->
 <xsl:attribute-set name="Zagolovok_3" use-attribute-sets="Zagolovok_s_otstupom">
       <xsl:attribute name="font-size">18pt</xsl:attribute>
-      <xsl:attribute name="keep-with-next">always</xsl:attribute>
       <xsl:attribute name="line-height">22pt</xsl:attribute>
       <xsl:attribute name="margin-bottom">22pt</xsl:attribute>
       <xsl:attribute name="margin-top">22pt</xsl:attribute>
@@ -120,7 +108,6 @@
    <!-- Заголовок 4 -->
 <xsl:attribute-set name="Zagolovok_4" use-attribute-sets="Zagolovok_s_otstupom">
       <xsl:attribute name="font-size">16pt</xsl:attribute>
-      <xsl:attribute name="keep-with-next">always</xsl:attribute>
       <xsl:attribute name="line-height">19pt</xsl:attribute>
       <xsl:attribute name="margin-bottom">19pt</xsl:attribute>
       <xsl:attribute name="margin-top">19pt</xsl:attribute>
@@ -128,8 +115,6 @@
    <!-- Заголовок 5 -->
 <xsl:attribute-set name="Zagolovok_5" use-attribute-sets="Zagolovok_s_otstupom">
       <xsl:attribute name="font-size">16pt</xsl:attribute>
-      <xsl:attribute name="keep-together">always</xsl:attribute>
-      <xsl:attribute name="keep-with-next">always</xsl:attribute>
       <xsl:attribute name="line-height">19pt</xsl:attribute>
       <xsl:attribute name="margin-bottom">19pt</xsl:attribute>
       <xsl:attribute name="margin-top">19pt</xsl:attribute>
@@ -137,8 +122,6 @@
    <!-- Заголовок 6 -->
 <xsl:attribute-set name="Zagolovok_6" use-attribute-sets="Zagolovok_s_otstupom">
       <xsl:attribute name="font-size">16pt</xsl:attribute>
-      <xsl:attribute name="keep-together">always</xsl:attribute>
-      <xsl:attribute name="keep-with-next">always</xsl:attribute>
       <xsl:attribute name="line-height">19pt</xsl:attribute>
       <xsl:attribute name="margin-bottom">19pt</xsl:attribute>
       <xsl:attribute name="margin-top">19pt</xsl:attribute>
@@ -149,7 +132,9 @@
       <xsl:attribute name="text-align">justify</xsl:attribute>
    </xsl:attribute-set>
    <!-- Список -->
-<xsl:attribute-set name="Spisok" use-attribute-sets="Blok_osnovnogo_teksta"/>
+<xsl:attribute-set name="Spisok" use-attribute-sets="Blok_osnovnogo_teksta">
+      <xsl:attribute name="provisional-label-separation">inherit</xsl:attribute>
+   </xsl:attribute-set>
    <!-- Главный список -->
 <xsl:attribute-set name="Glavnyi_spisok" use-attribute-sets="Spisok">
       <xsl:attribute name="margin-left">1cm</xsl:attribute>
@@ -173,9 +158,7 @@
       <xsl:attribute name="text-align">justify</xsl:attribute>
    </xsl:attribute-set>
    <!-- Маркер списка. Текст -->
-<xsl:attribute-set name="Marker_spiska._Tekst" use-attribute-sets="Bazovyi">
-      <xsl:attribute name="line-height">18pt</xsl:attribute>
-   </xsl:attribute-set>
+<xsl:attribute-set name="Marker_spiska._Tekst" use-attribute-sets="Bazovyi"/>
    <!-- Пункт списка 1. Текст -->
 <xsl:attribute-set name="Punkt_spiska_1._Tekst" use-attribute-sets="Punkt_spiska._Tekst">
       <xsl:attribute name="start-indent">1.45cm</xsl:attribute>
@@ -193,7 +176,8 @@
       <xsl:attribute name="text-align">left</xsl:attribute>
    </xsl:attribute-set>
    <!-- Таблица. Маркер списка. Текст -->
-<xsl:attribute-set name="Tablica._Marker_spiska._Tekst" use-attribute-sets="Bazovyi"/>
+<xsl:attribute-set name="Tablica._Marker_spiska._Tekst"
+                      use-attribute-sets="Vnutrennii_blok_teksta"/>
    <!-- Таблица. Пункт списка 1. Текст -->
 <xsl:attribute-set name="Tablica._Punkt_spiska_1._Tekst"
                       use-attribute-sets="Tablica._Punkt_spiska._Tekst">
@@ -210,47 +194,37 @@
       <xsl:attribute name="start-indent">1.35cm</xsl:attribute>
    </xsl:attribute-set>
    <!-- Рисунок -->
-<xsl:attribute-set name="Risunok" use-attribute-sets="Blok_osnovnogo_teksta">
+<xsl:attribute-set name="Risunok" use-attribute-sets="Blok_illqstracii">
       <xsl:attribute name="text-align">center</xsl:attribute>
       <xsl:attribute name="keep-together">always</xsl:attribute>
    </xsl:attribute-set>
    <!-- Рисунок. Изображение -->
-<xsl:attribute-set name="Risunok._Izobrajenie" use-attribute-sets="Bazovyi">
-      <xsl:attribute name="text-align">center</xsl:attribute>
-      <xsl:attribute name="margin-top">16pt</xsl:attribute>
-      <xsl:attribute name="margin-bottom">16pt</xsl:attribute>
-      <xsl:attribute name="keep-with-next">always</xsl:attribute>
-   </xsl:attribute-set>
+<xsl:attribute-set name="Risunok._Izobrajenie" use-attribute-sets="Bazovyi"/>
    <!-- Рисунок. Подпись -->
-<xsl:attribute-set name="Risunok._Podpisx" use-attribute-sets="Osnovnoi">
-      <xsl:attribute name="text-align">center</xsl:attribute>
-      <xsl:attribute name="line-height">13pt</xsl:attribute>
-      <xsl:attribute name="margin-bottom">13pt</xsl:attribute>
-      <xsl:attribute name="margin-top">13pt</xsl:attribute>
+<xsl:attribute-set name="Risunok._Podpisx" use-attribute-sets="Vnutrennii_blok_teksta">
+      <xsl:attribute name="margin-top">9pt</xsl:attribute>
    </xsl:attribute-set>
-   <!-- Рисунок. Описание -->
-<xsl:attribute-set name="Risunok._Opisanie" use-attribute-sets="Risunok._Podpisx">
-      <xsl:attribute name="font-size">10pt</xsl:attribute>
-      <xsl:attribute name="text-align">center</xsl:attribute>
-      <xsl:attribute name="line-height">13pt</xsl:attribute>
+   <!-- Таблица. Блок -->
+<xsl:attribute-set name="Tablica._Blok" use-attribute-sets="Blok_osnovnogo_teksta">
+      <xsl:attribute name="margin-top">18pt</xsl:attribute>
+      <xsl:attribute name="margin-bottom">18pt</xsl:attribute>
+   </xsl:attribute-set>
+   <!-- Таблица. Название -->
+<xsl:attribute-set name="Tablica._Nazvanie" use-attribute-sets="Vnutrennii_blok_teksta">
+      <xsl:attribute name="font-weight">bold</xsl:attribute>
+      <xsl:attribute name="text-align">right</xsl:attribute>
+      <xsl:attribute name="keep-with-next">always</xsl:attribute>
+      <xsl:attribute name="line-height">18pt</xsl:attribute>
+      <xsl:attribute name="margin-bottom">6pt</xsl:attribute>
    </xsl:attribute-set>
    <!-- Таблица -->
 <xsl:attribute-set name="Tablica" use-attribute-sets="Bazovyi">
-      <xsl:attribute name="margin-bottom">18pt</xsl:attribute>
       <xsl:attribute name="text-align">left</xsl:attribute>
       <xsl:attribute name="text-indent">0cm</xsl:attribute>
       <xsl:attribute name="start-indent">0cm</xsl:attribute>
       <xsl:attribute name="border-style">solid</xsl:attribute>
       <xsl:attribute name="border-width">1pt</xsl:attribute>
       <xsl:attribute name="border-color">#000000</xsl:attribute>
-   </xsl:attribute-set>
-   <!-- Таблица. Название -->
-<xsl:attribute-set name="Tablica._Nazvanie" use-attribute-sets="Bazovyi">
-      <xsl:attribute name="text-align">right</xsl:attribute>
-      <xsl:attribute name="keep-with-next">always</xsl:attribute>
-      <xsl:attribute name="line-height">15pt</xsl:attribute>
-      <xsl:attribute name="margin-bottom">4pt</xsl:attribute>
-      <xsl:attribute name="margin-top">15pt</xsl:attribute>
    </xsl:attribute-set>
    <!-- Таблица. Шапка -->
 <xsl:attribute-set name="Tablica._Wapka" use-attribute-sets="Bazovyi">
@@ -330,15 +304,15 @@
    </xsl:attribute-set>
    <!-- Рамка. Боковик -->
 <xsl:attribute-set name="Ramka._Bokovik">
-      <xsl:attribute name="font-family">Arial</xsl:attribute>
+      <xsl:attribute name="font-family">Sans</xsl:attribute>
    </xsl:attribute-set>
    <!-- Рамка. Штамп -->
 <xsl:attribute-set name="Ramka._Wtamp">
-      <xsl:attribute name="font-family">Arial</xsl:attribute>
+      <xsl:attribute name="font-family">Sans</xsl:attribute>
    </xsl:attribute-set>
    <!-- Рамка. Крупный -->
 <xsl:attribute-set name="Ramka._Krupnyi">
-      <xsl:attribute name="font-family">Arial</xsl:attribute>
+      <xsl:attribute name="font-family">Sans</xsl:attribute>
    </xsl:attribute-set>
    <!-- Титул -->
 <xsl:attribute-set name="Titul" use-attribute-sets="Bazovyi">
@@ -376,7 +350,7 @@
    <!-- Титул. Год -->
 <xsl:attribute-set name="Titul._God" use-attribute-sets="Titul"/>
    <!-- Оглавление. Заголовок -->
-<xsl:attribute-set name="Oglavlenie._Zagolovok" use-attribute-sets="Zagolovok_centrirovannyi">
+<xsl:attribute-set name="Oglavlenie._Zagolovok" use-attribute-sets="Zagolovok_po_centru">
       <xsl:attribute name="font-size">18pt</xsl:attribute>
       <xsl:attribute name="text-align">center</xsl:attribute>
       <xsl:attribute name="line-height">22pt</xsl:attribute>
@@ -388,7 +362,7 @@
       <xsl:attribute name="leader-length.maximum">20cm</xsl:attribute>
    </xsl:attribute-set>
    <!-- Оглавление -->
-<xsl:attribute-set name="Oglavlenie" use-attribute-sets="Bazovyi">
+<xsl:attribute-set name="Oglavlenie" use-attribute-sets="Blok_osnovnogo_teksta">
       <xsl:attribute name="text-align">justify</xsl:attribute>
       <xsl:attribute name="text-align-last">justify</xsl:attribute>
       <xsl:attribute name="margin-bottom">7pt</xsl:attribute>
@@ -535,7 +509,7 @@
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='appendix']"
                  mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=2 and ancestor::*[cpm:sectype(.)='appendix']]"
                  mode="cpm.fastcust.foname">
@@ -589,8 +563,11 @@
    <xsl:template match="section/title" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
    </xsl:template>
-   <xsl:template match="tgroup" mode="cpm.fastcust.foname">
+   <xsl:template match="table" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
+   </xsl:template>
+   <xsl:template match="tgroup" mode="cpm.fastcust.foname">
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="*[cpm:sectype(.)!='appendix']//table/title" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
@@ -599,22 +576,10 @@
       <xsl:text>fo:block</xsl:text>
    </xsl:template>
    <xsl:template match="thead/row" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="table[not(@outputclass)]//entry" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="table[not(@outputclass)]//entry[@outputclass='subtitle']"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="tbody//entry[position()=1 and ../../../thead/row/entry[1]/@outputclass='number']"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="tbody//entry[count(following-sibling::*)=0 and ../../../thead/row/entry[last()]/@outputclass='total']"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="fig" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
@@ -626,84 +591,82 @@
       <xsl:text/>
    </xsl:template>
    <xsl:template match="fo:block[cpm:oclass(.)='image']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="image" mode="cpm.fastcust.foname">
       <xsl:text>fo:external-graphic</xsl:text>
    </xsl:template>
    <xsl:template match="fig/p" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
+      <xsl:text/>
    </xsl:template>
    <xsl:template match="fo:list-item-label/fo:block[not(@role)]" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and not(@role)]"
                  mode="cpm.fastcust.foname">
-      <xsl:text>fo:list-item-body</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and not(@role)]"
                  mode="cpm.fastcust.foname">
-      <xsl:text>fo:list-item-body</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and not(@role)]"
                  mode="cpm.fastcust.foname">
-      <xsl:text>fo:list-item-body</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="fo:list-item-label/fo:block[@role='table']" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
    </xsl:template>
    <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and @role='table']"
                  mode="cpm.fastcust.foname">
-      <xsl:text>fo:list-item-body</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and @role='table']"
                  mode="cpm.fastcust.foname">
-      <xsl:text>fo:list-item-body</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and @role='table']"
                  mode="cpm.fastcust.foname">
-      <xsl:text>fo:list-item-body</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="ul" mode="cpm.fastcust.foname">
-      <xsl:text>fo:list-block</xsl:text>
+      <xsl:text>fo:block</xsl:text>
    </xsl:template>
-   <xsl:template match="ul[ancestor::li]|ul[ancestor::entry and not(preceding-sibling::*)]"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:list-block</xsl:text>
+   <xsl:template match="ul[ancestor::li]|ul[ancestor::entry]" mode="cpm.fastcust.foname">
+      <xsl:text>fo:block</xsl:text>
    </xsl:template>
    <xsl:template match="ul/li[not(ancestor::li) and position()=1]" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
+      <xsl:text/>
    </xsl:template>
    <xsl:template match="ul/li[ancestor::li or position()!=1]" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
+      <xsl:text/>
    </xsl:template>
    <xsl:template match="ol" mode="cpm.fastcust.foname">
-      <xsl:text>fo:list-block</xsl:text>
+      <xsl:text>fo:block</xsl:text>
    </xsl:template>
-   <xsl:template match="ol[ancestor::li]|ol[ancestor::entry and not(preceding-sibling::*)]"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:list-block</xsl:text>
+   <xsl:template match="ol[ancestor::li]|ol[ancestor::entry]" mode="cpm.fastcust.foname">
+      <xsl:text>fo:block</xsl:text>
    </xsl:template>
    <xsl:template match="ol/li[not(ancestor::li) and position()=1]" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
+      <xsl:text/>
    </xsl:template>
    <xsl:template match="ol/li[ancestor::li or position()!=1]" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
+      <xsl:text/>
    </xsl:template>
    <xsl:template match="steps" mode="cpm.fastcust.foname">
-      <xsl:text>fo:list-block</xsl:text>
+      <xsl:text>fo:block</xsl:text>
    </xsl:template>
    <xsl:template match="step[position()=1]" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
+      <xsl:text/>
    </xsl:template>
    <xsl:template match="step[position()!=1]" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
+      <xsl:text/>
    </xsl:template>
    <xsl:template match="*[cpm:oclass(.)='notecaption']" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
    </xsl:template>
    <xsl:template match="pre" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="div[cpm:oclass(.)='form']" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
@@ -716,14 +679,14 @@
    </xsl:template>
    <xsl:template match="table[cpm:oclass(.)='listregizm']//thead/row/entry"
                  mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="table[cpm:oclass(.)='listregizm']//tbody/row/entry"
                  mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="table[cpm:oclass(.)='listregizm']//tbody/row" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
+      <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="apiname" mode="cpm.fastcust.foname">
       <xsl:text>fo:inline</xsl:text>
@@ -1761,6 +1724,33 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
+   <xsl:template match="table" mode="cpm.fastcust.foxml">
+      <xsl:param name="foinner"/>
+      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
+      <xsl:choose>
+         <xsl:when test="$foname=''"/>
+         <xsl:when test="$foname='cpm:none'">
+            <xsl:copy-of select="$foinner"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:element name="{$foname}" use-attribute-sets="Tablica._Blok">
+               <xsl:attribute name="id">
+                  <xsl:value-of select="cpm:fastcust.id(.)"/>
+               </xsl:attribute>
+               <xsl:attribute name="language">
+                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
+               </xsl:attribute>
+               <xsl:attribute name="role">
+                  <xsl:value-of select="name()"/>
+                  <xsl:text>/</xsl:text>
+                  <xsl:text>Таблица. Блок</xsl:text>
+               </xsl:attribute>
+               <xsl:apply-templates select="." mode="foattrs"/>
+               <xsl:copy-of select="$foinner"/>
+            </xsl:element>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
    <xsl:template match="tgroup" mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
@@ -1889,90 +1879,6 @@
                   <xsl:value-of select="name()"/>
                   <xsl:text>/</xsl:text>
                   <xsl:text>Таблица. Ячейка</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="table[not(@outputclass)]//entry[@outputclass='subtitle']"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Tablica._Podzagolovok">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Таблица. Подзаголовок</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="tbody//entry[position()=1 and ../../../thead/row/entry[1]/@outputclass='number']"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Tablica._Nomer_stroki">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Таблица. Номер строки</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="tbody//entry[count(following-sibling::*)=0 and ../../../thead/row/entry[last()]/@outputclass='total']"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Tablica._Itog_po_stroke">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Таблица. Итог по строке</xsl:text>
                </xsl:attribute>
                <xsl:apply-templates select="." mode="foattrs"/>
                <xsl:copy-of select="$foinner"/>
@@ -2124,7 +2030,7 @@
             <xsl:copy-of select="$foinner"/>
          </xsl:when>
          <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Risunok._Opisanie">
+            <xsl:element name="{$foname}">
                <xsl:attribute name="id">
                   <xsl:value-of select="cpm:fastcust.id(.)"/>
                </xsl:attribute>
@@ -2134,7 +2040,7 @@
                <xsl:attribute name="role">
                   <xsl:value-of select="name()"/>
                   <xsl:text>/</xsl:text>
-                  <xsl:text>Рисунок. Описание</xsl:text>
+                  <xsl:text/>
                </xsl:attribute>
                <xsl:apply-templates select="." mode="foattrs"/>
                <xsl:copy-of select="$foinner"/>
@@ -2391,8 +2297,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   <xsl:template match="ul[ancestor::li]|ul[ancestor::entry and not(preceding-sibling::*)]"
-                 mode="cpm.fastcust.foxml">
+   <xsl:template match="ul[ancestor::li]|ul[ancestor::entry]" mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
       <xsl:choose>
@@ -2500,8 +2405,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   <xsl:template match="ol[ancestor::li]|ol[ancestor::entry and not(preceding-sibling::*)]"
-                 mode="cpm.fastcust.foxml">
+   <xsl:template match="ol[ancestor::li]|ol[ancestor::entry]" mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
       <xsl:choose>
@@ -3330,15 +3234,13 @@
    <xsl:template match="*[cpm:sectype(.)='appendix']//fig/title" mode="cpm.fastcust.numseqname">
       <xsl:text>Рисунки в приложении</xsl:text>
    </xsl:template>
-   <xsl:template match="ul[ancestor::li]|ul[ancestor::entry and not(preceding-sibling::*)]"
-                 mode="cpm.fastcust.numseqname">
+   <xsl:template match="ul[ancestor::li]|ul[ancestor::entry]" mode="cpm.fastcust.numseqname">
       <xsl:text>Блок списка</xsl:text>
    </xsl:template>
    <xsl:template match="ol" mode="cpm.fastcust.numseqname">
       <xsl:text>Блок списка</xsl:text>
    </xsl:template>
-   <xsl:template match="ol[ancestor::li]|ol[ancestor::entry and not(preceding-sibling::*)]"
-                 mode="cpm.fastcust.numseqname">
+   <xsl:template match="ol[ancestor::li]|ol[ancestor::entry]" mode="cpm.fastcust.numseqname">
       <xsl:text>Блок списка</xsl:text>
    </xsl:template>
    <xsl:template match="ol/li[not(ancestor::li) and position()=1]"
@@ -3549,8 +3451,7 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="ul[ancestor::li]|ul[ancestor::entry and not(preceding-sibling::*)]"
-                 mode="cpm.fastcust.numseq">
+   <xsl:template match="ul[ancestor::li]|ul[ancestor::entry]" mode="cpm.fastcust.numseq">
       <xsl:variable name="numseqname">
          <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
       </xsl:variable>
@@ -3570,8 +3471,7 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="ol[ancestor::li]|ol[ancestor::entry and not(preceding-sibling::*)]"
-                 mode="cpm.fastcust.numseq">
+   <xsl:template match="ol[ancestor::li]|ol[ancestor::entry]" mode="cpm.fastcust.numseq">
       <xsl:variable name="numseqname">
          <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
       </xsl:variable>

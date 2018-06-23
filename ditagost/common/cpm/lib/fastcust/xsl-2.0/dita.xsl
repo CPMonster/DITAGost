@@ -283,13 +283,13 @@
 
         <xsl:choose>
             <xsl:when test="@outputclass">
-                <xsl:value-of select="@outputclass"/>        
+                <xsl:value-of select="@outputclass"/>
             </xsl:when>
             <xsl:when test="namespace-uri() = 'http://www.w3.org/1999/XSL/Format'">
-                <xsl:value-of select="@role"/>        
+                <xsl:value-of select="@role"/>
             </xsl:when>
             <xsl:otherwise/>
-        </xsl:choose>        
+        </xsl:choose>
 
     </xsl:template>
 
@@ -464,9 +464,11 @@
     <!-- 
         A table 
     -->
+    <!--
     <xsl:template match="*[contains(@class, $CS_TABLE)]" mode="foname">
         <xsl:text>cpm:none</xsl:text>
     </xsl:template>
+    -->
 
 
     <!-- 
@@ -669,7 +671,7 @@
     <!-- 
         Assembling inner FO for a list item
     -->
-    <xsl:template match="*[not(ancestor::entry) and contains(@class, $CS_LI)]" mode="foinner">
+    <xsl:template match="*[contains(@class, $CS_LI)]" mode="foinner">
 
         <!-- Assembling a label for an list item -->
         <xsl:variable name="label">
@@ -683,52 +685,39 @@
         <!-- Formatting a label -->
         <xsl:apply-templates select="$label/*" mode="foxml"/>
 
-        <!-- Assembling content for a list item -->
+        <!-- Assembling a list item body -->
         <xsl:variable name="body">
+            
             <fo:list-item-body cpm:numlevel="{cpm:numlevel(.)}">
-                <fo:block>
-                    <xsl:apply-templates select="node()" mode="foxml"/>
+                
+                <xsl:if test="ancestor::entry">
+                    <xsl:attribute name="role">table</xsl:attribute>
+                </xsl:if>
+                
+                <fo:block>                    
+                    <xsl:copy-of select="node()"/>
                 </fo:block>
+                
             </fo:list-item-body>
+            
         </xsl:variable>
 
-        <!-- Formatting content -->
-        <xsl:apply-templates select="$body/*" mode="foxml"/>
+        <!-- Formatting list item content -->
+        <xsl:variable name="formatted_body">
+            <xsl:apply-templates select="$body/*" mode="foxml"/>
+        </xsl:variable>
+
+        <!-- Nesting foratted content into a formatted list item body -->
+        <fo:list-item-body>            
+            <xsl:copy-of select="$formatted_body/*/@*"/>                                    
+            <fo:block>                                           
+                <xsl:copy-of select="$formatted_body/*/*/@*"/>                
+                <xsl:apply-templates select="node()" mode="foxml"/>                
+            </fo:block>            
+        </fo:list-item-body>
 
     </xsl:template>
-
-
-    <!-- 
-        Assembling inner FO for a list item
-    -->
-    <xsl:template match="*[ancestor::entry and contains(@class, $CS_LI)]" mode="foinner">
-
-        <!-- Assembling a label for an list item -->
-        <xsl:variable name="label">
-            <fo:list-item-label>
-                <fo:block role="table">
-                    <xsl:apply-templates select="." mode="fomarker"/>
-                </fo:block>
-            </fo:list-item-label>
-        </xsl:variable>
-
-        <!-- Formatting a label -->
-        <xsl:apply-templates select="$label/*" mode="foxml"/>
-
-        <!-- Assembling content for a list item -->
-        <xsl:variable name="body">
-            <fo:list-item-body cpm:numlevel="{cpm:numlevel(.)}" role="table">
-                <fo:block>
-                    <xsl:apply-templates select="node()" mode="foxml"/>
-                </fo:block>
-            </fo:list-item-body>
-        </xsl:variable>
-
-        <!-- Formatting content -->
-        <xsl:apply-templates select="$body/*" mode="foxml"/>
-
-    </xsl:template>
-
+    
 
 
     <!-- ================ -->
