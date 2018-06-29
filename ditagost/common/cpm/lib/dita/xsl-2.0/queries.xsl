@@ -5,7 +5,7 @@
     
     Level:      Library
     
-    Part:       DITA library
+    Part:       DITA
     Module:     queries.xsl
     
     Scope:      DITA
@@ -22,6 +22,7 @@
     -->
     
     <xsl:import href="queries-basics.xsl"/>
+    <xsl:import href="queries-topics.xsl"/>
     <xsl:import href="queries-maps.xsl"/>
     <xsl:import href="queries-tables.xsl"/>
 

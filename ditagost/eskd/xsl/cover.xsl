@@ -33,7 +33,7 @@
     -->
     <xsl:template name="cover">
 
-        <cpm:cover>
+        <cpm:cover>            
 
             <!-- Approved -->
             <p outputclass="cover.approved">

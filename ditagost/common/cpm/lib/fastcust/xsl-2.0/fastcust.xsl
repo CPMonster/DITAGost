@@ -426,7 +426,7 @@
     <!-- 
         Return a type of a FO element (block or inline?)
     -->
-    <xsl:template match="node()" mode="cpm.fastcust.fotype">
+    <xsl:template match="*" mode="cpm.fastcust.fotype">
 
         <xsl:variable name="name">
             <xsl:apply-templates select="." mode="foname"/>

@@ -1191,10 +1191,7 @@
         -->
 
         <!-- Any element in a document -->
-        <xsl:param name="element"/>
-
-        <!-- A class we check an element -->
-        <xsl:param name="class"/>
+        <xsl:param name="element"/>       
 
         <!-- 
             A customization should provide a template (templates) having
@@ -1238,5 +1235,19 @@
         <xsl:apply-templates select="$element" mode="foname"/>
 
     </xsl:function>
+    
+    
+    <!-- 
+        Detecting elements that are nested into a table
+    -->        
+    
+    <xsl:function name="cpm:in_table" as="xs:boolean">
+        
+        <xsl:param name="element"/>
+                                
+        <xsl:apply-templates select="$element" mode="in_table"/>        
+        
+    </xsl:function>
+    
 
 </xsl:stylesheet>
