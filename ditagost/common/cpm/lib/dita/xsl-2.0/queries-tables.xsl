@@ -44,7 +44,7 @@
         -->
         
         <xsl:choose>
-            <xsl:when test="ancestor::*[cpm:dita.eclass(., 'topic/cell')]">
+            <xsl:when test="ancestor::*[cpm:dita.eclass(., 'topic/entry')]">
                 <xsl:value-of select="true()"/>
             </xsl:when>
             <xsl:otherwise>

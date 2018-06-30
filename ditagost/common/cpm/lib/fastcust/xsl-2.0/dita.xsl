@@ -120,14 +120,6 @@
     <!-- ========= -->
 
     <!-- 
-        Detecting if an element is a topic 
-    -->
-    <xsl:template match="*" mode="is_section" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.is_topic(.)"/>
-    </xsl:template>
-
-
-    <!-- 
         Detecting if an element is appendix
     -->
     <xsl:template match="*" mode="is_appendix" as="xs:boolean">
@@ -136,25 +128,87 @@
 
 
     <!-- 
+        Detecting elements nested into an appendix
+    -->
+    <xsl:template match="*" mode="in_appendix" as="xs:boolean">
+
+        <xsl:choose>
+            <xsl:when test="ancestor::*[cpm:dita.is_appendix(.)]">
+                <xsl:value-of select="true()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="false()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+
+    </xsl:template>
+    
+    
+    <!-- 
+        Detecting if an element belongs to backmatter
+    -->
+    <xsl:template match="*" mode="is_backmatter" as="xs:boolean">
+        <xsl:value-of select="cpm:dita.is_backmatter(.)"/>
+    </xsl:template>
+    
+
+    <!-- 
         Detecting if an element belongs to frontmatter
     -->
     <xsl:template match="*" mode="is_frontmatter" as="xs:boolean">
         <xsl:value-of select="cpm:dita.is_frontmatter(.)"/>
     </xsl:template>
-
-
+    
+    
     <!-- 
-        Detecting if an element belongs to backmatter
+        Detecting elements nested into lists
     -->
-    <xsl:template match="*" mode="is_backmatter">
-        <xsl:value-of select="cpm:dita.is_backmatter(.)"/>
+    <xsl:template match="*" mode="in_list" as="xs:boolean">
+        
+        <xsl:choose>
+            <xsl:when test="ancestor::*[cpm:eclass(., 'topic/li')]">
+                <xsl:value-of select="true()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="false()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
     </xsl:template>
 
 
     <!-- 
+        Detecting elements having no specific nesting
+    -->
+    <xsl:template match="*" mode="is_normal" as="xs:boolean">
+
+        <xsl:choose>
+            <xsl:when test="cpm:in_table(.)">
+                <xsl:value-of select="false()"/>
+            </xsl:when>
+            <xsl:when test="cpm:in_list(.)">
+                <xsl:value-of select="false()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="true()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+
+    </xsl:template>
+
+
+    <!-- 
+        Detecting if an element is a topic 
+    -->
+    <xsl:template match="*" mode="is_section" as="xs:boolean">
+        <xsl:value-of select="cpm:dita.is_topic(.)"/>
+    </xsl:template>
+    
+    
+    <!-- 
         Detecting if an element is a title
     -->
-    <xsl:template match="*" mode="is_title">
+    <xsl:template match="*" mode="is_title" as="xs:boolean">
         <xsl:value-of select="contains(@class, $CS_TITLE)"/>
     </xsl:template>
 
@@ -170,7 +224,7 @@
     <!-- 
         Testing an element class
     -->
-    <xsl:template match="*" mode="eclass">
+    <xsl:template match="*" mode="eclass" as="xs:boolean">
 
         <xsl:param name="class"/>
 
@@ -186,7 +240,7 @@
     <!-- 
         Detecting an element output class 
     -->
-    <xsl:template match="*" mode="oclass">
+    <xsl:template match="*" mode="oclass" as="xs:string">
 
         <!-- 
             * represents a DITA element or a FO element.
@@ -195,11 +249,13 @@
         <xsl:choose>
             <xsl:when test="@outputclass">
                 <xsl:value-of select="@outputclass"/>
-            </xsl:when>                        
+            </xsl:when>
             <xsl:when test="cpm:fo.is_fo(.)">
                 <xsl:value-of select="cpm:fo.oclass(.)"/>
-            </xsl:when>           
-            <xsl:otherwise/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text/>
+            </xsl:otherwise>
         </xsl:choose>
 
     </xsl:template>
@@ -208,7 +264,7 @@
     <!-- 
         Detecting the most specific element class
     -->
-    <xsl:template match="*" mode="sclass">
+    <xsl:template match="*" mode="sclass" as="xs:string">
         <xsl:value-of select="cpm:dita.sclass(.)"/>
     </xsl:template>
 
@@ -433,6 +489,11 @@
         </fo:block>
     </xsl:template>
 
+    <!-- Calculating a column number -->
+    <xsl:template match="*" mode="colpos">
+        <xsl:value-of select="cpm:dita.colpos(.)"/>
+    </xsl:template>
+    
     <!-- Detecting elements that are nested into a table -->
     <xsl:template match="*" mode="in_table" as="xs:boolean">
 
@@ -444,7 +505,7 @@
         <xsl:choose>
             <xsl:when test="cpm:fo.is_fo(.)">
                 <xsl:value-of select="@role = 'table'"/>
-            </xsl:when>           
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="cpm:dita.in_table(.)"/>
             </xsl:otherwise>

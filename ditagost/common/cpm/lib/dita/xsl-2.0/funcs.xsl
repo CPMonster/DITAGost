@@ -128,24 +128,11 @@
 
     <!-- ======== -->
     <!--  Tables  -->
-    <!-- ======== -->
+    <!-- ======== -->    
 
     <xsl:function name="cpm:dita.in_table" as="xs:boolean">
         <xsl:param name="element"/>
-        <xsl:value-of select="false()"/>
-        <!--
-        <xsl:variable name="tmp">
-            <xsl:apply-templates select="$element" mode="cpm.dita.in_table"/>
-        </xsl:variable>
-        <xsl:choose>
-            <xsl:when test="$tmp castable as xs:boolean">
-                <xsl:value-of select="boolean($tmp)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="false()"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        -->
+        <xsl:apply-templates select="$element" mode="cpm.dita.in_table"/>
     </xsl:function>
 
 

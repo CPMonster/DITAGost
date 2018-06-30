@@ -1205,6 +1205,8 @@
     <!-- 
         Output class
     -->
+    
+    <!-- Detecting an output class value -->
     <xsl:function name="cpm:oclass">
 
         <!-- 
@@ -1224,6 +1226,16 @@
         <xsl:apply-templates select="$element" mode="oclass"/>
 
     </xsl:function>
+    
+   <!-- Detecting elements having empty output class -->
+    <xsl:function name="cpm:noclass" as="xs:boolean">
+
+        <xsl:param name="element"/>
+                                                    
+        <xsl:value-of select="cpm:oclass($element)=''"/>
+
+    </xsl:function>
+
 
     <!-- 
         FO element name for a source element
@@ -1238,16 +1250,57 @@
     
     
     <!-- 
-        Detecting elements that are nested into a table
-    -->        
-    
-    <xsl:function name="cpm:in_table" as="xs:boolean">
-        
-        <xsl:param name="element"/>
-                                
-        <xsl:apply-templates select="$element" mode="in_table"/>        
-        
+        Detecting elements that are nested into an appendix
+    -->
+    <xsl:function name="cpm:in_appendix" as="xs:boolean">        
+        <xsl:param name="element"/>        
+        <xsl:apply-templates select="$element" mode="in_appendix"/>                
     </xsl:function>
+    
+    
+    <!--
+        Detecting elements nested into listitems
+    -->
+    <xsl:function name="cpm:in_list" as="xs:boolean">
+        <xsl:param name="element"/>        
+        <xsl:apply-templates select="$element" mode="in_list"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Detecting elements that are nested into a table
+    -->            
+    <xsl:function name="cpm:in_table" as="xs:boolean">        
+        <xsl:param name="element"/>                                
+        <xsl:apply-templates select="$element" mode="in_table"/>                
+    </xsl:function>
+    
+    
+    <!--
+        Detecting an element that has no any specific nesting
+    -->
+    <xsl:function name="cpm:is_normal" as="xs:boolean">
+        <xsl:param name="element"/>        
+        <xsl:apply-templates select="$element" mode="is_normal"/>                  
+    </xsl:function>
+    
+    <xsl:template match="*" mode="colclass"/>
+    
+    <xsl:function name="cpm:colclass">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="colclass"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:colpos">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="colpos"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:rowclass">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="rowclass"/>
+    </xsl:function>
+    
     
 
 </xsl:stylesheet>

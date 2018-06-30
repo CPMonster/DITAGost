@@ -556,8 +556,10 @@
                  mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
    </xsl:template>
-   <xsl:template match="*[cpm:eclass(., 'topic/body')]//p[not(@outputclass) and not(ancestor::entry)]"
-                 mode="cpm.fastcust.foname">
+   <xsl:template match="p[cpm:noclass(.) and cpm:is_normal(.)]" mode="cpm.fastcust.foname">
+      <xsl:text>fo:block</xsl:text>
+   </xsl:template>
+   <xsl:template match="p[cpm:in_table(.)]" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
    </xsl:template>
    <xsl:template match="section/title" mode="cpm.fastcust.foname">
@@ -578,7 +580,7 @@
    <xsl:template match="thead/row" mode="cpm.fastcust.foname">
       <xsl:value-of select="name()"/>
    </xsl:template>
-   <xsl:template match="table[not(@outputclass)]//entry" mode="cpm.fastcust.foname">
+   <xsl:template match="table[cpm:noclass(.)]//entry" mode="cpm.fastcust.foname">
       <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="fig" mode="cpm.fastcust.foname">
@@ -599,40 +601,40 @@
    <xsl:template match="fig/p" mode="cpm.fastcust.foname">
       <xsl:text/>
    </xsl:template>
-   <xsl:template match="fo:list-item-label/fo:block[not(@role)]" mode="cpm.fastcust.foname">
+   <xsl:template match="fo:list-item-label/fo:block[cpm:noclass(.)]" mode="cpm.fastcust.foname">
       <xsl:value-of select="name()"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and not(@role)]"
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and cpm:noclass(.)]"
                  mode="cpm.fastcust.foname">
       <xsl:value-of select="name()"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and not(@role)]"
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and cpm:noclass(.)]"
                  mode="cpm.fastcust.foname">
       <xsl:value-of select="name()"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and not(@role)]"
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and cpm:noclass(.)]"
                  mode="cpm.fastcust.foname">
       <xsl:value-of select="name()"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-label/fo:block[@role='table']" mode="cpm.fastcust.foname">
+   <xsl:template match="fo:list-item-label/fo:block[cpm:in_table(.)]" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and @role='table']"
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and cpm:in_table(.)]"
                  mode="cpm.fastcust.foname">
       <xsl:value-of select="name()"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and @role='table']"
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and cpm:in_table(.)]"
                  mode="cpm.fastcust.foname">
       <xsl:value-of select="name()"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and @role='table']"
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and cpm:in_table(.)]"
                  mode="cpm.fastcust.foname">
       <xsl:value-of select="name()"/>
    </xsl:template>
    <xsl:template match="ul" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
    </xsl:template>
-   <xsl:template match="ul[ancestor::li]|ul[ancestor::entry]" mode="cpm.fastcust.foname">
+   <xsl:template match="ul[ancestor::li]|ul[cpm:in_table(.)]" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
    </xsl:template>
    <xsl:template match="ul/li[not(ancestor::li) and position()=1]" mode="cpm.fastcust.foname">
@@ -644,7 +646,7 @@
    <xsl:template match="ol" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
    </xsl:template>
-   <xsl:template match="ol[ancestor::li]|ol[ancestor::entry]" mode="cpm.fastcust.foname">
+   <xsl:template match="ol[ancestor::li]|ol[cpm:in_table(.)]" mode="cpm.fastcust.foname">
       <xsl:text>fo:block</xsl:text>
    </xsl:template>
    <xsl:template match="ol/li[not(ancestor::li) and position()=1]" mode="cpm.fastcust.foname">
@@ -1669,8 +1671,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   <xsl:template match="*[cpm:eclass(., 'topic/body')]//p[not(@outputclass) and not(ancestor::entry)]"
-                 mode="cpm.fastcust.foxml">
+   <xsl:template match="p[cpm:noclass(.) and cpm:is_normal(.)]" mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
       <xsl:choose>
@@ -1690,6 +1691,33 @@
                   <xsl:value-of select="name()"/>
                   <xsl:text>/</xsl:text>
                   <xsl:text>Основной</xsl:text>
+               </xsl:attribute>
+               <xsl:apply-templates select="." mode="foattrs"/>
+               <xsl:copy-of select="$foinner"/>
+            </xsl:element>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+   <xsl:template match="p[cpm:in_table(.)]" mode="cpm.fastcust.foxml">
+      <xsl:param name="foinner"/>
+      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
+      <xsl:choose>
+         <xsl:when test="$foname=''"/>
+         <xsl:when test="$foname='cpm:none'">
+            <xsl:copy-of select="$foinner"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:element name="{$foname}" use-attribute-sets="Vnutrennii_blok_teksta">
+               <xsl:attribute name="id">
+                  <xsl:value-of select="cpm:fastcust.id(.)"/>
+               </xsl:attribute>
+               <xsl:attribute name="language">
+                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
+               </xsl:attribute>
+               <xsl:attribute name="role">
+                  <xsl:value-of select="name()"/>
+                  <xsl:text>/</xsl:text>
+                  <xsl:text>Внутренний блок текста</xsl:text>
                </xsl:attribute>
                <xsl:apply-templates select="." mode="foattrs"/>
                <xsl:copy-of select="$foinner"/>
@@ -1859,7 +1887,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   <xsl:template match="table[not(@outputclass)]//entry" mode="cpm.fastcust.foxml">
+   <xsl:template match="table[cpm:noclass(.)]//entry" mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
       <xsl:choose>
@@ -2048,7 +2076,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   <xsl:template match="fo:list-item-label/fo:block[not(@role)]" mode="cpm.fastcust.foxml">
+   <xsl:template match="fo:list-item-label/fo:block[cpm:noclass(.)]" mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
       <xsl:choose>
@@ -2075,7 +2103,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and not(@role)]"
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and cpm:noclass(.)]"
                  mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
@@ -2103,7 +2131,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and not(@role)]"
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and cpm:noclass(.)]"
                  mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
@@ -2131,7 +2159,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and not(@role)]"
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and cpm:noclass(.)]"
                  mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
@@ -2159,7 +2187,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   <xsl:template match="fo:list-item-label/fo:block[@role='table']" mode="cpm.fastcust.foxml">
+   <xsl:template match="fo:list-item-label/fo:block[cpm:in_table(.)]" mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
       <xsl:choose>
@@ -2186,7 +2214,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and @role='table']"
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and cpm:in_table(.)]"
                  mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
@@ -2214,7 +2242,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and @role='table']"
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and cpm:in_table(.)]"
                  mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
@@ -2242,7 +2270,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and @role='table']"
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and cpm:in_table(.)]"
                  mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
@@ -2297,7 +2325,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   <xsl:template match="ul[ancestor::li]|ul[ancestor::entry]" mode="cpm.fastcust.foxml">
+   <xsl:template match="ul[ancestor::li]|ul[cpm:in_table(.)]" mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
       <xsl:choose>
@@ -2405,7 +2433,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   <xsl:template match="ol[ancestor::li]|ol[ancestor::entry]" mode="cpm.fastcust.foxml">
+   <xsl:template match="ol[ancestor::li]|ol[cpm:in_table(.)]" mode="cpm.fastcust.foxml">
       <xsl:param name="foinner"/>
       <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
       <xsl:choose>
@@ -3234,13 +3262,13 @@
    <xsl:template match="*[cpm:sectype(.)='appendix']//fig/title" mode="cpm.fastcust.numseqname">
       <xsl:text>Рисунки в приложении</xsl:text>
    </xsl:template>
-   <xsl:template match="ul[ancestor::li]|ul[ancestor::entry]" mode="cpm.fastcust.numseqname">
+   <xsl:template match="ul[ancestor::li]|ul[cpm:in_table(.)]" mode="cpm.fastcust.numseqname">
       <xsl:text>Блок списка</xsl:text>
    </xsl:template>
    <xsl:template match="ol" mode="cpm.fastcust.numseqname">
       <xsl:text>Блок списка</xsl:text>
    </xsl:template>
-   <xsl:template match="ol[ancestor::li]|ol[ancestor::entry]" mode="cpm.fastcust.numseqname">
+   <xsl:template match="ol[ancestor::li]|ol[cpm:in_table(.)]" mode="cpm.fastcust.numseqname">
       <xsl:text>Блок списка</xsl:text>
    </xsl:template>
    <xsl:template match="ol/li[not(ancestor::li) and position()=1]"
@@ -3451,7 +3479,7 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="ul[ancestor::li]|ul[ancestor::entry]" mode="cpm.fastcust.numseq">
+   <xsl:template match="ul[ancestor::li]|ul[cpm:in_table(.)]" mode="cpm.fastcust.numseq">
       <xsl:variable name="numseqname">
          <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
       </xsl:variable>
@@ -3471,7 +3499,7 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="ol[ancestor::li]|ol[ancestor::entry]" mode="cpm.fastcust.numseq">
+   <xsl:template match="ol[ancestor::li]|ol[cpm:in_table(.)]" mode="cpm.fastcust.numseq">
       <xsl:variable name="numseqname">
          <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
       </xsl:variable>
