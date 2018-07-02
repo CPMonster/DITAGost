@@ -142,15 +142,15 @@
         </xsl:choose>
 
     </xsl:template>
-    
-    
+
+
     <!-- 
         Detecting if an element belongs to backmatter
     -->
     <xsl:template match="*" mode="is_backmatter" as="xs:boolean">
         <xsl:value-of select="cpm:dita.is_backmatter(.)"/>
     </xsl:template>
-    
+
 
     <!-- 
         Detecting if an element belongs to frontmatter
@@ -158,13 +158,13 @@
     <xsl:template match="*" mode="is_frontmatter" as="xs:boolean">
         <xsl:value-of select="cpm:dita.is_frontmatter(.)"/>
     </xsl:template>
-    
-    
+
+
     <!-- 
         Detecting elements nested into lists
     -->
     <xsl:template match="*" mode="in_list" as="xs:boolean">
-        
+
         <xsl:choose>
             <xsl:when test="ancestor::*[cpm:eclass(., 'topic/li')]">
                 <xsl:value-of select="true()"/>
@@ -173,7 +173,7 @@
                 <xsl:value-of select="false()"/>
             </xsl:otherwise>
         </xsl:choose>
-        
+
     </xsl:template>
 
 
@@ -203,8 +203,8 @@
     <xsl:template match="*" mode="is_section" as="xs:boolean">
         <xsl:value-of select="cpm:dita.is_topic(.)"/>
     </xsl:template>
-    
-    
+
+
     <!-- 
         Detecting if an element is a title
     -->
@@ -493,7 +493,7 @@
     <xsl:template match="*" mode="colpos">
         <xsl:value-of select="cpm:dita.colpos(.)"/>
     </xsl:template>
-    
+
     <!-- Detecting elements that are nested into a table -->
     <xsl:template match="*" mode="in_table" as="xs:boolean">
 
@@ -512,6 +512,30 @@
         </xsl:choose>
 
     </xsl:template>
+
+
+    <xsl:function name="cpm:colcap">
+        
+        <!-- A cell or an element nested into a cell -->
+        <xsl:param name="element"/>               
+        
+        <xsl:value-of select="cpm:dita.colcap($element)"/>
+        
+    </xsl:function>
+    
+    
+
+    <xsl:function name="cpm:is_colcap" as="xs:boolean">
+
+        <!-- A cell or an element nested into a cell -->
+        <xsl:param name="element"/>
+
+        <!-- A list of aliases -->
+        <xsl:param name="aliases"/>
+
+        <xsl:value-of select="cpm:dita.is_colcap($element, $aliases)"/>
+
+    </xsl:function>
 
 
 

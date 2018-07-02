@@ -25,6 +25,7 @@
     <xsl:import href="../../common/xsl-2.0/props.xsl"/>
 
 
+
     <!-- ====== -->
     <!--  i18n  -->
     <!-- ====== -->
@@ -43,7 +44,7 @@
     <!-- 
         Calculating an index of element among its siblings by its hashtag
     -->
-    <xsl:function name="cpm:dita.index">
+    <xsl:function name="cpm:dita.index" as="xs:integer">
 
         <!-- An element containing a target element-->
         <xsl:param name="parent"/>
@@ -130,9 +131,157 @@
     <!--  Tables  -->
     <!-- ======== -->    
 
+    <xsl:function name="cpm:dita.is_table" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_table"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_tgroup" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_tgroup"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_thead" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_thead"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_tbody" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_tbody"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_tfoot" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_tfoot"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_row" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_row"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_entry" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_entry"/>
+    </xsl:function>
+
     <xsl:function name="cpm:dita.in_table" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="cpm.dita.in_table"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.colpos" as="xs:integer">
+        
+        <!-- A tgroup element -->
+        <xsl:param name="tgroup"/>
+        
+        <!-- A column name -->
+        <xsl:param name="colname"/>
+        
+        <xsl:apply-templates select="$tgroup">
+            <xsl:with-param name="colname" select="$colname"/>
+        </xsl:apply-templates>
+        
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.colspans" as="xs:integer">
+        
+        <!-- An entry element -->
+        <xsl:param name="entry"/>
+        
+        <xsl:apply-templates select="$entry" mode="cpm.dita.colspans"/>
+        
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.colpos" as="xs:integer">
+        
+        <!-- An entry element or an element nested into an entry -->
+        <xsl:param name="element"/>
+        
+        <xsl:apply-templates select="$element" mode="cpm.dita.colpos"/>
+        
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.rowcol">
+        
+        <!-- A table element or any child of a table -->
+        <xsl:param name="element"/>
+        
+        <!-- A row alias list -->
+        <xsl:param name="row_aliases"/>
+        
+        <!-- A column alias list -->
+        <xsl:param name="col_aliases"/>
+        
+        <!-- A column headings row (a copy is allowed) -->
+        <xsl:param name="headings"/>
+        
+        <!-- A leading column alias list -->
+        <xsl:param name="leading_col_aliases"/>
+                        
+        <!-- Retrieving a value -->
+        <xsl:apply-templates select="$element" mode="cpm.dita.rowcol">
+            <xsl:with-param name="row_aliases" select="$row_aliases"/>
+            <xsl:with-param name="col_aliases" select="$col_aliases"/>
+            <xsl:with-param name="headings" select="$headings"/>
+            <xsl:with-param name="leading_col_aliases" select="$leading_col_aliases"/>
+        </xsl:apply-templates>
+        
+    </xsl:function>
+        
+    <xsl:function name="cpm:dita.rowcol">
+        
+        <!-- A table element or any child of a table -->
+        <xsl:param name="element"/>
+        
+        <!-- A row alias list, e.g. "Cats;Dogs;Rabbits" -->
+        <xsl:param name="row_aliases"/>
+        
+        <!-- A column alias list, e.g. "Item;Price;Total" -->
+        <xsl:param name="col_aliases"/>
+        
+        <!-- A leading column alias list, e.g. "Item;Animal" -->
+        <xsl:param name="leading_col_aliases"/>
+        
+        <!-- Retrieving an ID of a column headings row -->
+        <xsl:variable name="heading_row_id">
+            <xsl:apply-templates select="$element" mode="cpm.dita.headings_id"/>            
+        </xsl:variable>
+        
+        <!-- Calling a function that receives an explicit column headings row -->
+        <xsl:value-of
+            select="
+            cpm:dita.rowcol(
+            $element,
+            $row_aliases,
+            $col_aliases,
+            root($element)//*[generate-id() = $heading_row_id],
+            $leading_col_aliases)"/>
+        
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.colcap">
+        
+        <!-- A table entry or an element nested into a table entry -->
+        <xsl:param name="element"/>
+        
+        <xsl:apply-templates select="$element" mode="cpm.dita.colcap"/>
+        
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.match_colcap" as="xs:boolean">
+        
+        <!-- A table entry or an element nested into a table entry -->
+        <xsl:param name="element"/>
+        
+        <!-- An alias list -->
+        <xsl:param name="aliases"/>
+        
+        <xsl:apply-templates select="$element" mode="cpm.dita.match_colcap">
+            <xsl:with-param name="aliases" select="$aliases"/>
+        </xsl:apply-templates>
+        
     </xsl:function>
 
 
