@@ -103,7 +103,7 @@
     <xsl:function name="cpm:dita.is_topic" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="cpm.dita.is_topic"/>
-    </xsl:function>
+    </xsl:function>        
 
     <xsl:function name="cpm:dita.is_appendix" as="xs:boolean">
         <xsl:param name="element"/>
@@ -120,11 +120,78 @@
         <xsl:apply-templates select="$element" mode="cpm.dita.is_backmatter"/>
     </xsl:function>
 
+
+
+    <!-- =============================== -->
+    <!--  Detecting core topic elements  -->
+    <!-- =============================== -->
+    
+    <xsl:function name="cpm:dita.is_body" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_body"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_section" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_section"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_div" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_div"/>
+    </xsl:function>
+    
     <xsl:function name="cpm:dita.is_title" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="cpm.dita.is_title"/>
     </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_p" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_p"/>
+    </xsl:function>
+        
+    <xsl:function name="cpm:dita.is_note" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_note"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_fig" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_fig"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_image" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_image"/>
+    </xsl:function>
 
+
+
+    <!-- ======= -->
+    <!--  Lists  -->
+    <!-- ======= -->  
+
+    <xsl:function name="cpm:dita.is_ul" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_ul"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_ol" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_ol"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_li" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_li"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.in_list" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.in_list"/>
+    </xsl:function>
+    
 
 
     <!-- ======== -->
@@ -144,6 +211,11 @@
     <xsl:function name="cpm:dita.is_thead" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="cpm.dita.is_thead"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_colspec" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_colspec"/>
     </xsl:function>
     
     <xsl:function name="cpm:dita.is_tbody" as="xs:boolean">
@@ -282,6 +354,11 @@
             <xsl:with-param name="aliases" select="$aliases"/>
         </xsl:apply-templates>
         
+    </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_inline" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_inline"/>
     </xsl:function>
 
 

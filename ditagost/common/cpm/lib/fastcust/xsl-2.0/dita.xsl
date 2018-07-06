@@ -52,69 +52,6 @@
 
 
 
-    <!-- =========== -->
-    <!--  Constants  -->
-    <!-- =========== -->
-
-    <!-- 
-        Class signatures
-    -->
-
-    <!-- Topics -->
-    <xsl:variable name="CS_TOPIC" select="'topic/topic'"/>
-
-    <!-- Bodies -->
-    <xsl:variable name="CS_BODY" select="'topic/body'"/>
-
-    <!-- Titles -->
-    <xsl:variable name="CS_TITLE" select="'topic/title'"/>
-
-    <!-- Sections -->
-    <xsl:variable name="CS_SECTION" select="'topic/section'"/>
-
-    <!-- Paragraps -->
-    <xsl:variable name="CS_P" select="'topic/p '"/>
-
-    <!-- Phrases -->
-    <xsl:variable name="CS_PH" select="'topic/ph '"/>
-
-    <!-- Unordered lists -->
-    <xsl:variable name="CS_UL" select="'topic/ul '"/>
-
-    <!-- Ordered lists -->
-    <xsl:variable name="CS_OL" select="'topic/ol '"/>
-
-    <!-- List items -->
-    <xsl:variable name="CS_LI" select="'topic/li '"/>
-
-    <!-- Steps -->
-    <xsl:variable name="CS_STEPS" select="'task/steps '"/>
-
-    <!-- A step -->
-    <xsl:variable name="CS_STEP" select="'task/step '"/>
-
-    <!-- Info, etc. -->
-    <xsl:variable name="CS_ITEMGROUP" select="'topic/itemgroup'"/>
-
-    <!-- Note -->
-    <xsl:variable name="CS_NOTE" select="'topic/note'"/>
-
-    <!-- Tables -->
-    <xsl:variable name="CS_TABLE" select="'topic/table'"/>
-    <xsl:variable name="CS_TGROUP" select="'topic/tgroup'"/>
-    <xsl:variable name="CS_COLSPEC" select="'topic/colspec'"/>
-    <xsl:variable name="CS_THEAD" select="'topic/thead'"/>
-    <xsl:variable name="CS_TBODY" select="'topic/tbody'"/>
-    <xsl:variable name="CS_TFOOT" select="'topic/tfoot'"/>
-    <xsl:variable name="CS_ROW" select="'topic/row'"/>
-    <xsl:variable name="CS_ENTRY" select="'topic/entry'"/>
-
-    <!-- Figures, Images -->
-    <xsl:variable name="CS_IMAGE" select="'topic/image'"/>
-    <xsl:variable name="CS_FIG" select="'topic/fig'"/>
-
-
-
     <!-- ========= -->
     <!--  Queries  -->
     <!-- ========= -->
@@ -164,16 +101,7 @@
         Detecting elements nested into lists
     -->
     <xsl:template match="*" mode="in_list" as="xs:boolean">
-
-        <xsl:choose>
-            <xsl:when test="ancestor::*[cpm:eclass(., 'topic/li')]">
-                <xsl:value-of select="true()"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="false()"/>
-            </xsl:otherwise>
-        </xsl:choose>
-
+        <xsl:value-of select="cpm:dita.in_list(.)"/>
     </xsl:template>
 
 
@@ -209,7 +137,7 @@
         Detecting if an element is a title
     -->
     <xsl:template match="*" mode="is_title" as="xs:boolean">
-        <xsl:value-of select="contains(@class, $CS_TITLE)"/>
+        <xsl:value-of select="cpm:dita.is_title(.)"/>
     </xsl:template>
 
 
@@ -321,7 +249,7 @@
     <!-- 
         Body elements 
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/body')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_body(.)]" mode="foname">
         <xsl:text>fo:block</xsl:text>
     </xsl:template>
 
@@ -337,7 +265,15 @@
     <!-- 
         Local sections 
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/section')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_section(.)]" mode="foname">
+        <xsl:text>fo:block</xsl:text>
+    </xsl:template>
+
+
+    <!-- 
+        div elements 
+    -->
+    <xsl:template match="*[cpm:dita.is_div(.)]" mode="foname">
         <xsl:text>fo:block</xsl:text>
     </xsl:template>
 
@@ -363,7 +299,7 @@
     <!-- 
         A paragraph 
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/p')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_p(.)]" mode="foname">
         <xsl:text>fo:block</xsl:text>
     </xsl:template>
 
@@ -376,7 +312,7 @@
     <!-- 
         An entire table 
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/table')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_table(.)]" mode="foname">
         <xsl:text>fo:block</xsl:text>
     </xsl:template>
 
@@ -384,7 +320,7 @@
     <!-- 
         A tgroup element
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/tgroup')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_tgroup(.)]" mode="foname">
         <xsl:text>fo:table</xsl:text>
     </xsl:template>
 
@@ -394,15 +330,16 @@
     -->
 
     <!-- Choosing a FO element -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/colspec')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_colspec(.)]" mode="foname">
         <xsl:text>fo:table-column</xsl:text>
     </xsl:template>
 
     <!-- Creating attributes -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/colspec')]" mode="foattrs">
+    <xsl:template match="*[cpm:dita.is_colspec(.)]" mode="foattrs">
         <xsl:if test="@colwidth">
             <xsl:variable name="total">
-                <xsl:value-of select="sum(../colspec/cpm:typo.get_value(@colwidth))"/>
+                <xsl:value-of
+                    select="sum(../*[cpm:dita.is_colspec(.)]/cpm:typo.get_value(@colwidth))"/>
             </xsl:variable>
             <xsl:variable name="width">
                 <xsl:value-of select="cpm:typo.get_value(@colwidth)"/>
@@ -418,7 +355,7 @@
     <!-- 
         A table header
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/thead')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_thead(.)]" mode="foname">
         <xsl:text>fo:table-header</xsl:text>
     </xsl:template>
 
@@ -426,7 +363,7 @@
     <!-- 
         A table body
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/tbody')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_tbody(.)]" mode="foname">
         <xsl:text>fo:table-body</xsl:text>
     </xsl:template>
 
@@ -434,7 +371,7 @@
     <!-- 
         A table footer
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/tfooter')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_tfoot(.)]" mode="foname">
         <xsl:text>fo:table-footer</xsl:text>
     </xsl:template>
 
@@ -442,7 +379,7 @@
     <!-- 
         A table row
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/row')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_row(.)]" mode="foname">
         <xsl:text>fo:table-row</xsl:text>
     </xsl:template>
 
@@ -452,12 +389,12 @@
     -->
 
     <!-- Choosing a FO element -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/entry')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_entry(.)]" mode="foname">
         <xsl:text>fo:table-cell</xsl:text>
     </xsl:template>
 
     <!-- Creating attributes -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/entry')]" mode="foattrs">
+    <xsl:template match="*[cpm:dita.is_entry(.)]" mode="foattrs">
 
         <!-- Number of rows a call spans over -->
         <xsl:if test="@morerows">
@@ -480,7 +417,7 @@
     </xsl:template>
 
     <!-- Wrapping cell content into a block -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/entry')]" mode="foinner">
+    <xsl:template match="*[cpm:dita.is_entry(.)]" mode="foinner">
         <fo:block>
             <xsl:if test="normalize-space(.) = ''">
                 <xsl:text>&#160;</xsl:text>
@@ -515,17 +452,17 @@
 
 
     <xsl:function name="cpm:colcap">
-        
-        <!-- A cell or an element nested into a cell -->
-        <xsl:param name="element"/>               
-        
-        <xsl:value-of select="cpm:dita.colcap($element)"/>
-        
-    </xsl:function>
-    
-    
 
-    <xsl:function name="cpm:is_colcap" as="xs:boolean">
+        <!-- A cell or an element nested into a cell -->
+        <xsl:param name="element"/>
+
+        <xsl:value-of select="cpm:dita.colcap($element)"/>
+
+    </xsl:function>
+
+
+
+    <xsl:function name="cpm:match_colcap" as="xs:boolean">
 
         <!-- A cell or an element nested into a cell -->
         <xsl:param name="element"/>
@@ -533,7 +470,7 @@
         <!-- A list of aliases -->
         <xsl:param name="aliases"/>
 
-        <xsl:value-of select="cpm:dita.is_colcap($element, $aliases)"/>
+        <xsl:value-of select="cpm:dita.match_colcap($element, $aliases)"/>
 
     </xsl:function>
 
@@ -546,7 +483,7 @@
     <!-- 
         Choosing a FO element 
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/note')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_note(.)]" mode="foname">
         <xsl:text>fo:block</xsl:text>
     </xsl:template>
 
@@ -559,7 +496,7 @@
     <!--
         Choosing a FO element name for a list item
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/li')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_li(.)]" mode="foname">
         <xsl:text>fo:list-item</xsl:text>
     </xsl:template>
 
@@ -567,15 +504,15 @@
     <!-- 
         Assigning a numbering level to a list item
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/li')]" mode="numlevel">
-        <xsl:value-of select="count(ancestor::*[cpm:dita.eclass(., 'topic/li')]) + 1"/>
+    <xsl:template match="*[cpm:dita.is_li(.)]" mode="numlevel">
+        <xsl:value-of select="count(ancestor::*[cpm:dita.is_li(.)]) + 1"/>
     </xsl:template>
 
 
     <!-- 
         Assembling inner FO for a list item
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/li')]" mode="foinner">
+    <xsl:template match="*[cpm:dita.is_li(.)]" mode="foinner">
 
         <!-- Assembling a label for an list item -->
         <xsl:variable name="label">
@@ -631,7 +568,7 @@
     <!-- 
         Choosing a FO element name for an unsorted list
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/ul')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_ul(.)]" mode="foname">
         <xsl:text>fo:list-block</xsl:text>
     </xsl:template>
 
@@ -639,8 +576,7 @@
     <!-- 
         Assembling a default marker for an item of an unsorted list 
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/ul')]/*[cpm:dita.eclass(., 'topic/li')]"
-        mode="fomarker">
+    <xsl:template match="*[cpm:dita.is_ul(.)]/*[cpm:dita.is_li(.)]" mode="fomarker">
         <xsl:text>–</xsl:text>
     </xsl:template>
 
@@ -653,7 +589,7 @@
     <!-- 
         Choosing a FO element name for an ordered list 
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/ol')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_ol(.)]" mode="foname">
         <xsl:text>fo:list-block</xsl:text>
     </xsl:template>
 
@@ -661,8 +597,7 @@
     <!-- 
         Assembling a number for a list item 
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/ol')]/*[cpm:dita.eclass(., 'topic/li')]"
-        mode="fomarker">
+    <xsl:template match="*[cpm:dita.is_ol(.)]/*[cpm:dita.is_li(.)]" mode="fomarker">
         <xsl:value-of select="cpm:fastcust.full_number(.)"/>
     </xsl:template>
 
@@ -675,7 +610,7 @@
     <!-- 
         Assembling inner FO for a figure
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/fig')]" mode="foinner">
+    <xsl:template match="*[cpm:dita.is_fig(.)]" mode="foinner">
 
         <!-- Assembling a block wrapper for an image -->
         <xsl:variable name="body">
@@ -683,7 +618,7 @@
                 <xsl:attribute name="xtrf">
                     <xsl:value-of select="ancestor::*[not(parent::*)]/@xtrf"/>
                 </xsl:attribute>
-                <xsl:apply-templates select="*[cpm:dita.eclass(., 'topic/image')]" mode="foxml"/>
+                <xsl:apply-templates select="*[cpm:dita.is_image(.)]" mode="foxml"/>
             </fo:block>
         </xsl:variable>
 
@@ -700,7 +635,7 @@
 
 
     <!-- Assembling attributes -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/image')]" mode="foattrs">
+    <xsl:template match="*[cpm:dita.is_image(.)]" mode="foattrs">
 
         <xsl:if test="@width">
             <xsl:attribute name="content-width">
@@ -727,83 +662,12 @@
     <!-- 
         Phrases: apiname, b, i, etc. 
     -->
-    <xsl:template match="*[cpm:dita.eclass(., 'topic/ph')]" mode="foname">
+    <xsl:template match="*[cpm:dita.is_inline(.)]" mode="foname">
         <xsl:text>fo:inline</xsl:text>
     </xsl:template>
 
 
-    <!-- 
-        Assigning a class attribute to an element
-    -->
-    <xsl:template match="*" mode="cpm.fastcust.dita.assign_class">
-
-        <!-- A value we are going to assign to a @class attribute -->
-        <xsl:param name="ditaclass"/>
-
-        <xsl:copy>
-
-            <xsl:copy-of select="@* except @class"/>
-
-            <xsl:attribute name="class">
-                <xsl:value-of select="$ditaclass"/>
-            </xsl:attribute>
-
-            <xsl:copy-of select="node()"/>
-
-        </xsl:copy>
-
-    </xsl:template>
-
-
-    <!-- 
-        Assigning a class attribute topic/topic to an element
-    -->
-    <xsl:template match="*" mode="cpm.fastcust.dita.assign_class_topic">
-
-        <xsl:apply-templates select="." mode="cpm.fastcust.dita.assign_class">
-            <xsl:with-param name="ditaclass" select="$CS_TOPIC"/>
-        </xsl:apply-templates>
-
-    </xsl:template>
-
-
-    <!-- 
-        Assigning a class attribute topic/title to an element
-    -->
-    <xsl:template match="*" mode="cpm.fastcust.dita.assign_class_title">
-
-        <xsl:apply-templates select="." mode="cpm.fastcust.dita.assign_class">
-            <xsl:with-param name="ditaclass" select="$CS_TITLE"/>
-        </xsl:apply-templates>
-
-    </xsl:template>
-
-
-    <!-- 
-        Assigning a class attribute topic/fig to an element
-    -->
-    <xsl:template match="*" mode="cpm.fastcust.dita.assign_class_fig">
-
-        <xsl:apply-templates select="." mode="cpm.fastcust.dita.assign_class">
-            <xsl:with-param name="ditaclass" select="$CS_FIG"/>
-        </xsl:apply-templates>
-
-    </xsl:template>
-
-
-    <!-- 
-        Assigning a class attribute topic/image to an element
-    -->
-    <xsl:template match="*" mode="cpm.fastcust.dita.assign_class_image">
-
-        <xsl:apply-templates select="." mode="cpm.fastcust.dita.assign_class">
-            <xsl:with-param name="ditaclass" select="$CS_IMAGE"/>
-        </xsl:apply-templates>
-
-    </xsl:template>
-
-
-
+    
     <!-- ================== -->
     <!--  Cross references  -->
     <!-- ================== -->

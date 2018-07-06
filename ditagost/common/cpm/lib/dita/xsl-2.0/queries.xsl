@@ -24,6 +24,7 @@
     <xsl:import href="queries-basics.xsl"/>
     <xsl:import href="queries-topics.xsl"/>
     <xsl:import href="queries-maps.xsl"/>
+    <xsl:import href="queries-lists.xsl"/>
     <xsl:import href="queries-tables.xsl"/>
 
 </xsl:stylesheet>

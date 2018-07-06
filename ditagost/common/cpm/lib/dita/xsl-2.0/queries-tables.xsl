@@ -15,27 +15,8 @@
 <!-- * * ** *** ***** ******** ************* ********************* -->   
 
 <!DOCTYPE stylesheet [
-    <!ENTITY DITA_CLASS_TABLE   "'topic/table'">
-    <!ENTITY DITA_CLASS_TGROUP  "'topic/tgroup'">
-    <!ENTITY DITA_CLASS_THEAD   "'topic/thead'">
-    <!ENTITY DITA_CLASS_TBODY   "'topic/tbody'">
-    <!ENTITY DITA_CLASS_TFOOT   "'topic/tfoot'">
-    <!ENTITY DITA_CLASS_ROW     "'topic/row'">
-    <!ENTITY DITA_CLASS_ENTRY   "'topic/entry'">
-    
-    <!ENTITY DITA_TABLE         "*[cpm:dita.is_table(.)]">
-    <!ENTITY DITA_TGROUP        "*[cpm:dita.is_tgroup(.)]">    
-    <!ENTITY DITA_THEAD         "*[cpm:dita.is_thead(.)]">
-    <!ENTITY DITA_TBODY         "*[cpm:dita.is_tbody(.)]">
-    <!ENTITY DITA_TFOOT         "*[cpm:dita.is_tfoot(.)]">
-    <!ENTITY DITA_ROW           "*[cpm:dita.is_row(.)]">
-    <!ENTITY DITA_ENTRY         "*[cpm:dita.is_entry(.)]">
-    <!ENTITY DITA_NOT_ENTRY     "*[not(cpm:dita.is_entry(.))]">   
-    
-    <!ENTITY DITA_MY_TGROUP     "ancestor-or-self::&DITA_TGROUP;">
-    <!ENTITY DITA_MY_THEAD      "ancestor-or-self::&DITA_TGROUP;/&DITA_THEAD;">
-    <!ENTITY DITA_MY_TBODY      "ancestor-or-self::&DITA_TGROUP;/&DITA_TBODY;">
-    <!ENTITY DITA_MY_ENTRY      "ancestor-or-self::&DITA_ENTRY;">
+   <!ENTITY % defs SYSTEM "../dtd/classdefs.ent">    
+   %defs;
 ]>
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -64,6 +45,10 @@
 
     <xsl:template match="*" mode="cpm.dita.is_tgroup" as="xs:boolean">
         <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_TGROUP;)"/>
+    </xsl:template>
+
+    <xsl:template match="*" mode="cpm.dita.is_colspec" as="xs:boolean">
+        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_COLSPEC;)"/>
     </xsl:template>
 
     <xsl:template match="*" mode="cpm.dita.is_thead" as="xs:boolean">

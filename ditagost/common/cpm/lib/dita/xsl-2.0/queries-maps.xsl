@@ -5,7 +5,7 @@
     
     Level:      Library
     
-    Part:       DITA library
+    Part:       DITA
     Module:     queries-maps.xsl
     
     Scope:      DITA
@@ -14,20 +14,10 @@
 -->   
 <!-- * * ** *** ***** ******** ************* ********************* -->    
 
-
-<!DOCTYPE xsl:stylesheet [
-    
-    <!ENTITY CPM.DITA.MAP "map | subjectScheme">
-    
-    <!ENTITY CPM.DITA.MAPINNER 
-        "abbrevlist | amendments | appendices | appendix | backmatter | bibliolist | 
-         booklists | bookabstract | booklist | chapter | colophon | dedication | 
-         draftintro | figurelist | frontmatter | glossarylist | indexlist | 
-         notices | part | preface | tablelist | toc | 
-         topichead | topicref | topicset | topicsetref | trademarklist">
-    
+<!DOCTYPE xsl:stylesheet [        
+   <!ENTITY % defs SYSTEM "../dtd/classdefs.ent">    
+   %defs;        
 ]>
-
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:cpm="http://cpmonster.com/xmlns/cpm" xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -83,7 +73,7 @@
     -->
 
     <!-- ... using a strict name -->
-    <xsl:template match="map | &CPM.DITA.MAPINNER;" mode="cpm.dita.othermeta">
+    <xsl:template match="map | &DITA_MAPINNER;" mode="cpm.dita.othermeta">
 
         <!-- An othermeta name -->
         <xsl:param name="name"/>
@@ -130,7 +120,7 @@
     <!-- 
         A map title
     -->
-    <xsl:template match="&CPM.DITA.MAP;" mode="cpm.dita.title">
+    <xsl:template match="&DITA_MAP;" mode="cpm.dita.title">
         <xsl:value-of select="title"/>
     </xsl:template>
     
@@ -138,7 +128,7 @@
     <!-- 
         A map inner element title
     -->
-    <xsl:template match="&CPM.DITA.MAPINNER;" mode="cpm.dita.title">
+    <xsl:template match="&DITA_MAPINNER;" mode="cpm.dita.title">
         <xsl:value-of select="@navtitle"/>
     </xsl:template>
     

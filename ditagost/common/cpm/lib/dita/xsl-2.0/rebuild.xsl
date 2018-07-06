@@ -5,7 +5,7 @@
     
     Level:      Library
     
-    Part:       DITA library
+    Part:       DITA
     Module:     rebuild.xsl
     
     Scope:      DITA
@@ -13,6 +13,12 @@
     Func:       Rebuilding DITA content                  
 -->   
 <!-- * * ** *** ***** ******** ************* ********************* --> 
+
+<!DOCTYPE stylesheet [
+   <!ENTITY % defs SYSTEM "../dtd/classdefs.ent">    
+   %defs;
+]>
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:cpm="http://cpmonster.com/xmlns/cpm" xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="cpm xs" version="2.0">
@@ -22,64 +28,66 @@
     -->
 
     <!-- A default @class value is empty -->
-    <xsl:template match="*" mode="cpm.dita.class_value"/>
+    <xsl:template match="*" mode="cpm.dita.class_value">
+        <xsl:text/>
+    </xsl:template>
 
     <!-- Explicit values -->
 
     <xsl:template match="concept" mode="cpm.dita.class_value">
-        <xsl:text>- topic/topic concept/concept</xsl:text>
+        <xsl:text>- &DITA_CLASS_TOPIC; &DITA_CLASS_CONCEPT;</xsl:text>        
     </xsl:template>
 
     <xsl:template match="topic/title" mode="cpm.dita.class_value">
-        <xsl:text>- topic/title</xsl:text>
+        <xsl:text>- &DITA_CLASS_TITLE;</xsl:text>
     </xsl:template>
 
     <xsl:template match="concept/title" mode="cpm.dita.class_value">
-        <xsl:text>- topic/title</xsl:text>
+        <xsl:text>- &DITA_CLASS_TITLE;</xsl:text>
     </xsl:template>
 
     <xsl:template match="task/title" mode="cpm.dita.class_value">
-        <xsl:text>- topic/title</xsl:text>
+        <xsl:text>- &DITA_CLASS_TITLE;</xsl:text>
     </xsl:template>
 
     <xsl:template match="reference/title" mode="cpm.dita.class_value">
-        <xsl:text>- topic/title</xsl:text>
+        <xsl:text>- &DITA_CLASS_TITLE;</xsl:text>
     </xsl:template>
 
     <xsl:template match="conbody" mode="cpm.dita.class_value">
-        <xsl:text>- topic/body concept/conbody</xsl:text>
+        <xsl:text>- &DITA_CLASS_BODY; &DITA_CLASS_CONBODY;</xsl:text>
     </xsl:template>
 
     <xsl:template match="table" mode="cpm.dita.class_value">
-        <xsl:text>- topic/table</xsl:text>
+        <xsl:text>- &DITA_CLASS_TABLE;</xsl:text>
     </xsl:template>
 
     <xsl:template match="tgroup" mode="cpm.dita.class_value">
-        <xsl:text>- topic/tgroup</xsl:text>
+        <xsl:text>- &DITA_CLASS_TGROUP;</xsl:text>
     </xsl:template>
 
     <xsl:template match="colspec" mode="cpm.dita.class_value">
-        <xsl:text>- topic/colspec</xsl:text>
+        <xsl:text>- &DITA_CLASS_COLSPEC;</xsl:text>
     </xsl:template>
 
     <xsl:template match="thead" mode="cpm.dita.class_value">
-        <xsl:text>- topic/thead</xsl:text>
+        <xsl:text>- &DITA_CLASS_THEAD;</xsl:text>
     </xsl:template>
 
     <xsl:template match="tbody" mode="cpm.dita.class_value">
-        <xsl:text>- topic/tbody</xsl:text>
+        <xsl:text>- &DITA_CLASS_TBODY;</xsl:text>
     </xsl:template>
 
     <xsl:template match="tfoot" mode="cpm.dita.class_value">
-        <xsl:text>- topic/tfoot</xsl:text>
+        <xsl:text>- &DITA_CLASS_TFOOT;</xsl:text>
     </xsl:template>
 
     <xsl:template match="row" mode="cpm.dita.class_value">
-        <xsl:text>- topic/row</xsl:text>
+        <xsl:text>- &DITA_CLASS_ROW;</xsl:text>
     </xsl:template>
 
     <xsl:template match="entry" mode="cpm.dita.class_value">
-        <xsl:text>- topic/entry</xsl:text>
+        <xsl:text>- &DITA_CLASS_ENTRY;</xsl:text>
     </xsl:template>
 
     <!-- A wrapper function -->
@@ -103,20 +111,14 @@
 
     </xsl:function>
 
-
-    <!-- 
-        Skipping elements that have some @class already
-    -->
-    <xsl:template match="*[@class]" mode="cpm.dita.class_attr"/>
-
-
+   
     <!-- 
         Assembling a @class attribute for an element 
     -->
-    <xsl:template match="*[not(@class)]" mode="cpm.dita.class_attr">
+    <xsl:template match="*" mode="cpm.dita.class_attr">
 
         <xsl:variable name="tmp">
-            <xsl:value-of select="cpm:dita.class_value(.)"/>
+            <xsl:apply-templates select="*" mode="cpm.dita.class_value"/>
         </xsl:variable>
 
         <xsl:if test="$tmp != ''">
@@ -131,11 +133,19 @@
     <!-- 
         Assigning class attribute to an element
     -->
-    <xsl:template match="node() | @*" mode="cpm.dita.class">
+    
+    <!-- Copying an element that already has a class -->
+    <xsl:template match="*[@class]" mode="cpm.dita.class">
+        <xsl:copy-of select="*"/>
+    </xsl:template>
+    
+    <!-- Assigning a class to an element that has no class -->
+    <xsl:template match="*[not(@class)]" mode="cpm.dita.class">
 
         <xsl:copy>            
             <xsl:apply-templates select="." mode="cpm.dita.class_attr"/>
-            <xsl:apply-templates select="node() | @*" mode="#current"/>
+            <xsl:copy-of select="@*"/>
+            <xsl:apply-templates select="node()" mode="#current"/>
         </xsl:copy>
 
     </xsl:template>
