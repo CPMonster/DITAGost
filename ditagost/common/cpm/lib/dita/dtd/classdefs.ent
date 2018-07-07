@@ -24,22 +24,7 @@
 <!ENTITY DITA_CLASS_ROW         "'topic/row'">
 <!ENTITY DITA_CLASS_ENTRY       "'topic/entry'">
 <!ENTITY DITA_CLASS_PH          "'topic/ph'">
-
-<!ENTITY DITA_INLINE "apiname|b|boolean|cite|cmdname|filepath|i|
-                      keyword|markupname|menucascade|parmname|ph|
-                      pre|q|sl|sub|sup|synph|systemoutput|term|
-                      text|tm|tt|u|uicontrol|userinput|varname|
-                      wintitle|xmlatt|xmlnsname">
-                      
-<!ENTITY DITA_MAP "map | subjectScheme">
-    
-<!ENTITY DITA_MAPINNER 
-        "abbrevlist|amendments|appendices|appendix|backmatter|bibliolist| 
-         booklists|bookabstract|booklist|chapter|colophon|dedication| 
-         draftintro|figurelist|frontmatter|glossarylist|indexlist| 
-         notices|part|preface|tablelist|toc| 
-         topichead|topicref|topicset|topicsetref|trademarklist">                      
-        
+                                                
 <!ENTITY DITA_TOPIC         "*[cpm:dita.is_topic(.)]">
 <!ENTITY DITA_BODY          "*[cpm:dita.is_body(.)]">
 <!ENTITY DITA_SECTION       "*[cpm:dita.is_section(.)]">
@@ -52,9 +37,6 @@
 <!ENTITY DITA_NOTE          "*[cpm:dita.is_note(.)]">
 <!ENTITY DITA_FIG           "*[cpm:dita.is_fig(.)]">
 <!ENTITY DITA_IMAGE         "*[cpm:dita.is_image(.)]">
-<!ENTITY DITA_UL            "*[cpm:dita.is_ul(.)]">
-<!ENTITY DITA_OL            "*[cpm:dita.is_ol(.)]">
-<!ENTITY DITA_LI            "*[cpm:dita.is_li(.)]">        
 <!ENTITY DITA_TABLE         "*[cpm:dita.is_table(.)]">
 <!ENTITY DITA_TGROUP        "*[cpm:dita.is_tgroup(.)]">
 <!ENTITY DITA_COLSPEC       "*[cpm:dita.is_colspec(.)]"> 
@@ -65,12 +47,28 @@
 <!ENTITY DITA_ENTRY         "*[cpm:dita.is_entry(.)]">
 <!ENTITY DITA_NOT_ENTRY     "*[not(cpm:dita.is_entry(.))]">
 <!ENTITY DITA_PH            "*[cpm:dita.is_ph(.)]">
-<!ENTITY DITA_PH            "*[cpm:dita.is_inline(.)]">
 
 <!ENTITY DITA_MY_TGROUP     "ancestor-or-self::&DITA_TGROUP;">
 <!ENTITY DITA_MY_THEAD      "ancestor-or-self::&DITA_TGROUP;/&DITA_THEAD;">
 <!ENTITY DITA_MY_TBODY      "ancestor-or-self::&DITA_TGROUP;/&DITA_TBODY;">
 <!ENTITY DITA_MY_ENTRY      "ancestor-or-self::&DITA_ENTRY;">
+
+<!ENTITY DITA_MAP "map | subjectScheme">
+    
+<!ENTITY DITA_MAPINNER 
+        "abbrevlist|amendments|appendices|appendix|backmatter|bibliolist| 
+         booklists|bookabstract|booklist|chapter|colophon|dedication| 
+         draftintro|figurelist|frontmatter|glossarylist|indexlist| 
+         notices|part|preface|tablelist|toc| 
+         topichead|topicref|topicset|topicsetref|trademarklist">    
+         
+<!ENTITY DITA_BLOCK "body|conbody|div|fig|li|ol|p|table|taskbody|title|refbody|section|ul">
+                      
+<!ENTITY DITA_INLINE "apiname|b|boolean|cite|cmdname|filepath|i|
+                      keyword|markupname|menucascade|parmname|ph|
+                      pre|q|sl|sub|sup|synph|systemoutput|term|
+                      text|tm|tt|u|uicontrol|userinput|varname|
+                      wintitle|xmlatt|xmlnsname">
 
 
 

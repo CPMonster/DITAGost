@@ -118,9 +118,75 @@
 
 
 
+    <!-- ========================= -->
+    <!--  Detecting element types  -->
+    <!-- ========================= -->
+    
+    <xsl:function name="cpm:is_block_container" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="is_block_container"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:is_block" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="is_block"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:is_inline" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="is_inline"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:is_list_block" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="is_list_block"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:is_list_item_body" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="is_list_item_body"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:is_tgroup" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="is_tgroup"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:is_thead" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="is_thead"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:is_tbody" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="is_tbody"/>
+    </xsl:function>
+
+    <xsl:function name="cpm:is_tfoot" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="is_tfoot"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:is_row" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="is_row"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:is_entry" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="is_entry"/>
+    </xsl:function>
+    
+    <xsl:function name="cpm:is_external_graphic" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="is_external_graphic"/>
+    </xsl:function>
+    
+    
+    
     <!-- ================================================= -->
     <!--  Detecting core elements of a document structure  -->
-    <!-- ================================================= -->
+    <!-- ================================================= -->          
 
     <!-- 
         Detecting a document root element    
@@ -129,14 +195,8 @@
 
         <!-- A "native" element; not a variable -->
         <xsl:param name="element"/>
-
-        <!-- Improved document & flat document-->
-
-        <xsl:variable name="tmp" as="xs:boolean">
-            <xsl:apply-templates select="$element" mode="is_docroot"/>
-        </xsl:variable>
-
-        <xsl:value-of select="boolean($tmp)"/>
+       
+        <xsl:apply-templates select="$element" mode="is_docroot"/>
 
     </xsl:function>
 
@@ -542,7 +602,7 @@
 
         <xsl:value-of select="boolean($tmp)"/>
 
-    </xsl:function>
+    </xsl:function>        
 
 
     <!-- 
@@ -1301,7 +1361,7 @@
         <xsl:apply-templates select="$element" mode="rowclass"/>
     </xsl:function>
 
-    
+
 
 
 </xsl:stylesheet>

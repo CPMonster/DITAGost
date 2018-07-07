@@ -12,7 +12,12 @@
     
     Func:       Retrieving common data from DITA source                  
 -->   
-<!-- * * ** *** ***** ******** ************* ********************* -->    
+<!-- * * ** *** ***** ******** ************* ********************* -->  
+
+<!DOCTYPE xsl:stylesheet [        
+   <!ENTITY % defs SYSTEM "../dtd/classdefs.ent">    
+   %defs;        
+]>
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:cpm="http://cpmonster.com/xmlns/cpm" xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -59,6 +64,23 @@
             </xsl:otherwise>
         </xsl:choose>
 
+    </xsl:template>
+
+
+    <!-- ================== -->
+    <!--  Block or inline?  -->
+    <!-- ================== -->
+    
+    <xsl:template match="*" mode="cpm.dita.is_block">
+        <xsl:value-of select="false()"/>
+    </xsl:template>
+    
+    <xsl:template match="&DITA_BLOCK;" mode="cpm.dita.is_block">
+        <xsl:value-of select="true()"/>
+    </xsl:template>
+    
+    <xsl:template match="&DITA_INLINE;" mode="cpm.dita.is_inline">
+        <xsl:value-of select="true()"/>
     </xsl:template>
 
 

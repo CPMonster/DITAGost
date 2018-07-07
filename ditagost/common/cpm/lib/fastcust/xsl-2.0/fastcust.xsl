@@ -35,18 +35,6 @@
 
 
 
-    <!-- ============ -->
-    <!--  Parameters  -->
-    <!-- ============ -->
-
-    <!-- Wrapping stray text into cpm:wrapper: on/off -->
-    <xsl:param name="cpm.fastcust.wrapping_stray_text" select="''"/>
-
-    <!-- Default font for elements tha have no explicit style -->
-    <xsl:param name="cpm.fastcust.default_font_family" select="'Times New Roman'"/>
-
-
-
     <!-- ======= -->
     <!--  Misc.  -->
     <!-- ======= -->
@@ -149,13 +137,6 @@
 
             <!-- Calculating an element level -->
             <xsl:attribute name="cpm:level">
-                <!--
-                <xsl:if test="name()='cpm:cover'">                    
-                    <xsl:message>
-                        <xsl:text>Cover</xsl:text>
-                    </xsl:message>                    
-                </xsl:if>
-                -->
                 <xsl:value-of select="cpm:fastcust.level(.)"/>
             </xsl:attribute>
 
@@ -432,7 +413,7 @@
             <xsl:apply-templates select="." mode="foname"/>
         </xsl:variable>
 
-        <xsl:choose>            
+        <xsl:choose>
             <xsl:when test="$name = 'cpm:none'">
                 <xsl:text>block</xsl:text>
             </xsl:when>
@@ -827,21 +808,14 @@
                 <!-- Body content -->
                 <cpm:flow>
 
-                    <xsl:choose>
+                    <xsl:copy-of
+                        select="$flat/*[$left &lt;= position() and position() &lt;= $right]"/>
 
-                        <xsl:when test="$cpm.fastcust.wrapping_stray_text = ''">
-                            <xsl:copy-of
-                                select="$flat/*[$left &lt;= position() and position() &lt;= $right]"
-                            />
-                        </xsl:when>
-
-                        <xsl:otherwise>
-                            <xsl:apply-templates
-                                select="$flat/*[$left &lt;= position() and position() &lt;= $right]"
-                                mode="cpm.fastcust.stray"/>
-                        </xsl:otherwise>
-
-                    </xsl:choose>
+                    <!--
+                    <xsl:apply-templates
+                        select="$flat/*[$left &lt;= position() and position() &lt;= $right]"
+                        mode="cpm.fastcust.stray"/>
+                    -->    
 
                 </cpm:flow>
 
@@ -891,7 +865,7 @@
     <xsl:template match="cpm:static-content" mode="cpm.fastcust.static">
 
         <!--            
-            OVERRIDE: strongly not recommended.                   
+            OVERLOAD: strongly not recommended.                   
         -->
 
         <!-- Assembling static content inner XML -->
@@ -925,33 +899,12 @@
         -->
 
         <!-- Inserting a full number unless an element has a title -->
-        <xsl:if test="not(title)">
+        <xsl:if test="not(cpm:fastcust.is_title(.))">
             <xsl:value-of select="cpm:fastcust.full_number(.)"/>
         </xsl:if>
 
         <!-- Transforming child nodes to FO -->
         <xsl:apply-templates select="node()" mode="foxml"/>
-
-    </xsl:template>
-
-
-    <!-- 
-        Choosing a default FO element name for an element
-    -->
-    <xsl:template match="*" mode="cpm.fastcust.default_foname">
-
-        <!--            
-            OVERLOAD: strongly not recommended.                   
-        -->
-
-        <xsl:choose>
-            <xsl:when test="namespace-uri() = 'http://www.w3.org/1999/XSL/Format'">
-                <xsl:value-of select="name()"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:text>fo:block</xsl:text>
-            </xsl:otherwise>
-        </xsl:choose>
 
     </xsl:template>
 
@@ -964,10 +917,59 @@
     <xsl:template match="*" mode="cpm.fastcust.foname">
 
         <!--            
-            OVERLOAD: strongly not recommended.                   
+            OVERLOAD: in a generated layout.xsl.                   
         -->
 
-        <xsl:apply-templates select="." mode="cpm.fastcust.default_foname"/>
+        <xsl:choose>
+            <xsl:when test="*[cpm:fo.is_fo(.)]">
+                <xsl:value-of select="name()"/>
+            </xsl:when>
+            <xsl:when test="*[cpm:is_block_container(.)]">
+                <xsl:text>fo:block-container</xsl:text>
+            </xsl:when>
+            <xsl:when test="*[cpm:is_block(.)]">
+                <xsl:text>fo:block</xsl:text>
+            </xsl:when>
+            <xsl:when test="*[cpm:is_inline(.)]">
+                <xsl:text>fo:inline</xsl:text>
+            </xsl:when>
+            <xsl:when test="*[cpm:is_list_block(.)]">
+                <xsl:text>fo:list-block</xsl:text>
+            </xsl:when>
+            <xsl:when test="*[cpm:is_list_item_body(.)]">
+                <xsl:text>fo:list-item-body</xsl:text>
+            </xsl:when>
+            <xsl:when test="*[cpm:is_list_block(.)]">
+                <xsl:text>fo:list-block</xsl:text>
+            </xsl:when>
+            <xsl:when test="*[cpm:is_list_item_body(.)]">
+                <xsl:text>fo:list-item-body</xsl:text>
+            </xsl:when>
+            <xsl:when test="*[cpm:is_tgroup(.)]">
+                <xsl:text>fo:table</xsl:text>
+            </xsl:when>
+            <xsl:when test="*[cpm:is_thead(.)]">
+                <xsl:text>fo:table-header</xsl:text>
+            </xsl:when>
+            <xsl:when test="*[cpm:is_tbody(.)]">
+                <xsl:text>fo:table-body</xsl:text>
+            </xsl:when>
+            <xsl:when test="*[cpm:is_tfoot(.)]">
+                <xsl:text>fo:table-footer</xsl:text>
+            </xsl:when>
+            <xsl:when test="*[cpm:is_row(.)]">
+                <xsl:text>fo:table-row</xsl:text>
+            </xsl:when>
+            <xsl:when test="*[cpm:is_entry(.)]">
+                <xsl:text>>fo:table-cell</xsl:text>
+            </xsl:when>
+            <xsl:when test="*[cpm:is_external_graphic(.)]">
+                <xsl:text>>fo:external-graphic</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>cpm:none</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
 
     </xsl:template>
 
@@ -1002,10 +1004,8 @@
     <!-- 
         Assembling attributes for explicit FO elements
     -->
-    <xsl:template match="*[namespace-uri() = 'http://www.w3.org/1999/XSL/Format']" mode="foattrs">
-        <xsl:copy-of
-            select="@*[namespace-uri() != 'http://cpmonster.com/xmlns/cpm'] except (@outputclass, @xtrf)"
-        />
+    <xsl:template match="*[cpm:fo.is_fo(.)]" mode="foattrs">
+        <xsl:copy-of select="@*[not(cpm:cpm.is_cpm(.))] except (@outputclass, @xtrf)"/>
     </xsl:template>
 
 
@@ -1013,10 +1013,13 @@
         Applying a default style to an element
     -->
     <xsl:attribute-set name="cpm.fastcust.default_style">
+
         <!--            
             OVERLOAD: strongly not recommended.                   
         -->
-        <!-- TBD: what do we do with a default style? -->
+
+        <xsl:attribute name="font-family">Serif</xsl:attribute>
+
     </xsl:attribute-set>
 
 
@@ -1064,7 +1067,7 @@
     <xsl:template match="*" mode="foxml">
 
         <!-- 
-            OVERLOAD: for a particular element. 
+            OVERLOAD: for a particular source element. 
         -->
 
         <!-- Transforming an element to FO -->
@@ -1086,7 +1089,7 @@
     <xsl:template match="cpm:page-sequence" mode="cpm.fastcust.fodraft">
 
         <!-- 
-            OVERRIDE: strongly not recommended.
+            OVERLOAD: strongly not recommended.
         -->
 
         <fo:page-sequence master-reference="{@master-name}">
@@ -1109,9 +1112,9 @@
 
 
 
-    <!-- ========================== -->
-    <!--  Correcting a FO document  -->
-    <!-- ========================== -->
+    <!-- ================================== -->
+    <!--  Correcting an output FO document  -->
+    <!-- ================================== -->
 
     <!-- 
         Postprocessing FO
@@ -1121,7 +1124,7 @@
         Supressing redundant attributes 
     -->
     <xsl:template match="@role" mode="cpm.fastcust.fofinal"/>
-    <xsl:template match="@*[starts-with(name(),'cpm:')]" mode="cpm.fastcust.fofinal"/>
+    <xsl:template match="@*[starts-with(name(), 'cpm:')]" mode="cpm.fastcust.fofinal"/>
 
 
     <!-- 
@@ -1175,11 +1178,11 @@
         <!-- Resolving issues in the draft FO -->
         <xsl:variable name="fofinal_xml">
 
-
+            <!--
             <xsl:comment>#####################</xsl:comment>
-            <!-- <xsl:copy-of select="$improved_xml"/> -->
+            <xsl:copy-of select="$improved_xml"/>
             <xsl:comment>#####################</xsl:comment>
-
+            -->
 
             <xsl:apply-templates select="$fodraft_xml/*" mode="cpm.fastcust.fofinal"/>
 

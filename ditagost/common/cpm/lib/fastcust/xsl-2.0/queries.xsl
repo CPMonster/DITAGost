@@ -23,6 +23,12 @@
 
     <!-- Wrapper functions -->
     <xsl:import href="numbers.xsl"/>
+    
+    <!-- Retrieving data related to FO elements -->
+    <xsl:import href="../../fo/xsl-2.0/queries.xsl"/>
+    
+    <!-- Retrieving data related to FO elements -->
+    <xsl:import href="../../cpm/xsl-2.0/queries.xsl"/>
 
 
 
@@ -88,13 +94,21 @@
     <!-- ================================================= -->
     <!--  Detecting core elements of a document structure  -->
     <!-- ================================================= -->
+    
+    <xsl:template match="*" mode="cpm.fastcust.is_block">
+        <xsl:value-of select="false()"/>
+    </xsl:template>
+    
+    <xsl:template match="*" mode="cpm.is_inline">
+        <xsl:value-of select="false()"/>
+    </xsl:template>
 
     <!-- 
         Detecting a document root element
     -->
 
     <!-- A default working template -->
-    <xsl:template match="*" mode="cpm.fastcust.is_docroot">
+    <xsl:template match="*" mode="cpm.fastcust.is_docroot" as="xs:boolean">
 
         <!-- * is an element of a document -->
 
@@ -112,7 +126,7 @@
     </xsl:template>
 
     <!-- A custom working template -->
-    <xsl:template match="*" mode="is_docroot">
+    <xsl:template match="*" mode="is_docroot" as="xs:boolean">
         <xsl:apply-templates select="." mode="cpm.fastcust.is_docroot"/>
     </xsl:template>
 
@@ -591,43 +605,13 @@
             
             <!-- Improved document -->
             <xsl:otherwise>
+                
                 <xsl:variable name="numseq">
                     <xsl:apply-templates select="." mode="numseq"/>
                 </xsl:variable>                
                 
                 <xsl:apply-templates select="$numseq/numseq"
-                    mode="cpm.fastcust.numbers.navcaption"/>                               
-               
-                <!--
-                <xsl:variable name="explicit_navcaption">
-                    
-                    <xsl:apply-templates select="." mode="cpm.fastcust.explicit_navcaption"/>
-                    
-                   
-                </xsl:variable>
-                
-                <xsl:choose>
-                    
-                    <xsl:when test="$explicit_navcaption != ''">
-                        <xsl:value-of select="$explicit_navcaption"/>
-                    </xsl:when>
-                    
-                    <xsl:otherwise>
-                        <xsl:variable name="numseq">
-                            <xsl:apply-templates select="." mode="numseq"/>
-                        </xsl:variable>
-                        
-                        <xsl:apply-templates select="$numseq/numseq"
-                            mode="cpm.fastcust.numbers.navcaption"/>
-                              
-                        
-                        <xsl:apply-templates select="$numseq/numseq"
-                            mode="cpm.fastcust.numbers.caption"/>
-                           
-                    </xsl:otherwise>
-                    
-                </xsl:choose>
-                -->
+                    mode="cpm.fastcust.numbers.navcaption"/>                                                              
                 
             </xsl:otherwise>
             
@@ -741,6 +725,9 @@
             </xsl:when>
             <xsl:when test="title">
                 <xsl:value-of select="title"/>
+            </xsl:when>
+            <xsl:when test="*[cpm:fastcust.is_title(.)]">
+                <xsl:value-of select="*[cpm:fastcust.is_title(.)]"/>
             </xsl:when>
         </xsl:choose>
 

@@ -55,6 +55,15 @@
     <!-- ========= -->
     <!--  Queries  -->
     <!-- ========= -->
+    
+    <xsl:template match="*" mode="is_block" as="xs:boolean">
+        <xsl:apply-templates select="." mode="cpm.dita.is_block"/>        
+    </xsl:template>
+    
+    <xsl:template match="*" mode="is_inline" as="xs:boolean">
+        <xsl:apply-templates select="." mode="cpm.dita.is_inline"/>        
+    </xsl:template>
+
 
     <!-- 
         Detecting if an element is appendix
