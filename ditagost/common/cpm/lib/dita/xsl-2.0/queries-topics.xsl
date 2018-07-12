@@ -133,6 +133,14 @@
     
     <xsl:template match="*" mode="cpm.dita.is_image" as="xs:boolean">
         <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_IMAGE;)"/>
+    </xsl:template>      
+    
+    <xsl:template match="*" mode="cpm.dita.is_block" as="xs:boolean">
+        <xsl:value-of select="false()"/>
+    </xsl:template>
+    
+    <xsl:template match="&DITA_BLOCK;" mode="cpm.dita.is_block" as="xs:boolean">
+        <xsl:value-of select="true()"/>
     </xsl:template>
     
     

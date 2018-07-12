@@ -21,15 +21,15 @@
         Modules
     -->
     
-    <!-- Wrapper functions-->
+    <!-- Wrapper functions -->
     <xsl:import href="funcs.xsl"/>
 
 
     <!-- 
         Detecting CPM elements and attributes
     -->
-    <xsl:template match="node() | @*" mode="cpm.cpm.is_cpm" as="xs:boolean">
-        <xsl:value-of select="namespace-uri() != 'http://cpmonster.com/xmlns/cpm'"/>
+    <xsl:template match="node() | @*" mode="cpm.cpm.is_cpm" as="xs:boolean">                       
+        <xsl:value-of select="namespace-uri() = 'http://cpmonster.com/xmlns/cpm'"/>                
     </xsl:template>
 
 </xsl:stylesheet>

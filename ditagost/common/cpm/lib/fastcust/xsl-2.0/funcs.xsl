@@ -147,34 +147,34 @@
         <xsl:apply-templates select="$element" mode="is_list_item_body"/>
     </xsl:function>
     
-    <xsl:function name="cpm:is_tgroup" as="xs:boolean">
+    <xsl:function name="cpm:is_table" as="xs:boolean">
         <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="is_tgroup"/>
+        <xsl:apply-templates select="$element" mode="is_table"/>
     </xsl:function>
     
-    <xsl:function name="cpm:is_thead" as="xs:boolean">
+    <xsl:function name="cpm:is_table_header" as="xs:boolean">
         <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="is_thead"/>
+        <xsl:apply-templates select="$element" mode="is_table_header"/>
     </xsl:function>
     
-    <xsl:function name="cpm:is_tbody" as="xs:boolean">
+    <xsl:function name="cpm:is_table_body" as="xs:boolean">
         <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="is_tbody"/>
+        <xsl:apply-templates select="$element" mode="is_table_body"/>
     </xsl:function>
 
-    <xsl:function name="cpm:is_tfoot" as="xs:boolean">
+    <xsl:function name="cpm:is_table_footer" as="xs:boolean">
         <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="is_tfoot"/>
+        <xsl:apply-templates select="$element" mode="is_table_footer"/>
     </xsl:function>
     
-    <xsl:function name="cpm:is_row" as="xs:boolean">
+    <xsl:function name="cpm:is_table_row" as="xs:boolean">
         <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="is_row"/>
+        <xsl:apply-templates select="$element" mode="is_table_row"/>
     </xsl:function>
     
-    <xsl:function name="cpm:is_entry" as="xs:boolean">
+    <xsl:function name="cpm:is_table_cell" as="xs:boolean">
         <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="is_entry"/>
+        <xsl:apply-templates select="$element" mode="is_table_cell"/>
     </xsl:function>
     
     <xsl:function name="cpm:is_external_graphic" as="xs:boolean">

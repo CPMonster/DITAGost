@@ -22,6 +22,9 @@
         Modules    
     -->
 
+    <!-- Useful template functions -->
+    <xsl:import href="../../common/xsl-2.0/misc.xsl"/>
+
     <!-- FastCust wrapper functions -->
     <xsl:import href="funcs.xsl"/>
 

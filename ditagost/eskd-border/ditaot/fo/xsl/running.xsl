@@ -237,8 +237,8 @@
                         <fo:table-cell xsl:use-attribute-sets="cpm.ditagost.eskd.sidebar_5_attrs">
                             <fo:block/>
                         </fo:table-cell>
-                        <fo:table-cell xsl:use-attribute-sets="cpm.ditagost.eskd.sidebar_25_attrs">
-                            <fo:block>Инв № подл.</fo:block>
+                        <fo:table-cell xsl:use-attribute-sets="cpm.ditagost.eskd.sidebar_25_attrs">                            
+                            <fo:block>Инв № подл.</fo:block>                                                      
                         </fo:table-cell>
                         <fo:table-cell xsl:use-attribute-sets="cpm.ditagost.eskd.sidebar_35_attrs">
                             <fo:block>Подп. и дата</fo:block>

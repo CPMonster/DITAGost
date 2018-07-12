@@ -19,9 +19,18 @@
                 that are defined here. 
 -->   
 <!-- * * ** *** ***** ******** ************* ********************* -->  
+
+<!DOCTYPE stylesheet [
+
+    <!ENTITY % FO SYSTEM "../../fo/dtd/fo.ent">
+    
+    %FO;
+
+]>
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:cpm="http://cpmonster.com/xmlns/cpm" xmlns:fo="http://www.w3.org/1999/XSL/Format"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="cpm xs" version="2.0">
 
     <!-- 
         Modules
@@ -34,6 +43,18 @@
     <xsl:import href="docparams.xsl"/>
 
 
+    <!-- 
+        A customization should provide the following features:
+        
+        - Templates having mode="level" for document structure elements.
+        
+        - Templates having mode="sequence" for document structure elements
+          having level > 0. 
+          
+        - A template having match="cpm:static-content" and mode="static".             
+    -->
+
+
 
     <!-- ======= -->
     <!--  Misc.  -->
@@ -42,12 +63,14 @@
     <!-- 
         Converting a sequence name to a page-sequence-master/@master-name
     -->
+
     <xsl:template name="cpm.fastcust.get_master_name">
 
         <!--                        
-            OVERLOAD: in layout.xsl.
+            OVERLOAD: in a generated layout.xsl.
         -->
 
+        <!--  An alias of a master page sequence -->
         <xsl:param name="master_alias"/>
 
         <xsl:value-of select="$master_alias"/>
@@ -56,247 +79,30 @@
 
 
 
-    <!-- ========================================= -->
-    <!--  Completing content of a source document  -->
-    <!-- ========================================= -->
-
-    <!-- 
-        Supressing redundant elements
-    -->
-    <xsl:template match="titlealts" mode="complete"/>
-
-
-    <!-- 
-        Generating content (the default template)
-    -->
-    <xsl:template match="*" mode="complete">
-
-        <!-- 
-            OVERLOAD: in a particular customization.
-        -->
-
-        <xsl:copy>
-
-            <xsl:copy-of select="@*"/>
-
-            <xsl:if test="not(@id)">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="cpm:fastcust.id(.)"/>
-                </xsl:attribute>
-            </xsl:if>
-
-            <xsl:apply-templates select="node()" mode="complete"/>
-
-        </xsl:copy>
-
-    </xsl:template>
-
-
-    <!-- 
-        Inserting generated content to a source XML
-    -->
-    <xsl:template match="*" mode="cpm.fastcust.complete">
-
-        <!-- 
-            OVERLOAD: never!
-        -->
-
-        <xsl:apply-templates select="." mode="complete"/>
-
-    </xsl:template>
-
-
-
-    <!-- =============================== -->
-    <!--  Improving a complete document  -->
-    <!-- =============================== -->
-
-    <!-- 
-        Calculating levels, numbers, etc. 
-    -->
-    <xsl:template match="*" mode="cpm.fastcust.improve">
-
-        <!-- A number of a closest numbered ancestor -->
-        <xsl:param name="hinumber" select="''"/>
-
-        <!-- A numbering sequence of a closest numbered ancestor -->
-        <xsl:param name="hinumseq"/>
-
-        <!-- Copying an element -->
-        <xsl:copy>
-
-            <!-- Copying attributes -->
-            <xsl:copy-of select="@*"/>
-
-            <!-- Appending an ID if an element has no one -->
-            <xsl:if test="not(@id)">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="cpm:fastcust.id(.)"/>
-                </xsl:attribute>
-            </xsl:if>
-
-            <!-- Calculating an element level -->
-            <xsl:attribute name="cpm:level">
-                <xsl:value-of select="cpm:fastcust.level(.)"/>
-            </xsl:attribute>
-
-            <!-- Section type -->
-            <xsl:variable name="sectype">
-                <xsl:value-of select="cpm:fastcust.sectype(.)"/>
-            </xsl:variable>
-
-            <xsl:if test="$sectype != ''">
-                <xsl:attribute name="cpm:sectype">
-                    <xsl:value-of select="$sectype"/>
-                </xsl:attribute>
-            </xsl:if>
-
-            <!-- Calculating an element level for numbering purpose -->
-            <xsl:variable name="numlevel">
-                <xsl:value-of select="cpm:fastcust.numlevel(.)"/>
-            </xsl:variable>
-
-            <!-- Appending a cpm:numlevel attribute to an element -->
-            <xsl:if test="$numlevel != ''">
-                <xsl:attribute name="cpm:numlevel">
-                    <xsl:value-of select="$numlevel"/>
-                </xsl:attribute>
-            </xsl:if>
-
-            <!-- Detecting a numbering sequence name for an element -->
-            <xsl:variable name="numseqname">
-                <xsl:value-of select="cpm:fastcust.numseqname(.)"/>
-            </xsl:variable>
-
-            <!-- Calculating a number of an element -->
-            <xsl:variable name="number">
-                <xsl:if test="$numseqname != ''">
-                    <xsl:value-of select="cpm:fastcust.fastnumber(., $hinumber, $hinumseq)"/>
-                </xsl:if>
-            </xsl:variable>
-
-            <!-- Retrieving a numbering sequence -->
-            <xsl:variable name="numseq">
-                <xsl:if test="$numseqname != ''">
-                    <xsl:apply-templates select="." mode="numseq"/>
-                </xsl:if>
-            </xsl:variable>
-
-            <!-- Detecting numbering properties for a numbered element -->
-            <xsl:if test="$numseqname != ''">
-
-                <xsl:attribute name="cpm:numseqname">
-                    <xsl:value-of select="$numseqname"/>
-                </xsl:attribute>
-
-                <xsl:attribute name="cpm:number">
-                    <xsl:value-of select="$number"/>
-                </xsl:attribute>
-
-                <xsl:attribute name="cpm:caption">
-                    <xsl:value-of select="cpm:fastcust.caption(.)"/>
-                </xsl:attribute>
-
-                <xsl:attribute name="cpm:navcaption">
-                    <xsl:value-of select="cpm:fastcust.navcaption(.)"/>
-                </xsl:attribute>
-
-                <xsl:attribute name="cpm:full-number">
-                    <xsl:value-of select="cpm:fastcust.numbers.format($number, $numseq)"/>
-                </xsl:attribute>
-
-                <xsl:attribute name="cpm:nav-full-number">
-                    <xsl:value-of select="cpm:fastcust.numbers.format($number, $numseq)"/>
-                </xsl:attribute>
-
-                <xsl:attribute name="cpm:title">
-                    <xsl:value-of select="cpm:fastcust.title(.)"/>
-                </xsl:attribute>
-
-            </xsl:if>
-
-            <!-- Should we proceed with a number element or with a higher number -->
-            <xsl:variable name="actual_hinumber">
-                <xsl:choose>
-                    <xsl:when test="$number != ''">
-                        <xsl:value-of select="$number"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="$hinumber"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-
-            <!-- The same thing about a higher numbering sequence -->
-            <xsl:variable name="actual_hinumseq">
-                <xsl:choose>
-                    <xsl:when test="$numseqname != ''">
-                        <xsl:copy-of select="$numseq"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:copy-of select="$hinumseq"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-
-            <xsl:if test="name() = 'cpm:toc'">
-                <xsl:message>
-                    <xsl:text>TOC</xsl:text>
-                </xsl:message>
-            </xsl:if>
-
-            <!-- Improving children elements -->
-            <xsl:apply-templates select="node()" mode="cpm.fastcust.improve">
-                <xsl:with-param name="hinumber" select="$actual_hinumber"/>
-                <xsl:with-param name="hinumseq" select="$actual_hinumseq"/>
-            </xsl:apply-templates>
-
-        </xsl:copy>
-
-    </xsl:template>
-
-
-
-    <!-- =========================== -->
-    <!--  Assembling static content  -->
-    <!-- =========================== -->
+    <!-- ======================================== -->
+    <!--  Assembling static content placeholders  -->
+    <!-- ======================================== -->
 
     <!-- 
         Assembling cpm:sequence/cpm:region-*
     -->
-    <xsl:template match="fo:region-before | fo:region-after | fo:region-start | fo:region-end"
-        mode="cpm.fastcust.static">
+    <xsl:template match="&FO_STATIC_REGIONS;" mode="cpm.fastcust.static">
 
         <!--            
-            OVERLOAD: strongly not recommended.                   
+            OVERLOAD: never!                   
         -->
 
-        <!-- A 'human' name of a page sequence master -->
+        <!--  An alias of a master page sequence -->
         <xsl:param name="master_alias"/>
 
         <!-- first, rest, etc. -->
         <xsl:param name="page_position"/>
 
         <xsl:element name="cpm:static-content">
-
-            <xsl:attribute name="region-name">
-                <xsl:value-of select="@region-name"/>
-            </xsl:attribute>
-
-            <xsl:attribute name="page-side">
-                <xsl:value-of select="substring-after(name(), 'fo:region-')"/>
-            </xsl:attribute>
-
-            <xsl:if test="$page_position">
-                <xsl:attribute name="page-position">
-                    <xsl:value-of select="$page_position"/>
-                </xsl:attribute>
-            </xsl:if>
-
-            <xsl:attribute name="master-alias">
-                <xsl:value-of select="$master_alias"/>
-            </xsl:attribute>
-
+            <xsl:copy-of select="cpm:misc.attr('region-name', @region-name)"/>
+            <xsl:copy-of select="cpm:misc.attr('page-side', cpm:fo.regside(.))"/>
+            <xsl:copy-of select="cpm:misc.attr('master-alias', $master_alias)"/>
+            <xsl:copy-of select="cpm:misc.attr('page-position', $page_position)"/>
         </xsl:element>
 
     </xsl:template>
@@ -308,16 +114,16 @@
     <xsl:template match="fo:simple-page-master" mode="cpm.fastcust.static">
 
         <!--            
-            OVERLOAD: strongly not recommended.                   
+            OVERLOAD: never!                   
         -->
 
+        <!--  An alias of a master page sequence -->
         <xsl:param name="master_alias"/>
 
+        <!-- First, last, odd, even, etc. -->
         <xsl:param name="page_position"/>
 
-        <xsl:apply-templates
-            select="fo:region-before | fo:region-after | fo:region-start | fo:region-end"
-            mode="cpm.fastcust.static">
+        <xsl:apply-templates select="&FO_STATIC_REGIONS;" mode="cpm.fastcust.static">
             <xsl:with-param name="master_alias" select="$master_alias"/>
             <xsl:with-param name="page_position" select="$page_position"/>
         </xsl:apply-templates>
@@ -328,11 +134,10 @@
     <!-- 
         A wrapper: accessing simple page masters associated with a page sequence master
     -->
-    <xsl:template match="fo:conditional-page-master-reference | fo:single-page-master-reference"
-        mode="cpm.fastcust.static">
+    <xsl:template match="&FO_PAGE_MASTER_REFERENCES;" mode="cpm.fastcust.static">
 
         <!--            
-            OVERLOAD: strongly not recommended.                   
+            OVERLOAD: never!                   
         -->
 
         <xsl:param name="master_alias"/>
@@ -357,7 +162,7 @@
     <xsl:template match="fo:page-sequence-master" mode="cpm.fastcust.static">
 
         <!--            
-            OVERLOAD: strongly not recommended.                   
+            OVERLOAD: never!                   
         -->
 
         <xsl:param name="master_alias"/>
@@ -375,7 +180,7 @@
     <xsl:template name="cpm.fastcust.static">
 
         <!--            
-            OVERLOAD: strongly not recommended.                   
+            OVERLOAD: never!                   
         -->
 
         <xsl:param name="master_alias"/>
@@ -400,59 +205,234 @@
 
 
 
-    <!-- ================================= -->
-    <!--  Flattening an improved document  -->
-    <!-- ================================= -->
+    <!-- ========================================= -->
+    <!--  Completing content of a source document  -->
+    <!-- ========================================= -->
 
     <!-- 
-        Return a type of a FO element (block or inline?)
+        During the completing stage a customization appends
+        generated content to a source document. A customization
+        usually generates a cover page, TOC and TOC placeholders,
+        auxiliary data, etc.
     -->
-    <xsl:template match="*" mode="cpm.fastcust.fotype">
 
-        <xsl:variable name="name">
-            <xsl:apply-templates select="." mode="foname"/>
-        </xsl:variable>
+    <!-- 
+        Generating content (the default template)
+    -->
+    <xsl:template match="*" mode="complete">
 
-        <xsl:choose>
-            <xsl:when test="$name = 'cpm:none'">
-                <xsl:text>block</xsl:text>
-            </xsl:when>
-            <xsl:when test="$name = 'fo:block-container'">
-                <xsl:text>block</xsl:text>
-            </xsl:when>
-            <xsl:when test="$name = 'fo:block'">
-                <xsl:text>block</xsl:text>
-            </xsl:when>
-            <xsl:when test="$name = 'fo:list-block'">
-                <xsl:text>block</xsl:text>
-            </xsl:when>
-            <xsl:when test="$name = 'fo:list-item'">
-                <xsl:text>block</xsl:text>
-            </xsl:when>
-            <xsl:when test="$name = 'fo:table'">
-                <xsl:text>block</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:text>span</xsl:text>
-            </xsl:otherwise>
-        </xsl:choose>
+        <!-- 
+            * represents an element of a source DITA document,
+            e.g. stage1.xml or stage1a.xml. 
+            
+            NOTE: An application should preprocess a source document 
+            by DITA OT before sending it to FastCust. All the topics 
+            and conrefed or conkeyrefed content should allready be 
+            inserted into the source document. Attributes like 
+            @class etc. should be appended to elements. 
+            
+            An application that don't use DITA OT should anyway 
+            preprocess a source document 
+        -->
+
+        <!-- 
+            OVERLOAD: in a particular customization for 
+                      particular elements.                                            
+        -->
+
+        <xsl:copy>
+            <xsl:copy-of select="@*"/>
+            <xsl:copy-of select="cpm:misc.mattrid(.)"/>
+            <xsl:apply-templates select="node()" mode="#current"/>
+        </xsl:copy>
 
     </xsl:template>
 
 
     <!-- 
-        Detecting source elements that beget block FO elements
+        Inserting generated content to a source XML
+    -->
+    <xsl:template match="*" mode="cpm.fastcust.complete">
+
+        <!-- 
+            * represents a root element of a source document. 
+        -->
+
+        <!-- 
+            OVERLOAD: never!
+        -->
+
+        <xsl:apply-templates select="." mode="complete"/>
+
+    </xsl:template>
+
+
+
+    <!-- =============================== -->
+    <!--  Improving a complete document  -->
+    <!-- =============================== -->
+
+    <!-- 
+        During the improving stage a customization assigns
+        levels, page sequence names, and other attributes
+        significant for flattering a document to document 
+        elements. TOC and TON placeholders should be replaced
+        with TOCs and TONs at the improving stage. Cross-
+        references pointing on non-terminal topics should
+        be corrected. 
+    -->
+
+    <!-- 
+        Calculating levels, numbers, etc. 
+    -->
+    <xsl:template match="*" mode="cpm.fastcust.improve">
+
+        <!-- 
+            * represents an element of complete document. 
+        -->
+
+        <!--            
+            OVERLOAD: never!                  
+        -->
+
+        <!-- A number of a closest numbered ancestor -->
+        <xsl:param name="hinumber" select="''"/>
+
+        <!-- A numbering sequence of a closest numbered ancestor -->
+        <xsl:param name="hinumseq"/>
+
+        <!-- Copying an element -->
+        <xsl:copy>
+
+            <!-- Copying attributes -->
+            <xsl:copy-of select="@*"/>
+
+            <!-- Appending an ID if an element has no one -->
+            <xsl:copy-of select="cpm:misc.mattrid(.)"/>
+
+            <!-- Calculating an element level -->
+            <xsl:copy-of select="cpm:misc.attr('cpm:level', cpm:fastcust.level(.))"/>
+
+            <!-- Section type -->
+            <xsl:copy-of select="cpm:misc.attr('cpm:sectype', cpm:fastcust.sectype(.))"/>
+
+            <!-- Calculating an element level for numbering purpose -->
+            <xsl:copy-of select="cpm:misc.attr('cpm:numlevel', cpm:fastcust.numlevel(.))"/>
+
+            <!-- Detecting a numbering sequence name for an element -->
+            <xsl:variable name="numseqname">
+                <xsl:value-of select="cpm:fastcust.numseqname(.)"/>
+            </xsl:variable>
+
+            <!-- Calculating a number of an element -->
+            <xsl:variable name="number">
+                <xsl:if test="$numseqname != ''">
+                    <xsl:value-of select="cpm:fastcust.fastnumber(., $hinumber, $hinumseq)"/>
+                </xsl:if>
+            </xsl:variable>
+
+            <!-- Retrieving a numbering sequence -->
+            <xsl:variable name="numseq">
+                <xsl:if test="$numseqname != ''">
+                    <xsl:apply-templates select="." mode="numseq"/>
+                </xsl:if>
+            </xsl:variable>
+
+            <!-- Detecting numbering properties for a numbered element -->
+            <xsl:if test="$numseqname != ''">
+                <xsl:copy-of select="cpm:misc.attr('cpm:numseqname', $numseqname)"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:number', $number)"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:caption', cpm:fastcust.caption(.))"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:navcaption', cpm:fastcust.navcaption(.))"/>
+                <xsl:copy-of
+                    select="cpm:misc.attr('cpm:full-number', cpm:fastcust.numbers.format($number, $numseq))"/>
+                <xsl:copy-of
+                    select="cpm:misc.attr('cpm:nav-full-number', cpm:fastcust.numbers.format($number, $numseq))"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:title', cpm:fastcust.title(.))"/>
+            </xsl:if>
+
+            <!-- Should we proceed with a number element or with a higher number -->
+            <xsl:variable name="actual_hinumber">
+                <xsl:value-of select="cpm:misc.defval($number, $hinumber)"/>
+            </xsl:variable>
+
+            <!-- The same thing about a higher numbering sequence -->
+            <xsl:variable name="actual_hinumseq">
+                <xsl:copy-of select="cpm:misc.defseq($numseq, $hinumseq)"/>
+                <!--
+                <xsl:choose>
+                    <xsl:when test="$numseqname != ''">
+                        <xsl:copy-of select="$numseq"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:copy-of select="$hinumseq"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                -->
+            </xsl:variable>
+
+            <!-- Improving children elements -->
+            <xsl:apply-templates select="node()" mode="#current">
+                <xsl:with-param name="hinumber" select="$actual_hinumber"/>
+                <xsl:with-param name="hinumseq" select="$actual_hinumseq"/>
+            </xsl:apply-templates>
+
+        </xsl:copy>
+
+    </xsl:template>
+
+
+
+    <!-- ================================= -->
+    <!--  Flattening an improved document  -->
+    <!-- ================================= -->
+
+    <!-- 
+        During the flattering stage non-terminal topics
+        desintegrate into titles and terminal topics.
+    -->
+
+    <!-- 
+        Return a type of a FO element (inline or not?)
+    -->
+    <xsl:function name="cpm:fastcust.is_inline" as="xs:boolean">
+
+        <!-- An element of an improved document -->
+        <xsl:param name="element"/>
+
+        <xsl:variable name="name" select="cpm:fastcust.foname($element)"/>
+
+        <xsl:choose>
+            <xsl:when test="$name = ''">
+                <xsl:value-of select="true()"/>
+            </xsl:when>
+            <xsl:when test="$name = 'fo:inline'">
+                <xsl:value-of select="true()"/>
+            </xsl:when>
+            <xsl:when test="$name = 'fo:external-graphic'">
+                <xsl:value-of select="true()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="false()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+
+    </xsl:function>
+
+
+    <!-- 
+        Detecting improved elements that beget FO block elements
     -->
     <xsl:template match="*" mode="cpm.fastcust.bones">
 
+        <!-- 
+            * represents an element of an improved document.
+        -->
+
         <xsl:for-each select="node()">
 
-            <xsl:variable name="fotype">
-                <xsl:apply-templates select="." mode="cpm.fastcust.fotype"/>
-            </xsl:variable>
-
-            <xsl:if test="$fotype = 'block'">
-                <bone pos="{count(preceding-sibling::node())+1}"/>
+            <xsl:if test="not(cpm:fastcust.is_inline(.))">
+                <bone pos="{count(preceding-sibling::node()) + 1}"/>
             </xsl:if>
 
         </xsl:for-each>
@@ -463,9 +443,13 @@
 
 
     <!-- 
-        Wrapping each snippet of stray text into a cpm:wrapper element
+        Wrapping each snippet of slacking text into a cpm:wrapper element
     -->
     <xsl:template match="*" mode="cpm.fastcust.meat">
+
+        <!-- 
+            * represents an element of an improved document.
+        -->
 
         <xsl:param name="bones"/>
 
@@ -525,6 +509,10 @@
     -->
     <xsl:template match="*" mode="cpm.fastcust.stray">
 
+        <!-- 
+            * represents an element of an improved document.
+        -->
+
         <xsl:variable name="bones">
             <xsl:apply-templates select="." mode="cpm.fastcust.bones"/>
         </xsl:variable>
@@ -557,10 +545,16 @@
 
 
     <!-- 
-        Copying an element having only inline children
+        Copying an element having only text children
     -->
     <xsl:template match="*[not(*)]" mode="cpm.fastcust.stray">
+
+        <!-- 
+            * represents an element of an improved document.
+        -->
+
         <xsl:copy-of select="."/>
+
     </xsl:template>
 
 
@@ -573,8 +567,12 @@
         A master page sequence alias is not assigned  
     -->
     <xsl:template match="*" mode="sequence">
+        <!-- 
+            * represents an element of an improved document. 
+        -->
         <!--            
-            OVERLOAD: for each element having a section                   
+            OVERLOAD: in a particular customization for each element
+                      that requires an individual page sequence.
         -->
     </xsl:template>
 
@@ -590,8 +588,12 @@
     -->
     <xsl:template match="*" mode="cpm.fastcust.flat">
 
+        <!-- 
+            * represents an element of an improved document.
+        -->
+
         <!--            
-            OVERLOAD: strongly not recommended.                   
+            OVERLOAD: never!                   
         -->
 
         <!-- 
@@ -630,35 +632,21 @@
 
             <!-- Diving into the element -->
             <xsl:when test="$level = 0">
-                <xsl:apply-templates select="*" mode="cpm.fastcust.flat"/>
+                <xsl:apply-templates select="*" mode="#current"/>
             </xsl:when>
 
-            <!-- Place the element into the output document structure -->
+            <!-- Placing the element into the output document structure -->
             <xsl:otherwise>
 
                 <xsl:copy>
 
                     <!-- Master alias (optional) -->
+
                     <xsl:variable name="master_alias">
                         <xsl:apply-templates select="." mode="sequence"/>
                     </xsl:variable>
 
-                    <xsl:if test="$master_alias != ''">
-                        <xsl:attribute name="cpm:master-alias">
-                            <xsl:value-of select="$master_alias"/>
-                        </xsl:attribute>
-                    </xsl:if>
-
-                    <!-- Info (optional) -->
-                    <xsl:variable name="info">
-                        <xsl:apply-templates select="." mode="sequence"/>
-                    </xsl:variable>
-
-                    <xsl:if test="$info != ''">
-                        <xsl:attribute name="cpm:info">
-                            <xsl:value-of select="$info"/>
-                        </xsl:attribute>
-                    </xsl:if>
+                    <xsl:copy-of select="cpm:misc.attr('cpm:master-alias', $master_alias)"/>
 
                     <xsl:copy-of select="@* | node()"/>
 
@@ -704,9 +692,7 @@
 
         <xsl:copy>
 
-            <xsl:attribute name="cpm:index">
-                <xsl:value-of select="position()"/>
-            </xsl:attribute>
+            <xsl:copy-of select="cpm:misc.attr('cpm:index', position())"/>
 
             <xsl:attribute name="cpm:master-alias">
                 <xsl:apply-templates select="." mode="cpm.fastcust.master_alias"/>
@@ -815,7 +801,7 @@
                     <xsl:apply-templates
                         select="$flat/*[$left &lt;= position() and position() &lt;= $right]"
                         mode="cpm.fastcust.stray"/>
-                    -->    
+                    -->
 
                 </cpm:flow>
 
@@ -832,7 +818,7 @@
     <xsl:template match="*" mode="cpm.fastcust.flatten">
 
         <!--            
-            OVERLOAD: strongly not recommended.                   
+            OVERLOAD: never!                   
         -->
 
         <xsl:variable name="flat_raw">
@@ -860,51 +846,48 @@
     <!-- ==================================== -->
 
     <!-- 
-        Calling a customization for assembling static content
+        Applying a default style to an element
     -->
-    <xsl:template match="cpm:static-content" mode="cpm.fastcust.static">
+    <xsl:attribute-set name="cpm.fastcust.default_style">
 
         <!--            
             OVERLOAD: strongly not recommended.                   
         -->
 
-        <!-- Assembling static content inner XML -->
+        <xsl:attribute name="font-family">Serif</xsl:attribute>
+
+    </xsl:attribute-set>
+
+
+    <!-- 
+        Calling a customization for assembling static content
+    -->
+    <xsl:template match="cpm:static-content" mode="cpm.fastcust.static">
+
+        <!--            
+            OVERLOAD: never!                   
+        -->
+
+        <!-- 
+            Assembling static content inner XML. 
+            
+            A customization should provide a template having
+            mode="static".       
+        -->
         <xsl:variable name="static_content">
             <xsl:apply-templates select="." mode="static"/>
         </xsl:variable>
 
-        <!-- 
-            Assembling a static content FO element for non empty 
-            static content inner XML.
-            
-            An empty static content element causes FO processor error. 
+        <!--                         
+            NOTE: An empty static content element causes a FO 
+                  processing error. 
         -->
 
         <xsl:if test="$static_content != ''">
             <fo:static-content flow-name="{@region-name}">
-                <xsl:apply-templates select="." mode="static"/>
+                <xsl:copy-of select="$static_content"/>
             </fo:static-content>
         </xsl:if>
-
-    </xsl:template>
-
-
-    <!-- 
-        Assembling inner FO for a FO element
-    -->
-    <xsl:template match="*" mode="foinner">
-
-        <!--            
-            OVERLOAD: for a particular element.                   
-        -->
-
-        <!-- Inserting a full number unless an element has a title -->
-        <xsl:if test="not(cpm:fastcust.is_title(.))">
-            <xsl:value-of select="cpm:fastcust.full_number(.)"/>
-        </xsl:if>
-
-        <!-- Transforming child nodes to FO -->
-        <xsl:apply-templates select="node()" mode="foxml"/>
 
     </xsl:template>
 
@@ -916,54 +899,58 @@
     <!-- A default working template -->
     <xsl:template match="*" mode="cpm.fastcust.foname">
 
+        <!-- 
+            * represents an element of a flat document.
+        -->
+
         <!--            
-            OVERLOAD: in a generated layout.xsl.                   
+            OVERLOAD: in a generated layout.xsl for particular elements.                      
         -->
 
         <xsl:choose>
-            <xsl:when test="*[cpm:fo.is_fo(.)]">
+            <xsl:when test="cpm:fo.is_fo(.)">
                 <xsl:value-of select="name()"/>
             </xsl:when>
-            <xsl:when test="*[cpm:is_block_container(.)]">
+            <xsl:when test="cpm:is_block_container(.)">
                 <xsl:text>fo:block-container</xsl:text>
             </xsl:when>
-            <xsl:when test="*[cpm:is_block(.)]">
+            <xsl:when test="cpm:is_block(.)">
                 <xsl:text>fo:block</xsl:text>
             </xsl:when>
-            <xsl:when test="*[cpm:is_inline(.)]">
+            <xsl:when test="cpm:is_inline(.)">
                 <xsl:text>fo:inline</xsl:text>
             </xsl:when>
-            <xsl:when test="*[cpm:is_list_block(.)]">
+            <xsl:when test="cpm:is_list_block(.)">
                 <xsl:text>fo:list-block</xsl:text>
             </xsl:when>
-            <xsl:when test="*[cpm:is_list_item_body(.)]">
+            <xsl:when test="cpm:is_list_item_body(.)">
                 <xsl:text>fo:list-item-body</xsl:text>
             </xsl:when>
-            <xsl:when test="*[cpm:is_list_block(.)]">
+            <xsl:when test="cpm:is_list_block(.)">
                 <xsl:text>fo:list-block</xsl:text>
             </xsl:when>
-            <xsl:when test="*[cpm:is_list_item_body(.)]">
+            <xsl:when test="cpm:is_list_item_body(.)">
                 <xsl:text>fo:list-item-body</xsl:text>
             </xsl:when>
-            <xsl:when test="*[cpm:is_tgroup(.)]">
+            <xsl:when test="cpm:is_table(.)">
                 <xsl:text>fo:table</xsl:text>
             </xsl:when>
-            <xsl:when test="*[cpm:is_thead(.)]">
+            <xsl:when test="cpm:is_table_header(.)">
                 <xsl:text>fo:table-header</xsl:text>
             </xsl:when>
-            <xsl:when test="*[cpm:is_tbody(.)]">
+            <xsl:when test="cpm:is_table_body(.)">
                 <xsl:text>fo:table-body</xsl:text>
             </xsl:when>
-            <xsl:when test="*[cpm:is_tfoot(.)]">
+            <xsl:when test="cpm:is_table_footer(.)">
                 <xsl:text>fo:table-footer</xsl:text>
             </xsl:when>
-            <xsl:when test="*[cpm:is_row(.)]">
+            <xsl:when test="cpm:is_table_row(.)">
                 <xsl:text>fo:table-row</xsl:text>
             </xsl:when>
-            <xsl:when test="*[cpm:is_entry(.)]">
+            <xsl:when test="cpm:is_table_cell(.)">
                 <xsl:text>>fo:table-cell</xsl:text>
             </xsl:when>
-            <xsl:when test="*[cpm:is_external_graphic(.)]">
+            <xsl:when test="cpm:is_external_graphic(.)">
                 <xsl:text>>fo:external-graphic</xsl:text>
             </xsl:when>
             <xsl:otherwise>
@@ -976,8 +963,12 @@
     <!-- A custom working template -->
     <xsl:template match="*" mode="foname">
 
+        <!-- 
+            * represents an element of a flat document.
+        -->
+
         <!--            
-            OVERLOAD: for a particular element.                   
+            OVERLOAD: in a customization for particular elements.                   
         -->
 
         <xsl:apply-templates select="." mode="cpm.fastcust.foname"/>
@@ -994,39 +985,55 @@
     <!-- 
         Assembling attributes for common elements
     -->
+
+    <!-- A common case -->
     <xsl:template match="*" mode="foattrs">
+        <!-- 
+            * represents an element of a flat document.
+        -->
         <!--            
-            OVERLOAD: for a particular element.                   
+            OVERLOAD: in a customization for particular elements.                   
         -->
     </xsl:template>
 
-
-    <!-- 
-        Assembling attributes for explicit FO elements
-    -->
+    <!-- A corner case: FO elements -->
     <xsl:template match="*[cpm:fo.is_fo(.)]" mode="foattrs">
         <xsl:copy-of select="@*[not(cpm:cpm.is_cpm(.))] except (@outputclass, @xtrf)"/>
     </xsl:template>
 
 
     <!-- 
-        Applying a default style to an element
+        Assembling inner FO for a FO element
     -->
-    <xsl:attribute-set name="cpm.fastcust.default_style">
+    <xsl:template match="*" mode="foinner">
 
-        <!--            
-            OVERLOAD: strongly not recommended.                   
+        <!-- 
+            * represents an element of a flat document.
         -->
 
-        <xsl:attribute name="font-family">Serif</xsl:attribute>
+        <!--            
+            OVERLOAD: in a customiation for particular elements.                   
+        -->
 
-    </xsl:attribute-set>
+        <!-- Inserting a full number unless an element has a title -->
+        <xsl:if test="not(cpm:fastcust.is_title(.))">
+            <xsl:value-of select="cpm:fastcust.full_number(.)"/>
+        </xsl:if>
+
+        <!-- Transforming child nodes to FO -->
+        <xsl:apply-templates select="node()" mode="foxml"/>
+
+    </xsl:template>
 
 
     <!-- 
         A default formatting template
     -->
     <xsl:template match="*" mode="cpm.fastcust.foxml">
+
+        <!-- 
+            * represents an element of a flat document.
+        -->
 
         <!--            
             OVERLOAD: in a generated layout.xsl.                   
@@ -1037,27 +1044,33 @@
         <xsl:variable name="element_name">
             <xsl:value-of select="cpm:fastcust.foname(.)"/>
         </xsl:variable>
+
         <xsl:choose>
+
             <xsl:when test="$element_name = ''"/>
+
             <xsl:when test="$element_name = 'cpm:none'">
                 <xsl:copy-of select="$foinner"/>
             </xsl:when>
+
             <xsl:otherwise>
+
                 <xsl:element name="{$element_name}" use-attribute-sets="cpm.fastcust.default_style">
-                    <xsl:attribute name="id">
-                        <xsl:value-of select="cpm:fastcust.id(.)"/>
-                    </xsl:attribute>
-                    <xsl:attribute name="language">
-                        <xsl:value-of select="cpm:fastcust.lang(.)"/>
-                    </xsl:attribute>
-                    <xsl:attribute name="role">
-                        <xsl:value-of select="name()"/>
-                    </xsl:attribute>
+
+                    <xsl:copy-of select="cpm:misc.attr('id', cpm:fastcust.id(.))"/>
+                    <xsl:copy-of select="cpm:misc.attr('language', cpm:fastcust.lang(.))"/>
+                    <xsl:copy-of select="cpm:misc.attr('role', name())"/>
+
                     <xsl:apply-templates select="." mode="foattrs"/>
+
                     <xsl:copy-of select="$foinner"/>
+
                 </xsl:element>
+
             </xsl:otherwise>
+
         </xsl:choose>
+
     </xsl:template>
 
 
@@ -1067,7 +1080,11 @@
     <xsl:template match="*" mode="foxml">
 
         <!-- 
-            OVERLOAD: for a particular source element. 
+            * represents an element of a flat document.
+        -->
+
+        <!-- 
+            OVERLOAD: in a customization for particular elements. 
         -->
 
         <!-- Transforming an element to FO -->

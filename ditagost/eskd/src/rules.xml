@@ -290,7 +290,7 @@
                           tontopic   - топик со списком таблиц, рисунков и т.п.                  
                          
     -->
-
+        
     <!-- Рамки -->
     <element context="*[cpm:oclass(.)='border.sidebar']" style="Рамка. Боковик"/>
     <element context="*[cpm:oclass(.)='border.details']" style="Рамка. Штамп"/>

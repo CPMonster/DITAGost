@@ -1,0 +1,4 @@
+
+<!ENTITY FO_STATIC_REGIONS "fo:region-before|fo:region-after|fo:region-start|fo:region-end">
+<!ENTITY FO_PAGE_MASTER_REFERENCES "fo:conditional-page-master-reference|fo:single-page-master-reference">
+

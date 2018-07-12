@@ -28,16 +28,33 @@
     <!-- 
         Detecting FO elements and attributes
     -->
-    <xsl:template match="* | @*" mode="cpm.fo.is_fo" as="xs:boolean">
+    <xsl:template match="*" mode="cpm.fo.is_fo" as="xs:boolean">
         <xsl:value-of select="namespace-uri() = 'http://www.w3.org/1999/XSL/Format'"/>
     </xsl:template>
 
+    <xsl:template match="@*" mode="cpm.fo.is_fo" as="xs:boolean">
+        <xsl:value-of select="false()"/>
+    </xsl:template>
 
+    <xsl:template match="@*[namespace-uri() = 'http://www.w3.org/1999/XSL/Format']"
+        mode="cpm.fo.is_fo" as="xs:boolean">
+        <xsl:value-of select="true()"/>
+    </xsl:template>
+
+    
     <!-- 
         Detecting a FO element output class
     -->
     <xsl:template match="*" mode="cpm.fo.oclass">
         <xsl:value-of select="@role"/>
+    </xsl:template>
+    
+    
+    <!-- 
+        Extracting a region side from an element
+    -->
+    <xsl:template match="fo:region-before | fo:region-after | fo:region-start | fo:region-end" mode="cpm.fo.regside">        
+        <xsl:value-of select="substring-after(name(), 'fo:region-')"/>        
     </xsl:template>
 
 

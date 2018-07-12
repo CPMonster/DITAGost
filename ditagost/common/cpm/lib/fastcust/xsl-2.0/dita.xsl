@@ -55,13 +55,49 @@
     <!-- ========= -->
     <!--  Queries  -->
     <!-- ========= -->
-    
-    <xsl:template match="*" mode="is_block" as="xs:boolean">
-        <xsl:apply-templates select="." mode="cpm.dita.is_block"/>        
+
+    <xsl:template match="*" mode="is_block_container" as="xs:boolean">
+        <xsl:value-of select="false()"/>
     </xsl:template>
-    
+
+    <xsl:template match="*" mode="is_block" as="xs:boolean">
+        <xsl:value-of select="cpm:dita.is_block(.)"/>
+    </xsl:template>
+
     <xsl:template match="*" mode="is_inline" as="xs:boolean">
-        <xsl:apply-templates select="." mode="cpm.dita.is_inline"/>        
+        <xsl:value-of select="cpm:dita.is_inline(.)"/>
+    </xsl:template>
+
+    <xsl:template match="*" mode="is_list_block" as="xs:boolean">
+        <xsl:value-of select="cpm:dita.is_ul(.) or cpm:dita.is_ol(.)"/>
+    </xsl:template>
+
+    <xsl:template match="*" mode="is_list_item_body" as="xs:boolean">
+        <xsl:value-of select="cpm:dita.is_li(.)"/>
+    </xsl:template>
+
+    <xsl:template match="*" mode="is_table" as="xs:boolean">
+        <xsl:value-of select="cpm:dita.is_tgroup(.)"/>
+    </xsl:template>
+
+    <xsl:template match="*" mode="is_table_header" as="xs:boolean">
+        <xsl:value-of select="cpm:dita.is_thead(.)"/>
+    </xsl:template>
+
+    <xsl:template match="*" mode="is_table_body" as="xs:boolean">
+        <xsl:value-of select="cpm:dita.is_tbody(.)"/>
+    </xsl:template>
+
+    <xsl:template match="*" mode="is_table_footer" as="xs:boolean">
+        <xsl:value-of select="cpm:dita.is_tfoot(.)"/>
+    </xsl:template>
+
+    <xsl:template match="*" mode="is_table_row" as="xs:boolean">
+        <xsl:value-of select="cpm:dita.is_row(.)"/>
+    </xsl:template>
+
+    <xsl:template match="*" mode="is_table_cell" as="xs:boolean">
+        <xsl:value-of select="cpm:dita.is_entry(.)"/>
     </xsl:template>
 
 
@@ -240,6 +276,17 @@
     <xsl:template match="table/title" mode="fonumber">
         <xsl:value-of select="count(preceding::table/title) + 1"/>
     </xsl:template>
+
+
+
+    <!-- ==================== -->
+    <!--  Completing content  -->
+    <!-- ==================== -->
+
+    <!-- 
+        Supressing redundant elements
+    -->
+    <xsl:template match="titlealts" mode="complete"/>
 
 
 
@@ -676,7 +723,7 @@
     </xsl:template>
 
 
-    
+
     <!-- ================== -->
     <!--  Cross references  -->
     <!-- ================== -->

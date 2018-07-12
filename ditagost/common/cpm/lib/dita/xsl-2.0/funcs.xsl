@@ -165,6 +165,11 @@
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="cpm.dita.is_image"/>
     </xsl:function>
+    
+    <xsl:function name="cpm:dita.is_block" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.dita.is_block"/>
+    </xsl:function>
 
 
 
