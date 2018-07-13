@@ -64,6 +64,7 @@
         Converting a sequence name to a page-sequence-master/@master-name
     -->
 
+    <!-- A default template -->
     <xsl:template name="cpm.fastcust.get_master_name">
 
         <!--                        
@@ -76,6 +77,17 @@
         <xsl:value-of select="$master_alias"/>
 
     </xsl:template>
+
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.get_master_name">
+
+        <xsl:param name="master_alias"/>
+
+        <xsl:call-template name="cpm.fastcust.get_master_name">
+            <xsl:with-param name="master_alias" select="$master_alias"/>
+        </xsl:call-template>
+
+    </xsl:function>
 
 
 
@@ -99,10 +111,10 @@
         <xsl:param name="page_position"/>
 
         <xsl:element name="cpm:static-content">
-            <xsl:copy-of select="cpm:misc.attr('region-name', @region-name)"/>
-            <xsl:copy-of select="cpm:misc.attr('page-side', cpm:fo.regside(.))"/>
             <xsl:copy-of select="cpm:misc.attr('master-alias', $master_alias)"/>
             <xsl:copy-of select="cpm:misc.attr('page-position', $page_position)"/>
+            <xsl:copy-of select="cpm:misc.attr('region-name', @region-name)"/>
+            <xsl:copy-of select="cpm:misc.attr('page-side', cpm:fo.regside(.))"/>
         </xsl:element>
 
     </xsl:template>
@@ -359,16 +371,6 @@
             <!-- The same thing about a higher numbering sequence -->
             <xsl:variable name="actual_hinumseq">
                 <xsl:copy-of select="cpm:misc.defseq($numseq, $hinumseq)"/>
-                <!--
-                <xsl:choose>
-                    <xsl:when test="$numseqname != ''">
-                        <xsl:copy-of select="$numseq"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:copy-of select="$hinumseq"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                -->
             </xsl:variable>
 
             <!-- Improving children elements -->
@@ -692,7 +694,9 @@
 
         <xsl:copy>
 
+            <!--
             <xsl:copy-of select="cpm:misc.attr('cpm:index', position())"/>
+            -->
 
             <xsl:attribute name="cpm:master-alias">
                 <xsl:apply-templates select="." mode="cpm.fastcust.master_alias"/>
@@ -705,104 +709,49 @@
     </xsl:template>
 
 
+    <!-- Assembling page sequence inner content -->
+    <xsl:template match="*" mode="cpm.fastcust.seqmambers">
+        
+        <!--            
+            OVERLOAD: never!                   
+        -->
+
+        <xsl:copy-of select="."/>
+
+        <xsl:variable name="pma">
+            <xsl:value-of select="@cpm:master-alias"/>
+        </xsl:variable>
+
+        <xsl:if test="following-sibling::*[1]/@cpm:master-alias = $pma">
+            <xsl:apply-templates select="following-sibling::*[1]" mode="#current"/>
+        </xsl:if>
+
+    </xsl:template>
+
     <!-- Splitting a flat source document representation into sections -->
     <xsl:template match="cpm:root" mode="cpm.fastcust.sequences">
 
         <!--            
-            OVERLOAD: strongly not recommended.                   
+            OVERLOAD: never!                   
         -->
-
-        <!-- Detecting bounds -->
-
-        <xsl:variable name="bounds">
-            <cpm:left index="1"/>
-            <xsl:for-each
-                select="*[following-sibling::* and not(@cpm:master-alias = following-sibling::*[1]/@cpm:master-alias)]">
-                <cpm:right index="{@cpm:index}" master-alias="{@cpm:master-alias}"/>
-                <cpm:left index="{following-sibling::*[1]/@cpm:index}"
-                    master-alias="{following-sibling::*[1]/@cpm:master-alias}"/>
-            </xsl:for-each>
-            <cpm:right index="{count(*)}">
-                <xsl:if test="count(*) = 1">
-                    <xsl:attribute name="master-alias">
-                        <xsl:value-of select="*/@cpm:master-alias"/>
-                    </xsl:attribute>
-                </xsl:if>
-            </cpm:right>
-        </xsl:variable>
-
-        <!-- Assembling a list of sequences -->
 
         <xsl:variable name="xtrf" select="@xtrf"/>
 
-        <xsl:variable name="sequences">
-            <xsl:for-each select="$bounds/cpm:left">
-                <cpm:sequence>
-                    <xsl:attribute name="left">
-                        <xsl:value-of select="@index"/>
-                    </xsl:attribute>
-                    <xsl:attribute name="right">
-                        <xsl:value-of select="following-sibling::cpm:right[1]/@index"/>
-                    </xsl:attribute>
-                    <xsl:attribute name="master-alias">
-                        <xsl:choose>
-                            <xsl:when test="@master-alias">
-                                <xsl:value-of select="@master-alias"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="following-sibling::cpm:right[1]/@master-alias"
-                                />
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:attribute>
-                </cpm:sequence>
-            </xsl:for-each>
-        </xsl:variable>
+        <xsl:for-each select="*[not(@cpm:master-alias = preceding-sibling::*[1]/@cpm:master-alias)]">
 
-        <!-- Assembling sequences -->
+            <xsl:variable name="master_name">
+                <xsl:value-of select="cpm:fastcust.get_master_name(@cpm:master-alias)"/>
+            </xsl:variable>
 
-        <xsl:variable name="flat">
-            <xsl:copy-of select="*"/>
-        </xsl:variable>
+            <cpm:page-sequence xtrf="{$xtrf}" master-alias="{@cpm:master-alias}"
+                master-name="{$master_name}">                
 
-        <xsl:for-each select="$sequences/cpm:sequence">
-
-            <xsl:variable name="left" select="@left"/>
-            <xsl:variable name="right" select="@right"/>
-
-            <cpm:page-sequence>
-
-                <xsl:attribute name="xtrf">
-                    <xsl:value-of select="$xtrf"/>
-                </xsl:attribute>
-
-                <xsl:attribute name="master-alias">
-                    <xsl:value-of select="@master-alias"/>
-                </xsl:attribute>
-
-                <xsl:attribute name="master-name">
-                    <xsl:call-template name="cpm.fastcust.get_master_name">
-                        <xsl:with-param name="master_alias" select="@master-alias"/>
-                    </xsl:call-template>
-                </xsl:attribute>
-
-                <!-- Static content -->
                 <xsl:call-template name="cpm.fastcust.static">
-                    <xsl:with-param name="master_alias" select="@master-alias"/>
+                    <xsl:with-param name="master_alias" select="@cpm:master-alias"/>
                 </xsl:call-template>
 
-                <!-- Body content -->
                 <cpm:flow>
-
-                    <xsl:copy-of
-                        select="$flat/*[$left &lt;= position() and position() &lt;= $right]"/>
-
-                    <!--
-                    <xsl:apply-templates
-                        select="$flat/*[$left &lt;= position() and position() &lt;= $right]"
-                        mode="cpm.fastcust.stray"/>
-                    -->
-
+                    <xsl:apply-templates select="." mode="cpm.fastcust.seqmambers"/>
                 </cpm:flow>
 
             </cpm:page-sequence>

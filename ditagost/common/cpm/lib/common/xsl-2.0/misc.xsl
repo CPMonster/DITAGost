@@ -131,6 +131,27 @@
     
     
     <!-- 
+        Returns a default numeric value if a value is 0
+    -->
+    <xsl:function name="cpm:misc.defnum">
+        
+        <xsl:param name="value"/>
+        
+        <xsl:param name="default"/>
+        
+        <xsl:choose>
+            <xsl:when test="$value != 0">
+                <xsl:value-of select="$value"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$default"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+    </xsl:function>
+    
+    
+    <!-- 
         Returns a default sequence if a sequence is empty
     -->
     <xsl:function name="cpm:misc.defseq">

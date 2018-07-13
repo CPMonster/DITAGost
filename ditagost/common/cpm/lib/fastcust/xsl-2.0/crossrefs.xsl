@@ -22,6 +22,9 @@
         Modules
     -->
     
+    <!-- Useful templates and functions -->
+    <xsl:import href="../../common/xsl-2.0/misc.xsl"/>
+    
     <!-- Wrapper functions -->
     <xsl:import href="funcs.xsl"/>
     

@@ -56,27 +56,13 @@
         <!-- Assembling a TOC placeholder -->
         <cpm:toc maxdepth="{$maxdepth}" maxlevel="{$maxlevel}">
 
-            <xsl:choose>
+            <xsl:copy-of select="cpm:misc.attr('scopeid', $scopeid)"/>
 
-                <xsl:when test="$scopeid != ''">
-                    <xsl:attribute name="scopeid">
-                        <xsl:value-of select="$scopeid"/>
-                    </xsl:attribute>
-                </xsl:when>
-
-                <xsl:otherwise>
-                    <xsl:attribute name="scope">
-                        <xsl:value-of select="$scope"/>
-                    </xsl:attribute>
-                </xsl:otherwise>
-
-            </xsl:choose>
-
-            <xsl:if test="$outputclass != ''">
-                <xsl:attribute name="outputclass">
-                    <xsl:value-of select="$outputclass"/>
-                </xsl:attribute>
+            <xsl:if test="$scopeid = ''">
+                <xsl:copy-of select="cpm:misc.attr('scope', $scope)"/>
             </xsl:if>
+
+            <xsl:copy-of select="cpm:misc.attr('outputclass', $outputclass)"/>
 
         </cpm:toc>
 
@@ -103,27 +89,13 @@
         <!-- Assembling a TON placeholder -->
         <cpm:ton numseq="{$numseqname}">
 
-            <xsl:choose>
-
-                <xsl:when test="$scopeid != ''">
-                    <xsl:attribute name="scopeid">
-                        <xsl:value-of select="$scopeid"/>
-                    </xsl:attribute>
-                </xsl:when>
-
-                <xsl:otherwise>
-                    <xsl:attribute name="scope">
-                        <xsl:value-of select="$scope"/>
-                    </xsl:attribute>
-                </xsl:otherwise>
-
-            </xsl:choose>
+            <xsl:copy-of select="cpm:misc.attr('scopeid', $scopeid)"/>
             
-            <xsl:if test="$outputclass != ''">
-                <xsl:attribute name="outputclass">
-                    <xsl:value-of select="$outputclass"/>
-                </xsl:attribute>
+            <xsl:if test="$scopeid = ''">
+                <xsl:copy-of select="cpm:misc.attr('scope', $scope)"/>
             </xsl:if>
+            
+            <xsl:copy-of select="cpm:misc.attr('outputclass', $outputclass)"/>
 
         </cpm:ton>
 
@@ -307,7 +279,7 @@
         <!-- Assembling a TOC entry for each mamber element -->
         <fo:block role="toc">
 
-            <xsl:copy-of select="@outputclass"/>            
+            <xsl:copy-of select="@outputclass"/>
 
             <!-- Assembling TOC rows -->
             <xsl:apply-templates
