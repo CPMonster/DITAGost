@@ -561,34 +561,28 @@
 
 
     <!-- 
-        We dive into a source element by default 
+        Assigning levels and master page sequence aliases to elements 
     -->
-
-
-    <!-- 
-        A master page sequence alias is not assigned  
-    -->
+    
+    <!-- Assigning a master page sequence alias to an element -->
     <xsl:template match="*" mode="sequence">
+        
         <!-- 
             * represents an element of an improved document. 
         -->
+        
         <!--            
             OVERLOAD: in a particular customization for each element
                       that requires an individual page sequence.
         -->
+        
     </xsl:template>
-
-
-    <!-- 
-        Source element metadata is empty by default
-    -->
+       
+    <!-- Element metadata is empty by default -->
     <xsl:template match="*" mode="info"/>
-
-
-    <!-- 
-        Moving a source document from the block model to the flat model 
-    -->
-    <xsl:template match="*" mode="cpm.fastcust.flat">
+    
+    <!-- Performing markup of an improved document -->
+    <xsl:template match="*" mode="cpm.fastcust.seqmarkup">
 
         <!-- 
             * represents an element of an improved document.
@@ -662,56 +656,54 @@
 
 
     <!-- 
-        Splitting a flat document into page sequences
+        Tuning the markup
     -->
 
     <!-- Assigning a master page sequence name to an adjoining element -->
-    <xsl:template match="*" mode="cpm.fastcust.master_alias">
+    <xsl:function name="cpm:fastcust.tune">
+
+        <xsl:param name="element"/>
 
         <!--            
             OVERLOAD: strongly not recommended.                   
         -->
 
         <xsl:choose>
-            <xsl:when test="@cpm:master-alias">
-                <xsl:value-of select="@cpm:master-alias"/>
+
+            <xsl:when test="$element/@cpm:master-alias">
+                <xsl:value-of select="$element/@cpm:master-alias"/>
             </xsl:when>
+
             <xsl:otherwise>
-                <xsl:apply-templates select="following-sibling::*[1]"
-                    mode="cpm.fastcust.master_alias"/>
+                <xsl:value-of select="cpm:fastcust.tune($element/following-sibling::*[1])"/>
             </xsl:otherwise>
+
         </xsl:choose>
 
-    </xsl:template>
-
+    </xsl:function>
 
     <!-- Tuning a flat source document representation -->
-    <xsl:template match="*" mode="cpm.fastcust.tune">
+    <xsl:template match="*" mode="cpm.fastcust.seqtune">
 
         <!--            
             OVERLOAD: strongly not recommended.                   
         -->
 
         <xsl:copy>
-
-            <!--
-            <xsl:copy-of select="cpm:misc.attr('cpm:index', position())"/>
-            -->
-
-            <xsl:attribute name="cpm:master-alias">
-                <xsl:apply-templates select="." mode="cpm.fastcust.master_alias"/>
-            </xsl:attribute>
-
-            <xsl:copy-of select="@*[not(name() = 'cpm:master-alias')] | node()"/>
-
+            <xsl:copy-of select="cpm:misc.mattr(., 'cpm:master-alias', cpm:fastcust.tune(.))"/>
+            <xsl:copy-of select="@* | node()"/>
         </xsl:copy>
 
     </xsl:template>
 
 
+    <!-- 
+        Splitting a tuned document into page sequences
+    -->
+
     <!-- Assembling page sequence inner content -->
-    <xsl:template match="*" mode="cpm.fastcust.seqmambers">
-        
+    <xsl:template match="*" mode="cpm.fastcust.seqlink">
+
         <!--            
             OVERLOAD: never!                   
         -->
@@ -729,7 +721,7 @@
     </xsl:template>
 
     <!-- Splitting a flat source document representation into sections -->
-    <xsl:template match="cpm:root" mode="cpm.fastcust.sequences">
+    <xsl:template match="cpm:root" mode="cpm.fastcust.seqsplit">
 
         <!--            
             OVERLOAD: never!                   
@@ -744,14 +736,14 @@
             </xsl:variable>
 
             <cpm:page-sequence xtrf="{$xtrf}" master-alias="{@cpm:master-alias}"
-                master-name="{$master_name}">                
+                master-name="{$master_name}">
 
                 <xsl:call-template name="cpm.fastcust.static">
                     <xsl:with-param name="master_alias" select="@cpm:master-alias"/>
                 </xsl:call-template>
 
                 <cpm:flow>
-                    <xsl:apply-templates select="." mode="cpm.fastcust.seqmambers"/>
+                    <xsl:apply-templates select="." mode="cpm.fastcust.seqlink"/>
                 </cpm:flow>
 
             </cpm:page-sequence>
@@ -773,18 +765,18 @@
         <xsl:variable name="flat_raw">
             <cpm:root>
                 <xsl:copy-of select="@*"/>
-                <xsl:apply-templates select="*" mode="cpm.fastcust.flat"/>
+                <xsl:apply-templates select="*" mode="cpm.fastcust.seqmarkup"/>
             </cpm:root>
         </xsl:variable>
 
         <xsl:variable name="flat">
             <cpm:root>
                 <xsl:copy-of select="$flat_raw/cpm:root/@*"/>
-                <xsl:apply-templates select="$flat_raw/cpm:root/*" mode="cpm.fastcust.tune"/>
+                <xsl:apply-templates select="$flat_raw/cpm:root/*" mode="cpm.fastcust.seqtune"/>
             </cpm:root>
         </xsl:variable>
 
-        <xsl:apply-templates select="$flat/cpm:root" mode="cpm.fastcust.sequences"/>
+        <xsl:apply-templates select="$flat/cpm:root" mode="cpm.fastcust.seqsplit"/>
 
     </xsl:template>
 
