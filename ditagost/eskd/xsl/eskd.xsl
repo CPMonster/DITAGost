@@ -33,7 +33,7 @@
     <!-- 
         Reassembling a document
     -->
-    <xsl:template match="bookmap | map" mode="complete">
+    <xsl:template match="bookmap | map" mode="complete">                
 
         <bookmap>
 

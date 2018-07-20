@@ -34,7 +34,7 @@
     <xsl:template match="*" mode="is_slacking" as="xs:boolean">
         
         <xsl:variable name="supreor_title">            
-            <xsl:value-of select="normalize-space(ancestor::*[cpm:is_section(.)][1]/title)"/>                       
+            <xsl:value-of select="normalize-space(ancestor::*[cpm:is_topic(.)][1]/title)"/>                       
         </xsl:variable>
         
         <xsl:choose>            

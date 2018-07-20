@@ -15,83 +15,15 @@
 <!-- * * ** *** ***** ******** ************* ********************* -->  
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:cpm="http://cpmonster.com/xmlns/cpm" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    exclude-result-prefixes="xs" version="2.0">
-
-    <!-- ================= -->
-    <!--  Misc. functions  -->
-    <!-- ================= -->
-
-    <!-- 
-        Taking a number; zero is a default value
-    -->
-    <xsl:function name="cpm:fastcust.num0">
-
-        <!-- A value pretending to be numeric -->
-        <xsl:param name="val"/>
-
-        <xsl:choose>
-            <xsl:when test="$val castable as xs:decimal">
-                <xsl:value-of select="number($val)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="0"/>
-            </xsl:otherwise>
-        </xsl:choose>
-
-    </xsl:function>
+    exclude-result-prefixes="cpm xs" version="2.0">
 
 
-    <!-- 
-        Taking a number; zero is a default value
-    -->
-    <xsl:function name="cpm:fastcust.num1">
+    <!-- ================== -->
+    <!--  Working with IDs  -->
+    <!-- ================== -->
 
-        <!-- A value pretending to be numeric -->
-        <xsl:param name="val"/>
-
-        <xsl:choose>
-            <xsl:when test="$val castable as xs:decimal">
-                <xsl:value-of select="number($val)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="1"/>
-            </xsl:otherwise>
-        </xsl:choose>
-
-    </xsl:function>
-
-
-    <!-- 
-        Taking a number; infinity is a default value
-    -->
-    <xsl:function name="cpm:fastcust.numinf">
-
-        <!-- A value pretending to be numeric -->
-        <xsl:param name="val"/>
-
-        <xsl:choose>
-            <xsl:when test="$val castable as xs:decimal">
-                <xsl:value-of select="number($val)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="1000000000"/>
-            </xsl:otherwise>
-        </xsl:choose>
-
-    </xsl:function>
-
-
-
-    <!-- ============= -->
-    <!--  Element IDs  -->
-    <!-- ============= -->
-
-    <!-- 
-        Retrieving an element ID
-    -->
     <xsl:function name="cpm:fastcust.id">
 
-        <!-- A "native" element, not a variable -->
         <xsl:param name="element"/>
 
         <xsl:apply-templates select="$element" mode="cpm.fastcust.id"/>
@@ -121,42 +53,42 @@
     <!-- ========================= -->
     <!--  Detecting element types  -->
     <!-- ========================= -->
-    
+
     <xsl:function name="cpm:is_block_container" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_block_container"/>
     </xsl:function>
-    
+
     <xsl:function name="cpm:is_block" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_block"/>
     </xsl:function>
-    
+
     <xsl:function name="cpm:is_inline" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_inline"/>
     </xsl:function>
-    
+
     <xsl:function name="cpm:is_list_block" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_list_block"/>
     </xsl:function>
-    
+
     <xsl:function name="cpm:is_list_item_body" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_list_item_body"/>
     </xsl:function>
-    
+
     <xsl:function name="cpm:is_table" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_table"/>
     </xsl:function>
-    
+
     <xsl:function name="cpm:is_table_header" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_table_header"/>
     </xsl:function>
-    
+
     <xsl:function name="cpm:is_table_body" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_table_body"/>
@@ -166,27 +98,27 @@
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_table_footer"/>
     </xsl:function>
-    
+
     <xsl:function name="cpm:is_table_row" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_table_row"/>
     </xsl:function>
-    
+
     <xsl:function name="cpm:is_table_cell" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_table_cell"/>
     </xsl:function>
-    
+
     <xsl:function name="cpm:is_external_graphic" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_external_graphic"/>
     </xsl:function>
-    
-    
-    
+
+
+
     <!-- ================================================= -->
     <!--  Detecting core elements of a document structure  -->
-    <!-- ================================================= -->          
+    <!-- ================================================= -->
 
     <!-- 
         Detecting a document root element    
@@ -195,137 +127,200 @@
 
         <!-- A "native" element; not a variable -->
         <xsl:param name="element"/>
-       
+
         <xsl:apply-templates select="$element" mode="is_docroot"/>
 
     </xsl:function>
 
 
     <!-- 
-        Detecting sections (including terminal topics)
-    -->
-
-    <!-- A working function -->
-    <xsl:function name="cpm:fastcust.is_section" as="xs:boolean">
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:variable name="tmp" as="xs:boolean">
-            <xsl:choose>
-                <xsl:when test="exists($element)">
-                    <xsl:apply-templates select="$element" mode="is_section"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="false()"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-
-        <xsl:value-of select="boolean($tmp)"/>
-
-    </xsl:function>
-
-    <!-- A short wrapper -->
-    <xsl:function name="cpm:is_section" as="xs:boolean">
-
-        <xsl:param name="element"/>
-
-        <xsl:value-of select="cpm:fastcust.is_section($element)"/>
-
-    </xsl:function>
-
-
-    <!-- 
-        Detecting non-terminal sections
-    -->
-
-    <!-- A working function -->
-    <xsl:function name="cpm:fastcust.is_supsect" as="xs:boolean">
-
-        <!-- 
-            A topic is a terminal section (a "leaf" on the section "tree")
-        -->
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:choose>
-
-            <xsl:when test="cpm:fastcust.is_section($element)">
-
-                <xsl:choose>
-                    <xsl:when test="$element/descendant::*[cpm:fastcust.is_section(.)]">
-                        <xsl:value-of select="true()"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="false()"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-
-            </xsl:when>
-
-            <xsl:otherwise>
-                <xsl:value-of select="false()"/>
-            </xsl:otherwise>
-
-        </xsl:choose>
-
-    </xsl:function>
-
-    <!-- A short wrapper -->
-    <xsl:function name="cpm:is_supsect" as="xs:boolean">
-
-        <xsl:param name="element"/>
-
-        <xsl:value-of select="cpm:fastcust.is_supsect($element)"/>
-
-    </xsl:function>
-
-
-    <!-- 
-        Detecting terminal topics
+        Detecting topics
     -->
 
     <!-- A working function -->
     <xsl:function name="cpm:fastcust.is_topic" as="xs:boolean">
 
-        <!-- 
-            A topic is a terminal section (a "leaf" on the section "tree")
-        -->
-
         <!-- A "native" element; not a variable -->
         <xsl:param name="element"/>
 
-        <xsl:choose>
-
-            <xsl:when test="cpm:fastcust.is_section($element)">
-
-                <xsl:choose>
-                    <xsl:when test="$element/descendant::*[cpm:fastcust.is_section(.)]">
-                        <xsl:value-of select="false()"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="true()"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-
-            </xsl:when>
-
-            <xsl:otherwise>
-                <xsl:value-of select="false()"/>
-            </xsl:otherwise>
-
-        </xsl:choose>
+        <xsl:apply-templates select="$element" mode="is_topic"/>
 
     </xsl:function>
 
     <!-- A short wrapper -->
-    <xsl:function name="cpm:is_topic">
+    <xsl:function name="cpm:is_topic" as="xs:boolean">
 
         <xsl:param name="element"/>
 
         <xsl:value-of select="cpm:fastcust.is_topic($element)"/>
+
+    </xsl:function>
+
+
+    <!-- 
+        Detecting topics inside an element
+    -->
+
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.has_subtopics" as="xs:boolean">
+
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+
+        <xsl:apply-templates select="$element" mode="has_subtopics"/>
+
+    </xsl:function>
+
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:has_subtopics" as="xs:boolean">
+
+        <xsl:param name="element"/>
+
+        <xsl:value-of select="cpm:fastcust.has_subtopics($element)"/>
+
+    </xsl:function>
+
+
+    <!-- 
+        Detecting topics having no topics inside
+    -->
+
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.is_simple_topic" as="xs:boolean">
+
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+
+        <xsl:apply-templates select="$element" mode="is_simple_topic"/>
+
+    </xsl:function>
+
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:is_simple_topic" as="xs:boolean">
+
+        <xsl:param name="element"/>
+
+        <xsl:value-of select="cpm:fastcust.is_simple_topic($element)"/>
+
+    </xsl:function>
+
+
+    <!-- 
+        Detecting topics having other topics inside
+    -->
+
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.is_complex_topic" as="xs:boolean">
+
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+
+        <xsl:apply-templates select="$element" mode="is_complex_topic"/>
+
+    </xsl:function>
+
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:is_complex_topic" as="xs:boolean">
+
+        <xsl:param name="element"/>
+
+        <xsl:value-of select="cpm:fastcust.is_complex_topic($element)"/>
+
+    </xsl:function>
+
+
+    <!-- 
+        Detecting titles
+    -->
+
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.is_title" as="xs:boolean">
+
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+
+        <xsl:apply-templates select="$element" mode="is_title"/>
+
+    </xsl:function>
+
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:is_title" as="xs:boolean">
+
+        <xsl:param name="element"/>
+
+        <xsl:value-of select="cpm:fastcust.is_title($element)"/>
+
+    </xsl:function>
+
+
+    <!-- 
+        Detecting topics titles
+    -->
+
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.is_topic_title" as="xs:boolean">
+
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+
+        <xsl:apply-templates select="$element" mode="is_topic_title"/>
+
+    </xsl:function>
+
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:is_topic_title" as="xs:boolean">
+
+        <xsl:param name="element"/>
+
+        <xsl:value-of select="cpm:fastcust.is_topic_title($element)"/>
+
+    </xsl:function>
+
+
+    <!-- 
+        Detecting topic metadata element
+    -->
+
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.is_topic_meta" as="xs:boolean">
+
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+
+        <xsl:apply-templates select="$element" mode="is_topic_meta"/>
+
+    </xsl:function>
+
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:is_topic_meta" as="xs:boolean">
+
+        <xsl:param name="element"/>
+
+        <xsl:value-of select="cpm:fastcust.is_topic_meta($element)"/>
+
+    </xsl:function>
+
+
+    <!-- 
+        Detecting untitled ("slacking") content
+    -->
+
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.is_untitled" as="xs:boolean">
+
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+
+        <xsl:apply-templates select="$element" mode="is_untitled"/>
+
+    </xsl:function>
+
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:is_untitled" as="xs:boolean">
+
+        <xsl:param name="element"/>
+
+        <xsl:value-of select="cpm:fastcust.is_untitled($element)"/>
 
     </xsl:function>
 
@@ -343,7 +338,7 @@
         <!-- A "native" element; not a variable -->
         <xsl:param name="element"/>
 
-        <xsl:value-of select="cpm:fastcust.id($element/ancestor::*[cpm:fastcust.is_section(.)][1])"/>
+        <xsl:apply-templates select="$element" mode="parent_id"/>
 
     </xsl:function>
 
@@ -356,347 +351,243 @@
         <!-- A "native" element, not a variable -->
         <xsl:param name="element"/>
 
-        <xsl:variable name="parent_id">
-            <xsl:value-of select="cpm:fastcust.parent_id($element)"/>
-        </xsl:variable>
-
-        <xsl:value-of
-            select="cpm:fastcust.parent_id($element/ancestor::*[cpm:fastcust.id(.) = $parent_id])"/>
+        <xsl:apply-templates select="$element" mode="grandpa_id"/>
 
     </xsl:function>
 
 
 
-    <!-- ====================== -->
-    <!--  Classifying elements  -->
-    <!-- ====================== -->
+    <!-- ====================================================== -->
+    <!--  Detecting how elements are represented in a document  -->
+    <!-- ====================================================== -->
 
     <!-- 
-        Detecting a section that contains resource (not content)
-    -->
-    <xsl:function name="cpm:fastcust.is_resource" as="xs:boolean">
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:variable name="tmp" as="xs:boolean">
-            <xsl:apply-templates select="$element" mode="is_resource"/>
-        </xsl:variable>
-
-        <xsl:value-of select="boolean($tmp)"/>
-
-    </xsl:function>
-
-
-    <!-- 
-        Detecting an element that represents a cover page
-    -->
-    <xsl:function name="cpm:fastcust.is_cover" as="xs:boolean">
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:value-of select="boolean(name($element) = 'cpm:cover')"/>
-
-    </xsl:function>
-
-
-    <!-- 
-        Detecting a topic that contains a TOC
-    -->
-    <xsl:function name="cpm:fastcust.is_toctopic" as="xs:boolean">
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:variable name="tmp" as="xs:boolean">
-            <xsl:choose>
-                <xsl:when test="cpm:fastcust.is_topic($element)">
-                    <xsl:apply-templates select="$element" mode="is_toctopic"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="false()"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-
-        <xsl:value-of select="boolean($tmp)"/>
-
-    </xsl:function>
-
-
-    <!-- 
-        Detecting a topic that contains a list of tables, etc.
-    -->
-    <xsl:function name="cpm:fastcust.is_tontopic" as="xs:boolean">
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:variable name="tmp" as="xs:boolean">
-            <xsl:choose>
-                <xsl:when test="cpm:fastcust.is_topic($element)">
-                    <xsl:apply-templates select="$element" mode="is_tontopic"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="false()"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-
-        <xsl:value-of select="boolean($tmp)"/>
-
-    </xsl:function>
-
-
-    <!-- 
-        Detecting a section that contains auxiliary matter
-    -->
-    <xsl:function name="cpm:fastcust.is_auxiliary" as="xs:boolean">
-
-        <!-- 
-            An auxiliary section is a section that is not informative.
-            A cover page is a special case. Other special cases 
-            are also allowed. A cover page is not a section at all.
-        -->
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:variable name="tmp" as="xs:boolean">
-            <xsl:choose>
-                <xsl:when test="cpm:fastcust.is_topic($element)">
-                    <xsl:apply-templates select="$element" mode="is_auxiliary"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="false()"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-
-        <xsl:value-of select="boolean($tmp)"/>
-
-    </xsl:function>
-
-
-    <!-- 
-        Detecting a section that contains information a document is targeted at
-    -->
-    <xsl:function name="cpm:fastcust.is_informative" as="xs:boolean">
-
-        <!-- 
-            Informative section is a section that contains 
-            a part of basic document content. Usually, we
-            treat introductions, conclusions, appendixes,
-            and middle sections as informative sections.
-            Prefaces, TOCs, copyrights are not informative.
-            A particular customization may provide its 
-            own template for detecting informative sections.
-            A section that is not informative is auxiliary
-            unless it's a cover page or some other element 
-            of a document layout that is specific for a 
-            particular customization. By the way, a cover 
-            page is not a section at all.
-        -->
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:variable name="tmp" as="xs:boolean">
-            <xsl:choose>
-                <xsl:when test="cpm:fastcust.is_section($element)">
-                    <xsl:apply-templates select="$element" mode="is_informative"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="false()"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-
-        <xsl:value-of select="boolean($tmp)"/>
-
-    </xsl:function>
-
-
-    <!-- 
-        Detecting an appendix section
-    -->
-    <xsl:function name="cpm:fastcust.is_appendix" as="xs:boolean">
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:variable name="tmp" as="xs:boolean">
-            <xsl:choose>
-                <xsl:when test="cpm:fastcust.is_section($element)">
-                    <xsl:variable name="pid">
-                        <xsl:value-of select="cpm:fastcust.parent_id($element)"/>
-                    </xsl:variable>
-                    <xsl:choose>
-                        <xsl:when
-                            test="cpm:fastcust.is_appendix($element/ancestor::*[cpm:fastcust.id(.) = $pid])">
-                            <xsl:value-of select="true()"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:apply-templates select="$element" mode="is_appendix"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="false()"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-
-        <xsl:value-of select="boolean($tmp)"/>
-
-    </xsl:function>
-
-
-    <!-- 
-        Detecting preface or conclusion sections
-    -->
-    <xsl:function name="cpm:fastcust.is_prefconcl" as="xs:boolean">
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:variable name="tmp" as="xs:boolean">
-            <xsl:choose>
-                <xsl:when test="cpm:fastcust.is_section($element)">
-                    <xsl:variable name="pid">
-                        <xsl:value-of select="cpm:fastcust.parent_id($element)"/>
-                    </xsl:variable>
-                    <xsl:choose>
-                        <xsl:when
-                            test="cpm:fastcust.is_prefconcl($element/ancestor::*[cpm:fastcust.id(.) = $pid])">
-                            <xsl:value-of select="true()"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:apply-templates select="$element" mode="is_prefconcl"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="false()"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-
-        <xsl:value-of select="boolean($tmp)"/>
-
-    </xsl:function>
-
-
-    <!-- 
-        Detecting if an element is a title
-    -->
-    <xsl:function name="cpm:fastcust.is_title" as="xs:boolean">
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:variable name="tmp" as="xs:boolean">
-            <xsl:apply-templates select="$element" mode="is_title"/>
-        </xsl:variable>
-
-        <xsl:value-of select="boolean($tmp)"/>
-
-    </xsl:function>        
-
-
-    <!-- 
-        Detecting if an element is a section title
-    -->
-    <xsl:function name="cpm:fastcust.is_sectitle" as="xs:boolean">
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:variable name="tmp" as="xs:boolean">
-            <xsl:choose>
-                <xsl:when test="cpm:fastcust.is_title($element)">
-                    <xsl:value-of select="cpm:fastcust.is_section($element/..)"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="false()"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-
-        <xsl:value-of select="boolean($tmp)"/>
-
-    </xsl:function>
-
-
-    <!-- 
-        Detecting a type of a section
-    -->
-    <xsl:function name="cpm:fastcust.sectype">
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:choose>
-
-            <!-- ... a flat document -->
-            <xsl:when test="$element/@cpm:level">
-                <xsl:value-of select="$element/@cpm:sectype"/>
-            </xsl:when>
-
-            <!-- ... an improved document -->
-            <xsl:otherwise>
-
-                <xsl:choose>
-
-                    <xsl:when test="cpm:fastcust.is_section($element)">
-                        <xsl:apply-templates select="$element" mode="sectype"/>
-                    </xsl:when>
-
-                    <xsl:when test="cpm:fastcust.is_sectitle($element)">
-                        <xsl:apply-templates select="$element/.." mode="sectype"/>
-                    </xsl:when>
-
-                </xsl:choose>
-
-            </xsl:otherwise>
-
-        </xsl:choose>
-
-    </xsl:function>
-
-
-    <!-- 
-        Detecting a type of a section (a compact form)
-    -->
-    <xsl:function name="cpm:sectype">
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:value-of select="cpm:fastcust.sectype($element)"/>
-
-    </xsl:function>
-
-
-
-    <!-- ==================================================== -->
-    <!--  Detecting the presence of an element in a document  -->
-    <!-- ==================================================== -->
-
-    <!-- 
-        Detecting a section that should appear in a document
+        Detecting anelement that should appear in a document
     -->
     <xsl:function name="cpm:fastcust.is_docmamber" as="xs:boolean">
 
         <!-- A "native" element; not a variable -->
         <xsl:param name="element"/>
 
-        <xsl:variable name="tmp" as="xs:boolean">
-            <xsl:apply-templates select="$element" mode="is_docmamber"/>
-        </xsl:variable>
+        <xsl:apply-templates select="$element" mode="is_docmamber"/>
 
-        <xsl:value-of select="boolean($tmp)"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Detecting anelement that should appear in a TOC
+    -->
+    <xsl:function name="cpm:fastcust.is_tocmamber" as="xs:boolean">
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:apply-templates select="$element" mode="is_tocmamber"/>
+        
+    </xsl:function>
+    
+
+
+    <!-- ====================== -->
+    <!--  Classifying elements  -->
+    <!-- ====================== -->
+    
+    <!-- 
+        Detecting appendix topics
+    -->
+    
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.is_appendix" as="xs:boolean">
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:apply-templates select="$element" mode="is_appendix"/>        
+        
+    </xsl:function>
+    
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:is_appendix" as="xs:boolean"> 
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:value-of select="cpm:fastcust.is_appendix($element)"/>
+        
+    </xsl:function>
+    
+    
+    <!-- 
+        Detecting auxiliary topics
+    -->
+    
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.is_auxiliary" as="xs:boolean">
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:apply-templates select="$element" mode="is_auxiliary"/>        
+        
+    </xsl:function>
+    
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:is_auxiliary" as="xs:boolean"> 
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:value-of select="cpm:fastcust.is_auxiliary($element)"/>
+        
+    </xsl:function>
+    
+    
+    <!-- 
+        Detecting cover topics
+    -->
+    
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.is_cover" as="xs:boolean">
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:apply-templates select="$element" mode="is_cover"/>        
+        
+    </xsl:function>
+    
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:is_cover" as="xs:boolean"> 
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:value-of select="cpm:fastcust.is_cover($element)"/>
+        
+    </xsl:function>
+    
+    
+    <!-- 
+        Detecting preface/conclusion topics
+    -->
+    
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.is_prefconcl" as="xs:boolean">
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:apply-templates select="$element" mode="is_prefconcl"/>        
+        
+    </xsl:function>
+    
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:is_prefconcl" as="xs:boolean"> 
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:value-of select="cpm:fastcust.is_prefconcl($element)"/>
+        
+    </xsl:function>
+    
+    
+    <!-- 
+        Detecting resource topics
+    -->
+    
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.is_resource" as="xs:boolean">
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:apply-templates select="$element" mode="is_resource"/>        
+        
+    </xsl:function>
+    
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:is_resource" as="xs:boolean"> 
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:value-of select="cpm:fastcust.is_resource($element)"/>
+        
+    </xsl:function>
+    
+    
+    <!-- 
+        Detecting TOC topics
+    -->
+    
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.is_toctopic" as="xs:boolean">
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:apply-templates select="$element" mode="is_toctopic"/>        
+        
+    </xsl:function>
+    
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:is_toctopic" as="xs:boolean"> 
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:value-of select="cpm:fastcust.is_toctopic($element)"/>
+        
+    </xsl:function>
+    
+    
+    <!-- 
+        Detecting a TON topics
+    -->
+    
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.is_tontopic" as="xs:boolean">
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:apply-templates select="$element" mode="is_tontopic"/>        
+        
+    </xsl:function>
+    
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:is_tontopic" as="xs:boolean"> 
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:value-of select="cpm:fastcust.is_tontopic($element)"/>
+        
+    </xsl:function>
+    
+                
+    <!-- 
+        Detecting a type of a topic
+    -->
+    
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.sectype">
+
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+
+        <xsl:apply-templates select="$element" mode="sectype"/>        
+
+    </xsl:function>
+
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:sectype">
+
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+
+        <xsl:value-of select="cpm:fastcust.sectype($element)"/>
 
     </xsl:function>
 
@@ -1117,29 +1008,7 @@
     <!-- ================ -->
     <!--  TOC properties  -->
     <!-- ================ -->
-
-    <!-- 
-        Detecting elements that should appear in a TOC    
-    -->
-    <xsl:function name="cpm:fastcust.is_tocmamber" as="xs:boolean">
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <!-- Improved document -->
-
-        <xsl:choose>
-            <xsl:when test="cpm:fastcust.level($element) &gt; -1">
-                <xsl:apply-templates select="$element" mode="is_tocmamber"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="false()"/>
-            </xsl:otherwise>
-        </xsl:choose>
-
-    </xsl:function>
-
-
+  
     <!-- 
         Retrieving an element title
     -->

@@ -260,6 +260,21 @@
 
     </xsl:template>
 
+    <xsl:template match="*[@outputclass = 'signatures']" mode="complete">
+        <xsl:message>
+            <xsl:text>))))))))))))))))</xsl:text>
+            <xsl:value-of select="title"/>
+        </xsl:message>
+    </xsl:template>
+
+    <xsl:template match="*[cpm:fastcust.is_topic(.) and not(cpm:fastcust.is_docmamber(.))]"
+        mode="complete">
+        <xsl:message>
+            <xsl:text>((((((((((((((((((</xsl:text>
+            <xsl:value-of select="title"/>
+        </xsl:message>
+    </xsl:template>
+
 
     <!-- 
         Inserting generated content to a source XML
@@ -390,197 +405,23 @@
     <!-- ================================= -->
 
     <!-- 
-        During the flattering stage non-terminal topics
-        desintegrate into titles and terminal topics.
-    -->
-
-    <!-- 
-        Return a type of a FO element (inline or not?)
-    -->
-    <xsl:function name="cpm:fastcust.is_inline" as="xs:boolean">
-
-        <!-- An element of an improved document -->
-        <xsl:param name="element"/>
-
-        <xsl:variable name="name" select="cpm:fastcust.foname($element)"/>
-
-        <xsl:choose>
-            <xsl:when test="$name = ''">
-                <xsl:value-of select="true()"/>
-            </xsl:when>
-            <xsl:when test="$name = 'fo:inline'">
-                <xsl:value-of select="true()"/>
-            </xsl:when>
-            <xsl:when test="$name = 'fo:external-graphic'">
-                <xsl:value-of select="true()"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="false()"/>
-            </xsl:otherwise>
-        </xsl:choose>
-
-    </xsl:function>
-
-
-    <!-- 
-        Detecting improved elements that beget FO block elements
-    -->
-    <xsl:template match="*" mode="cpm.fastcust.bones">
-
-        <!-- 
-            * represents an element of an improved document.
-        -->
-
-        <xsl:for-each select="node()">
-
-            <xsl:if test="not(cpm:fastcust.is_inline(.))">
-                <bone pos="{count(preceding-sibling::node()) + 1}"/>
-            </xsl:if>
-
-        </xsl:for-each>
-
-        <bone pos="{count(node()) + 1}"/>
-
-    </xsl:template>
-
-
-    <!-- 
-        Wrapping each snippet of slacking text into a cpm:wrapper element
-    -->
-    <xsl:template match="*" mode="cpm.fastcust.meat">
-
-        <!-- 
-            * represents an element of an improved document.
-        -->
-
-        <xsl:param name="bones"/>
-
-        <xsl:variable name="body">
-            <xsl:copy-of select="node()"/>
-        </xsl:variable>
-
-        <xsl:for-each select="$bones/bone">
-
-            <xsl:variable name="left">
-                <xsl:choose>
-                    <xsl:when test="position() = 1">
-                        <xsl:value-of select="0"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="preceding-sibling::bone[1]/@pos"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-
-            <xsl:variable name="right">
-                <xsl:value-of select="@pos"/>
-            </xsl:variable>
-
-            <xsl:variable name="meat">
-                <xsl:for-each
-                    select="$body/node()[$left &lt; count(preceding-sibling::node()) + 1 and count(preceding-sibling::node()) + 1 &lt; $right]">
-                    <xsl:choose>
-                        <xsl:when test="name() = ''">
-                            <xsl:value-of select="normalize-space(.)"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:copy-of select="."/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:for-each>
-            </xsl:variable>
-
-            <xsl:if test="not($meat = '')">
-                <cpm:wrapper>
-                    <xsl:copy-of select="$meat/node()"/>
-                </cpm:wrapper>
-            </xsl:if>
-
-            <xsl:if test="following-sibling::bone">
-                <xsl:apply-templates select="$body/*[count(preceding-sibling::node()) + 1 = $right]"
-                    mode="cpm.fastcust.stray"/>
-            </xsl:if>
-
-        </xsl:for-each>
-
-    </xsl:template>
-
-
-    <!-- 
-        Processing an element that probably has stray text 
-    -->
-    <xsl:template match="*" mode="cpm.fastcust.stray">
-
-        <!-- 
-            * represents an element of an improved document.
-        -->
-
-        <xsl:variable name="bones">
-            <xsl:apply-templates select="." mode="cpm.fastcust.bones"/>
-        </xsl:variable>
-
-        <xsl:choose>
-
-            <xsl:when test="count($bones/bone) &lt;= 1">
-
-                <xsl:copy-of select="."/>
-
-            </xsl:when>
-
-            <xsl:otherwise>
-
-                <xsl:copy>
-
-                    <xsl:copy-of select="@*"/>
-
-                    <xsl:apply-templates select="." mode="cpm.fastcust.meat">
-                        <xsl:with-param name="bones" select="$bones"/>
-                    </xsl:apply-templates>
-
-                </xsl:copy>
-
-            </xsl:otherwise>
-
-        </xsl:choose>
-
-    </xsl:template>
-
-
-    <!-- 
-        Copying an element having only text children
-    -->
-    <xsl:template match="*[not(*)]" mode="cpm.fastcust.stray">
-
-        <!-- 
-            * represents an element of an improved document.
-        -->
-
-        <xsl:copy-of select="."/>
-
-    </xsl:template>
-
-
-    <!-- 
         Assigning levels and master page sequence aliases to elements 
     -->
-    
+
     <!-- Assigning a master page sequence alias to an element -->
     <xsl:template match="*" mode="sequence">
-        
         <!-- 
             * represents an element of an improved document. 
         -->
-        
         <!--            
             OVERLOAD: in a particular customization for each element
                       that requires an individual page sequence.
         -->
-        
     </xsl:template>
-       
+
     <!-- Element metadata is empty by default -->
     <xsl:template match="*" mode="info"/>
-    
+
     <!-- Performing markup of an improved document -->
     <xsl:template match="*" mode="cpm.fastcust.seqmarkup">
 
@@ -998,7 +839,7 @@
 
                 <xsl:element name="{$element_name}" use-attribute-sets="cpm.fastcust.default_style">
 
-                    <xsl:copy-of select="cpm:misc.attr('id', cpm:fastcust.id(.))"/>
+                    <xsl:copy-of select="cpm:misc.attr('id', cpm:misc.id(.))"/>
                     <xsl:copy-of select="cpm:misc.attr('language', cpm:fastcust.lang(.))"/>
                     <xsl:copy-of select="cpm:misc.attr('role', name())"/>
 
@@ -1136,15 +977,20 @@
         <!-- Resolving issues in the draft FO -->
         <xsl:variable name="fofinal_xml">
 
-            <!--
+
             <xsl:comment>#####################</xsl:comment>
-            <xsl:copy-of select="$improved_xml"/>
+            <!-- <xsl:copy-of select="$improved_xml"/> -->
             <xsl:comment>#####################</xsl:comment>
-            -->
+
 
             <xsl:apply-templates select="$fodraft_xml/*" mode="cpm.fastcust.fofinal"/>
 
+
         </xsl:variable>
+
+        <xsl:comment>#####################</xsl:comment>
+        <!-- <xsl:copy-of select="$fodraft_xml"/> -->
+        <xsl:comment>#####################</xsl:comment>
 
         <!-- The FO root element -->
         <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format"

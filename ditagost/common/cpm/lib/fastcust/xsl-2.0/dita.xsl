@@ -173,7 +173,7 @@
     <!-- 
         Detecting if an element is a topic 
     -->
-    <xsl:template match="*" mode="is_section" as="xs:boolean">
+    <xsl:template match="*" mode="is_topic" as="xs:boolean">
         <xsl:value-of select="cpm:dita.is_topic(.)"/>
     </xsl:template>
 

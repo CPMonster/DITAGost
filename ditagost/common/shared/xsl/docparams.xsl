@@ -32,18 +32,18 @@
         Retrieving a docparam value by a property name
     -->
     <xsl:function name="cpm:ditagost.docparam">
-        
+
         <!-- Property name; see settings.xsl -->
         <xsl:param name="name"/>
-        
+
         <xsl:variable name="docparam_aliases">
             <xsl:value-of select="cpm:ditagost.docparam_aliases($name)"/>
         </xsl:variable>
-        
+
         <xsl:value-of select="cpm:fastcust.docparam($docparam_aliases)"/>
-        
+
     </xsl:function>
-    
+
 
     <!-- 
         A document originator
@@ -114,5 +114,38 @@
         <xsl:value-of select="$image//image/@href"/>
 
     </xsl:function>
+
+
+    <!-- 
+        Detecting a topic containing a docparams table
+    -->
+    
+    <!-- A working template -->
+    <xsl:template match="*" mode="is_docparams" as="xs:boolean">
+
+        <xsl:choose>
+            <xsl:when test=".//table[cpm:fastcust.is_docparams($cpm.fastcust.GLOBAL_CFG, .)]">
+                <xsl:value-of select="true()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="false()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+                
+    </xsl:template>
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:is_docparams" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="is_docparams"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Excluding docparams topics from a TOC 
+    -->
+    <xsl:template match="*[cpm:is_docparams(.)]" mode="is_resource" as="xs:boolean">        
+        <xsl:value-of select="true()"/>        
+    </xsl:template>
 
 </xsl:stylesheet>

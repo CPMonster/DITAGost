@@ -63,10 +63,10 @@
         -->
 
         <!-- A TOC depth -->
-        <xsl:param name="maxlevel" select="cpm:fastcust.numinf('')"/>
+        <xsl:param name="maxlevel" select="cpm:misc.defnuminf('')"/>
 
         <!-- A maximal number of levels in a TOC -->
-        <xsl:param name="maxdepth" select="cpm:fastcust.numinf('')"/>
+        <xsl:param name="maxdepth" select="cpm:misc.defnuminf('')"/>
 
         <!-- 
             Commonly either $maxlevel or $maxdepth is to be provided.
@@ -117,10 +117,10 @@
         -->
 
         <!-- A TOC depth -->
-        <xsl:param name="maxlevel" select="cpm:fastcust.numinf('')"/>
+        <xsl:param name="maxlevel" select="cpm:misc.defnuminf('')"/>
 
         <!-- A maximal number of levels in a TOC -->
-        <xsl:param name="maxdepth" select="cpm:fastcust.numinf('')"/>
+        <xsl:param name="maxdepth" select="cpm:misc.defnuminf('')"/>
 
         <!-- 
             Commonly either $maxlevel or $maxdepth is to be provided.
@@ -134,7 +134,7 @@
 
         <!-- Assembling a TOC topic -->
         <xsl:call-template name="toctopic">
-            <xsl:with-param name="scopeid" select="cpm:fastcust.id(.)"/>
+            <xsl:with-param name="scopeid" select="cpm:misc.id(.)"/>
             <xsl:with-param name="maxlevel" select="$maxlevel"/>
             <xsl:with-param name="maxdepth" select="$maxdepth"/>
             <xsl:with-param name="outputclass" select="$outputclass"/>

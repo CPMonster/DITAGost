@@ -5,6 +5,25 @@
 
 
     <!-- 
+        Detecting or generating an ID for an element
+    -->
+    <xsl:function name="cpm:misc.id">
+        
+        <xsl:param name="element"/>
+        
+        <xsl:choose>
+            <xsl:when test="$element/@id">
+                <xsl:value-of select="$element/@id"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="generate-id($element)"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+    </xsl:function>
+
+
+    <!-- 
         Assembling an attribute for a non-empty value
     -->
     <xsl:function name="cpm:misc.attr">
@@ -152,6 +171,73 @@
     
     
     <!-- 
+        Taking a number; zero is a default value
+    -->
+    <xsl:function name="cpm:misc.defnum0">
+        
+        <!-- A value pretending to be numeric -->
+        <xsl:param name="val"/>
+        
+        <xsl:choose>
+            <xsl:when test="$val castable as xs:decimal">
+                <xsl:value-of select="number($val)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="0"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+    </xsl:function>
+    
+    
+    <!-- 
+        Taking a number; 1 is a default value
+    -->
+    <xsl:function name="cpm:misc.defnum1">
+        
+        <!-- A value pretending to be numeric -->
+        <xsl:param name="val"/>
+        
+        <xsl:choose>
+            <xsl:when test="$val castable as xs:decimal">
+                <xsl:value-of select="number($val)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="1"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+    </xsl:function>
+    
+    
+    <!-- 
+        Taking a number; the infinity is a default value
+    -->
+    
+    <!-- Generating the actual infinity -->
+    <xsl:template name="cpm.misc.infinity">
+        <xsl:value-of select="999999999"/>
+    </xsl:template>
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:misc.defnuminf">
+        
+        <!-- A value pretending to be numeric -->
+        <xsl:param name="val"/>
+        
+        <xsl:choose>
+            <xsl:when test="$val castable as xs:decimal">
+                <xsl:value-of select="number($val)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="cpm.misc.infinity"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+    </xsl:function>
+    
+           
+    <!-- 
         Returns a default sequence if a sequence is empty
     -->
     <xsl:function name="cpm:misc.defseq">
@@ -170,6 +256,5 @@
         </xsl:choose>
         
     </xsl:function>
-
-
+    
 </xsl:stylesheet>

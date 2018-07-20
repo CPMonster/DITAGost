@@ -734,15 +734,15 @@
     <xsl:template match="*" mode="cpm.fastcust.numbers.numlevel"/>
 
     <!-- A default template for sections (topics) -->
-    <xsl:template match="*[cpm:fastcust.is_section(.)]" mode="cpm.fastcust.numbers.numlevel">
+    <xsl:template match="*[cpm:fastcust.is_topic(.)]" mode="cpm.fastcust.numbers.numlevel">
         <xsl:if test="cpm:fastcust.is_docmamber(.)">
-            <xsl:value-of select="count(ancestor::*[cpm:fastcust.is_section(.)]) + 1"/>
+            <xsl:value-of select="count(ancestor::*[cpm:fastcust.is_topic(.)]) + 1"/>
         </xsl:if>
     </xsl:template>
 
     <!-- A default template for section (topic) titles -->
-    <xsl:template match="*[cpm:fastcust.is_section(.)]/title" mode="cpm.fastcust.numbers.numlevel">
-        <xsl:value-of select="count(ancestor::*[cpm:fastcust.is_section(.)])"/>
+    <xsl:template match="*[cpm:fastcust.is_topic(.)]/title" mode="cpm.fastcust.numbers.numlevel">
+        <xsl:value-of select="count(ancestor::*[cpm:fastcust.is_topic(.)])"/>
     </xsl:template>
 
 
@@ -1017,14 +1017,14 @@
 
                     <!-- Taking an ID of a closest ancestor that belongs to the base numbering sequence -->
                     <xsl:variable name="baseid"
-                        select="cpm:fastcust.id(ancestor::*[cpm:fastcust.numseqname(.) = $basename][1])"/>
+                        select="cpm:misc.id(ancestor::*[cpm:fastcust.numseqname(.) = $basename][1])"/>
 
                     <!-- Counting preceding "numbering siblings" having the same "numbering ancestor" -->
                     <!--
                         TBD: either title or element
                     -->
                     <xsl:value-of
-                        select="count(preceding::*[name()=$elname and ancestor::*[cpm:fastcust.id(.) = $baseid] and cpm:fastcust.numseqname(.) = $numseqname])"/>
+                        select="count(preceding::*[name()=$elname and ancestor::*[cpm:misc.id(.) = $baseid] and cpm:fastcust.numseqname(.) = $numseqname])"/>
 
                 </xsl:when>
 

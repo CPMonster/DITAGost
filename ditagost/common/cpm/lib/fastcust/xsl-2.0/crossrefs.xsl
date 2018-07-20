@@ -45,13 +45,13 @@
             <!-- The case when a target element has a title -->
             <xsl:when test="*[cpm:fastcust.is_title(.)]">
                 <!-- ... referring to the title -->
-                <xsl:value-of select="cpm:fastcust.id(*[cpm:fastcust.is_title(.)])"/>
+                <xsl:value-of select="cpm:misc.id(*[cpm:fastcust.is_title(.)])"/>
             </xsl:when>
             
             <!-- The case when a target element has no title -->
             <xsl:otherwise>
                 <!-- ... referring to the element itself -->
-                <xsl:value-of select="cpm:fastcust.id(.)"/>
+                <xsl:value-of select="cpm:misc.id(.)"/>
             </xsl:otherwise>
             
         </xsl:choose>        

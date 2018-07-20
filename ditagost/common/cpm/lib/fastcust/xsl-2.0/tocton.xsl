@@ -45,10 +45,10 @@
         <xsl:param name="scope" select="'global'"/>
 
         <!-- A greatest section level allowed in a TOC -->
-        <xsl:param name="maxlevel" select="cpm:fastcust.numinf('')"/>
+        <xsl:param name="maxlevel" select="cpm:misc.defnuminf('')"/>
 
         <!-- A maximal number of levels in a TOC -->
-        <xsl:param name="maxdepth" select="cpm:fastcust.numinf('')"/>
+        <xsl:param name="maxdepth" select="cpm:misc.defnuminf('')"/>
 
         <!-- An output class (for applying styles) -->
         <xsl:param name="outputclass" select="''"/>
@@ -126,12 +126,12 @@
 
             <!-- The case when a TOC/TON is local -->
             <xsl:when test="not(@scopeid) and @scope = 'local'">
-                <xsl:value-of select="cpm:fastcust.id(ancestor::*[cpm:fastcust.is_section(.)])"/>
+                <xsl:value-of select="cpm:misc.id(ancestor::*[cpm:fastcust.is_topic(.)])"/>
             </xsl:when>
 
             <!-- The case when a TOC/TON is global -->
             <xsl:otherwise>
-                <xsl:value-of select="cpm:fastcust.id(ancestor::*[cpm:fastcust.is_docroot(.)])"/>
+                <xsl:value-of select="cpm:misc.id(ancestor::*[cpm:fastcust.is_docroot(.)])"/>
             </xsl:otherwise>
 
         </xsl:choose>
@@ -235,7 +235,7 @@
         <xsl:param name="maxlevel"/>
 
         <!-- Converting $maxlevel to a valid numeric value -->
-        <xsl:variable name="ml" select="number(cpm:fastcust.numinf($maxlevel))"/>
+        <xsl:variable name="ml" select="number(cpm:misc.defnuminf($maxlevel))"/>
 
         <xsl:variable name="tmp" as="xs:boolean"
             select="cpm:fastcust.is_tocmamber($element) and (cpm:fastcust.numlevel($element) &lt;= $ml)"/>
@@ -272,7 +272,7 @@
 
         <!-- Detecting a TOC initial level -->
         <xsl:variable name="baselevel"
-            select="cpm:fastcust.numlevel(ancestor::*[cpm:fastcust.id(.) = $scopeid])"/>
+            select="cpm:fastcust.numlevel(ancestor::*[cpm:misc.id(.) = $scopeid])"/>
 
         <xsl:variable name="maxlevel" select="@maxlevel"/>
 
@@ -283,7 +283,7 @@
 
             <!-- Assembling TOC rows -->
             <xsl:apply-templates
-                select="ancestor::*[cpm:fastcust.id(.) = $scopeid]//*[cpm:fastcust.is_in_toc(., $maxlevel)]"
+                select="ancestor::*[cpm:misc.id(.) = $scopeid]//*[cpm:fastcust.is_in_toc(., $maxlevel)]"
                 mode="cpm.fastcust.toctonrow">
                 <xsl:with-param name="baselevel" select="$baselevel"/>
             </xsl:apply-templates>
@@ -330,7 +330,7 @@
 
             <!-- Assembling TON rows -->
             <xsl:apply-templates
-                select="ancestor::*[cpm:fastcust.id(.) = $scopeid]//title[cpm:fastcust.numseqname(.) = $numseqname]"
+                select="ancestor::*[cpm:misc.id(.) = $scopeid]//title[cpm:fastcust.numseqname(.) = $numseqname]"
                 mode="cpm.fastcust.toctonrow"/>
 
         </fo:block>

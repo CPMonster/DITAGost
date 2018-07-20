@@ -256,7 +256,7 @@
         <!-- A column name -->
         <xsl:param name="colname"/>
         
-        <xsl:apply-templates select="$tgroup">
+        <xsl:apply-templates select="$tgroup" mode="cpm.dita.colpos">
             <xsl:with-param name="colname" select="$colname"/>
         </xsl:apply-templates>
         

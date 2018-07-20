@@ -206,13 +206,7 @@
         <xsl:param name="cfg"/>
         
         <xsl:copy-of select="//table[cpm:fastcust.is_docparams($cfg, .)]"/>
-        
-        <!--
-        <xsl:message>
-            <xsl:text>::: </xsl:text>
-            <xsl:copy-of select="//table[cpm:fastcust.is_docparams($cfg, .)]"/>
-        </xsl:message>
-        -->
+                
     </xsl:template>
     
     
@@ -272,15 +266,7 @@
                 <xsl:copy-of select="$docparams"/>
             </docparams>
             
-        </cfg>
-        
-        <!--
-        <xsl:message>
-            <xsl:text>!!! </xsl:text>
-            <xsl:copy-of select="$docparams"/>
-            <xsl:value-of select="cpm:fastcust.docparams.docparam($cfg, $docparams, 'Изделие')"/>
-        </xsl:message>
-        -->
+        </cfg>                
         
     </xsl:variable>
     

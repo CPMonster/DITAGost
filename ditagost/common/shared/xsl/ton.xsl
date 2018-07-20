@@ -97,7 +97,7 @@
         
         <!-- Assembling a TOC topic -->        
         <xsl:call-template name="tontopic">
-            <xsl:with-param name="scopeid" select="cpm:fastcust.id(.)"/>                  
+            <xsl:with-param name="scopeid" select="cpm:misc.id(.)"/>                  
             <xsl:with-param name="numseq" select="$numseq"/>
             <xsl:with-param name="title" select="$title"/>
         </xsl:call-template>

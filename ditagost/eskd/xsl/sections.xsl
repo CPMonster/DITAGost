@@ -61,6 +61,7 @@
     <!-- 
         Detecting a section type
     -->
+    <!--
     <xsl:template match="*" mode="sectype">
 
         <xsl:choose>
@@ -97,6 +98,7 @@
         </xsl:choose>
 
     </xsl:template>
+    -->
 
 
     <!-- 
@@ -105,7 +107,7 @@
 
     <!-- Including a cover page into a document -->
     <xsl:template match="cpm:cover" mode="level">
-        <xsl:value-of select="1"/>
+        <xsl:value-of select="1"/>        
     </xsl:template>
 
     <!-- Selecting a page sequence for a cover page -->
@@ -137,12 +139,7 @@
     <xsl:template match="*[cpm:is_toctopic(.)]" mode="sequence">
         <xsl:text>ESKD.Content.Portrait</xsl:text>
     </xsl:template>
-
-    <!-- Excluding a TOC from a TOC -->
-    <xsl:template match="*[cpm:is_toctopic(.)]" mode="is_tocmamber" as="xs:boolean">
-        <xsl:value-of select="false()"/>
-    </xsl:template>
-
+   
 
     <!-- 
         Slacking text
@@ -175,6 +172,10 @@
             </xsl:otherwise>
         </xsl:choose>
         
+        <xsl:message>
+            <xsl:text>!!!</xsl:text>
+        </xsl:message>
+        
     </xsl:function>
 
     <!-- Detecting a main part topics -->
@@ -183,12 +184,12 @@
         <!-- An element representing a section -->
         <xsl:param name="element"/>
 
-        <xsl:value-of select="cpm:sectype($element) = 'main'"/>
+        <xsl:value-of select="cpm:sectype($element) = 'main'"/>               
 
     </xsl:function>
 
     <!-- Selecting a page sequence for a regular topic -->
-    <xsl:template match="*[cpm:is_regular(.)]" mode="sequence">
+    <xsl:template match="*[cpm:is_regular(.)]" mode="sequence">                
 
         <xsl:choose>
 
@@ -210,7 +211,7 @@
     -->    
 
     <!-- Excluding a final useless page from a TOC -->
-    <xsl:template match="*[cpm:is_listregizm(.)]" mode="is_tocmamber" as="xs:boolean">
+    <xsl:template match="*[cpm:is_listregizm(.)]" mode="is_tocmamber" as="xs:boolean">        
         <xsl:value-of select="false()"/>
     </xsl:template>
 
