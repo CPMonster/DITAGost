@@ -59,46 +59,55 @@
 
 
     <!-- 
-        Detecting a section type
+        Detecting a section type specific for GOST
     -->
-    <!--
     <xsl:template match="*" mode="sectype">
 
+        <!-- Detecting a standard FastCust section type -->
+        <xsl:variable name="sectype">
+            <xsl:value-of select="cpm:fastcust.sectype(.)"/>
+        </xsl:variable>
+
         <xsl:choose>
-            <xsl:when test="cpm:is_cover(.)">
-                <xsl:text>cover</xsl:text>
+
+            <!-- Returning a sepcific section type -->
+            <xsl:when test="$sectype != 'main'">
+                <xsl:value-of select="$sectype"/>
             </xsl:when>
-            <xsl:when test="cpm:is_signatures(.)">
-                <xsl:text>signatures</xsl:text>
-            </xsl:when>
-            <xsl:when test="cpm:is_toctopic(.)">
-                <xsl:text>toctopic</xsl:text>
-            </xsl:when>
-            <xsl:when test="cpm:is_auxiliary(.)">
-                <xsl:text>auxiliary</xsl:text>
-            </xsl:when>
-            <xsl:when test="cpm:is_slacking(.)">
-                <xsl:text>slacking</xsl:text>
-            </xsl:when>
-            <xsl:when test="cpm:is_intro(.)">
-                <xsl:text>intro</xsl:text>
-            </xsl:when>
-            <xsl:when test="cpm:is_tontopic(.)">
-                <xsl:text>tontopic</xsl:text>
-            </xsl:when>
-            <xsl:when test="cpm:is_appendix(.)">
-                <xsl:text>appendix</xsl:text>
-            </xsl:when>
-            <xsl:when test="cpm:is_listregizm(.)">
-                <xsl:text>listregizm</xsl:text>
-            </xsl:when>
+
+            <!-- Qualifying the main section type -->
             <xsl:otherwise>
-                <xsl:text>main</xsl:text>
+
+                <xsl:choose>
+
+                    <!-- A list of signatures -->
+                    <xsl:when test="cpm:is_signatures(.)">
+                        <xsl:text>signatures</xsl:text>
+                    </xsl:when>
+
+                    <!-- Introduction topics -->
+                    <xsl:when test="cpm:is_intro(.)">
+                        <xsl:text>intro</xsl:text>
+                    </xsl:when>
+
+                    <!-- A fimal useless page -->
+                    <xsl:when test="cpm:is_listregizm(.)">
+                        <xsl:text>listregizm</xsl:text>
+                    </xsl:when>
+
+                    <!-- Main topics -->
+                    <xsl:otherwise>
+                        <xsl:text>main</xsl:text>
+                    </xsl:otherwise>
+
+                </xsl:choose>
+
             </xsl:otherwise>
+
         </xsl:choose>
 
     </xsl:template>
-    -->
+
 
 
     <!-- 
@@ -106,90 +115,51 @@
     -->
 
     <!-- Including a cover page into a document -->
-    <xsl:template match="cpm:cover" mode="level">
-        <xsl:value-of select="1"/>        
+    <xsl:template match="*[cpm:sectype(.) = 'cover']" mode="level">
+        <xsl:value-of select="1"/>
     </xsl:template>
 
     <!-- Selecting a page sequence for a cover page -->
-    <xsl:template match="cpm:cover" mode="sequence">
+    <xsl:template match="*[cpm:sectype(.) = 'cover']" mode="sequence">
         <xsl:text>ESKD.Cover</xsl:text>
     </xsl:template>
 
-    <!-- Excluding a cover page form a TOC -->
-    <xsl:template match="cpm:cover" mode="is_tocmamber" as="xs:boolean">
-        <xsl:value-of select="false()"/>
-    </xsl:template>
-
 
     <!-- 
-        A list of signatures 
+        Regular (main and some other) topics
     -->
 
-    <!-- Excluding signatures from a document -->
-    <xsl:template match="*[cpm:is_signatures(.)]" mode="level">
-        <xsl:value-of select="-1"/>
+    <!-- Detecting regular topics (a template) -->
+    <xsl:template match="*" mode="is_regular" as="xs:boolean">
+       
+        <xsl:choose>
+            
+            <!-- A cover page is not regular -->
+            <xsl:when test="cpm:is_cover(.)">
+                <xsl:value-of select="false()"/>
+            </xsl:when>                        
+            
+            <!-- Other topics are regular -->
+            <xsl:otherwise>
+                <xsl:value-of select="true()"/>
+            </xsl:otherwise>
+            
+        </xsl:choose>        
+
     </xsl:template>
     
-
-    <!-- 
-        A TOC
-    -->
-
-    <!-- Including a TOC to a document -->
-    <xsl:template match="*[cpm:is_toctopic(.)]" mode="sequence">
-        <xsl:text>ESKD.Content.Portrait</xsl:text>
-    </xsl:template>
-   
-
-    <!-- 
-        Slacking text
-    -->
-
-    <!-- Excluding slacking text from a TOC -->
-    <xsl:template match="*[cpm:is_slacking(.)]" mode="is_tocmamber" as="xs:boolean">
-        <xsl:value-of select="false()"/>
-    </xsl:template>
-
-
-    <!-- 
-        Regular topics
-    -->
-
-    <!-- Detecting regular topics -->
+    <!-- A wrapper function -->
     <xsl:function name="cpm:is_regular" as="xs:boolean">
         
         <xsl:param name="element"/>
         
-        <xsl:choose>
-            <xsl:when test="cpm:is_cover($element)">
-                <xsl:value-of select="false()"/>
-            </xsl:when>
-            <xsl:when test="cpm:is_toctopic($element)">
-                <xsl:value-of select="false()"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="true()"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        
-        <xsl:message>
-            <xsl:text>!!!</xsl:text>
-        </xsl:message>
+        <xsl:apply-templates select="$element" mode="is_regular"/>
         
     </xsl:function>
-
-    <!-- Detecting a main part topics -->
-    <xsl:function name="cpm:is_main" as="xs:boolean">
-
-        <!-- An element representing a section -->
-        <xsl:param name="element"/>
-
-        <xsl:value-of select="cpm:sectype($element) = 'main'"/>               
-
-    </xsl:function>
+    
 
     <!-- Selecting a page sequence for a regular topic -->
-    <xsl:template match="*[cpm:is_regular(.)]" mode="sequence">                
+    <xsl:template match="*[cpm:is_regular(.)]" mode="sequence">
 
         <xsl:choose>
 
@@ -208,12 +178,12 @@
 
     <!-- 
         A final useless page    
-    -->    
+    -->
 
-    <!-- Excluding a final useless page from a TOC -->
-    <xsl:template match="*[cpm:is_listregizm(.)]" mode="is_tocmamber" as="xs:boolean">        
+    <!-- Excluding a final useless page from a TOC -->    
+    <xsl:template match="*[cpm:is_listregizm(.)]" mode="is_tocmamber" as="xs:boolean">
         <xsl:value-of select="false()"/>
-    </xsl:template>
+    </xsl:template>    
 
 
 </xsl:stylesheet>

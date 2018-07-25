@@ -99,6 +99,11 @@
     <xsl:template match="*" mode="is_table_cell" as="xs:boolean">
         <xsl:value-of select="cpm:dita.is_entry(.)"/>
     </xsl:template>
+    
+    <xsl:template match="*" mode="is_external_graphic" as="xs:boolean">
+        <xsl:value-of select="cpm:dita.is_image(.)"/>
+    </xsl:template>
+        
 
 
     <!-- 
@@ -174,6 +179,9 @@
         Detecting if an element is a topic 
     -->
     <xsl:template match="*" mode="is_topic" as="xs:boolean">
+        <xsl:message>
+            <xsl:text>::: </xsl:text>
+        </xsl:message>
         <xsl:value-of select="cpm:dita.is_topic(.)"/>
     </xsl:template>
 

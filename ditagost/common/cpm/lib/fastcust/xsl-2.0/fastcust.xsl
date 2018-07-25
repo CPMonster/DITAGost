@@ -260,20 +260,10 @@
 
     </xsl:template>
 
-    <xsl:template match="*[@outputclass = 'signatures']" mode="complete">
-        <xsl:message>
-            <xsl:text>))))))))))))))))</xsl:text>
-            <xsl:value-of select="title"/>
-        </xsl:message>
-    </xsl:template>
+    <xsl:template match="*[@outputclass = 'signatures']" mode="complete"/>
 
-    <xsl:template match="*[cpm:fastcust.is_topic(.) and not(cpm:fastcust.is_docmamber(.))]"
-        mode="complete">
-        <xsl:message>
-            <xsl:text>((((((((((((((((((</xsl:text>
-            <xsl:value-of select="title"/>
-        </xsl:message>
-    </xsl:template>
+    <xsl:template match="*[cpm:is_topic(.) and not(cpm:fastcust.is_docmamber(.))]"
+        mode="complete"/>
 
 
     <!-- 
@@ -338,13 +328,13 @@
             <xsl:copy-of select="cpm:misc.mattrid(.)"/>
 
             <!-- Calculating an element level -->
-            <xsl:copy-of select="cpm:misc.attr('cpm:level', cpm:fastcust.level(.))"/>
+            <xsl:copy-of select="cpm:misc.attr('cpm:level', cpm:level(.))"/>
 
             <!-- Section type -->
-            <xsl:copy-of select="cpm:misc.attr('cpm:sectype', cpm:fastcust.sectype(.))"/>
+            <xsl:copy-of select="cpm:misc.attr('cpm:sectype', cpm:sectype(.))"/>
 
             <!-- Calculating an element level for numbering purpose -->
-            <xsl:copy-of select="cpm:misc.attr('cpm:numlevel', cpm:fastcust.numlevel(.))"/>
+            <xsl:copy-of select="cpm:misc.attr('cpm:numlevel', cpm:numlevel(.))"/>
 
             <!-- Detecting a numbering sequence name for an element -->
             <xsl:variable name="numseqname">
@@ -798,10 +788,10 @@
         -->
 
         <!-- Inserting a full number unless an element has a title -->
-        <xsl:if test="not(cpm:fastcust.is_title(.))">
+        <xsl:if test="not(*[cpm:fastcust.is_title(.)])">
             <xsl:value-of select="cpm:fastcust.full_number(.)"/>
         </xsl:if>
-
+        
         <!-- Transforming child nodes to FO -->
         <xsl:apply-templates select="node()" mode="foxml"/>
 
@@ -977,20 +967,22 @@
         <!-- Resolving issues in the draft FO -->
         <xsl:variable name="fofinal_xml">
 
-
+            <!--
             <xsl:comment>#####################</xsl:comment>
-            <!-- <xsl:copy-of select="$improved_xml"/> -->
+            <xsl:copy-of select="$improved_xml"/>
             <xsl:comment>#####################</xsl:comment>
-
+            -->
 
             <xsl:apply-templates select="$fodraft_xml/*" mode="cpm.fastcust.fofinal"/>
 
 
         </xsl:variable>
 
+        <!--
         <xsl:comment>#####################</xsl:comment>
-        <!-- <xsl:copy-of select="$fodraft_xml"/> -->
+        <xsl:copy-of select="$fodraft_xml"/> 
         <xsl:comment>#####################</xsl:comment>
+        -->
 
         <!-- The FO root element -->
         <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format"

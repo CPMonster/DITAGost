@@ -734,15 +734,15 @@
     <xsl:template match="*" mode="cpm.fastcust.numbers.numlevel"/>
 
     <!-- A default template for sections (topics) -->
-    <xsl:template match="*[cpm:fastcust.is_topic(.)]" mode="cpm.fastcust.numbers.numlevel">
+    <xsl:template match="*[cpm:is_topic(.)]" mode="cpm.fastcust.numbers.numlevel">
         <xsl:if test="cpm:fastcust.is_docmamber(.)">
-            <xsl:value-of select="count(ancestor::*[cpm:fastcust.is_topic(.)]) + 1"/>
+            <xsl:value-of select="count(ancestor::*[cpm:is_topic(.)]) + 1"/>
         </xsl:if>
     </xsl:template>
 
     <!-- A default template for section (topic) titles -->
-    <xsl:template match="*[cpm:fastcust.is_topic(.)]/title" mode="cpm.fastcust.numbers.numlevel">
-        <xsl:value-of select="count(ancestor::*[cpm:fastcust.is_topic(.)])"/>
+    <xsl:template match="*[cpm:is_topic(.)]/title" mode="cpm.fastcust.numbers.numlevel">
+        <xsl:value-of select="count(ancestor::*[cpm:is_topic(.)])"/>
     </xsl:template>
 
 

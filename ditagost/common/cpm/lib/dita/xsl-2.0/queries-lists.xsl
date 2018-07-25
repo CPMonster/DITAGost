@@ -22,15 +22,15 @@
     -->
 
     <xsl:template match="*" mode="cpm.dita.is_ul" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_UL;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_UL;')"/>
     </xsl:template>
 
     <xsl:template match="*" mode="cpm.dita.is_ol" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_OL;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_OL;')"/>
     </xsl:template>
 
     <xsl:template match="*" mode="cpm.dita.is_li" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_LI;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_LI;')"/>
     </xsl:template>
 
     <xsl:template match="*" mode="cpm.dita.in_list" as="xs:boolean">

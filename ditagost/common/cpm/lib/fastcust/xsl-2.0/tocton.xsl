@@ -126,7 +126,7 @@
 
             <!-- The case when a TOC/TON is local -->
             <xsl:when test="not(@scopeid) and @scope = 'local'">
-                <xsl:value-of select="cpm:misc.id(ancestor::*[cpm:fastcust.is_topic(.)])"/>
+                <xsl:value-of select="cpm:misc.id(ancestor::*[cpm:is_topic(.)])"/>
             </xsl:when>
 
             <!-- The case when a TOC/TON is global -->

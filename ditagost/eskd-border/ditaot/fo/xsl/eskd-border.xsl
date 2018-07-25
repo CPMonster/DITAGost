@@ -114,9 +114,9 @@
         A TOC
     -->
     
-    <!-- Including a TOC to a document -->
+    <!-- Including a TOC to a document -->   
     <xsl:template match="*[cpm:is_toctopic(.)]" mode="sequence">
         <xsl:text>ESKD.TOC</xsl:text>
-    </xsl:template>
+    </xsl:template>    
 
 </xsl:stylesheet>

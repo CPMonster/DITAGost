@@ -33,7 +33,7 @@
     <!-- 
         Reassembling a document
     -->
-    <xsl:template match="bookmap | map" mode="complete">                
+    <xsl:template match="bookmap | map" mode="complete">
 
         <bookmap>
 
@@ -71,21 +71,21 @@
             <xsl:apply-templates select="*[cpm:sectype(.) = 'appendix']" mode="complete"/>
 
             <xsl:call-template name="listregizm"/>
-
+            
         </bookmap>
 
     </xsl:template>
-    
-    
+
+
     <!-- 
         Formatting a ESKD-style note 
     -->
     <xsl:template match="note" mode="cpm.fastcust.improve">
-        
+
         <p outputclass="notecaption">ВНИМАНИЕ!</p>
-        
+
         <xsl:choose>
-            <xsl:when test="p|li|table|fig">
+            <xsl:when test="p | li | table | fig">
                 <xsl:apply-templates select="*" mode="cpm.fastcust.improve"/>
             </xsl:when>
             <xsl:otherwise>
@@ -94,7 +94,7 @@
                 </p>
             </xsl:otherwise>
         </xsl:choose>
-        
-    </xsl:template>    
+
+    </xsl:template>
 
 </xsl:stylesheet>

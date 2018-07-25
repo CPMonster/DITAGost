@@ -35,7 +35,7 @@
     <!-- Explicit values -->
 
     <xsl:template match="concept" mode="cpm.dita.class_value">
-        <xsl:text>- &DITA_CLASS_TOPIC; &DITA_CLASS_CONCEPT;</xsl:text>        
+        <xsl:text>- &DITA_CLASS_TOPIC; &DITA_CLASS_CONCEPT;</xsl:text>
     </xsl:template>
 
     <xsl:template match="topic/title" mode="cpm.dita.class_value">
@@ -111,14 +111,14 @@
 
     </xsl:function>
 
-   
+
     <!-- 
         Assembling a @class attribute for an element 
     -->
     <xsl:template match="*" mode="cpm.dita.class_attr">
 
         <xsl:variable name="tmp">
-            <xsl:apply-templates select="*" mode="cpm.dita.class_value"/>
+            <xsl:value-of select="cpm:dita.class_value(.)"/>
         </xsl:variable>
 
         <xsl:if test="$tmp != ''">
@@ -133,16 +133,19 @@
     <!-- 
         Assigning class attribute to an element
     -->
-    
+
     <!-- Copying an element that already has a class -->
     <xsl:template match="*[@class]" mode="cpm.dita.class">
-        <xsl:copy-of select="*"/>
+        <xsl:copy>
+            <xsl:copy-of select="@*"/>
+            <xsl:apply-templates select="node()" mode="#current"/>
+        </xsl:copy>
     </xsl:template>
-    
+
     <!-- Assigning a class to an element that has no class -->
     <xsl:template match="*[not(@class)]" mode="cpm.dita.class">
 
-        <xsl:copy>            
+        <xsl:copy>
             <xsl:apply-templates select="." mode="cpm.dita.class_attr"/>
             <xsl:copy-of select="@*"/>
             <xsl:apply-templates select="node()" mode="#current"/>

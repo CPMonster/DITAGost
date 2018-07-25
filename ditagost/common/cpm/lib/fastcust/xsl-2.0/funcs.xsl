@@ -29,25 +29,29 @@
         <xsl:apply-templates select="$element" mode="cpm.fastcust.id"/>
 
     </xsl:function>
-
-
-
+    
+    
+    
     <!-- ======================== -->
     <!--  Working with languages  -->
     <!-- ======================== -->
-
+    
     <!-- 
-        Detecting an element language
-    -->
-    <xsl:function name="cpm:fastcust.lang">
-
-        <!-- A "native" element, not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:apply-templates select="$element" mode="lang"/>
-
+        Detectimg an element language
+    -->    
+    
+    <!-- A default FastCust function -->
+    <xsl:function name="cpm:fastcust.lang">        
+        <xsl:param name="element"/>        
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.lang"/>        
     </xsl:function>
-
+    
+    <!-- A default custom function -->
+    <xsl:function name="cpm:lang">
+        <xsl:param name="element"/>        
+        <xsl:apply-templates select="$element" mode="lang"/>
+    </xsl:function>
+        
 
 
     <!-- ========================= -->
@@ -123,37 +127,47 @@
     <!-- 
         Detecting a document root element    
     -->
+    
+    <!-- A default FastCust function -->
     <xsl:function name="cpm:fastcust.is_docroot" as="xs:boolean">
 
         <!-- A "native" element; not a variable -->
         <xsl:param name="element"/>
 
-        <xsl:apply-templates select="$element" mode="is_docroot"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.is_docroot"/>
 
     </xsl:function>
+    
+    <!-- A default custom function -->
+    <xsl:function name="cpm:is_docroot" as="xs:boolean">
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:apply-templates select="$element" mode="is_docroot"/>
+        
+    </xsl:function>
+    
 
 
     <!-- 
         Detecting topics
     -->
 
-    <!-- A working function -->
+    <!-- A default FastCust function -->
     <xsl:function name="cpm:fastcust.is_topic" as="xs:boolean">
 
         <!-- A "native" element; not a variable -->
         <xsl:param name="element"/>
 
-        <xsl:apply-templates select="$element" mode="is_topic"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.is_topic"/>
 
     </xsl:function>
 
-    <!-- A short wrapper -->
+    <!-- A default custom function -->
     <xsl:function name="cpm:is_topic" as="xs:boolean">
-
         <xsl:param name="element"/>
-
-        <xsl:value-of select="cpm:fastcust.is_topic($element)"/>
-
+        <xsl:apply-templates select="$element" mode="is_topic"/>
     </xsl:function>
 
 
@@ -468,6 +482,30 @@
     
     
     <!-- 
+        Detecting main part topics
+    -->
+    <!-- A working function -->
+    <xsl:function name="cpm:fastcust.is_main" as="xs:boolean">
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.is_main"/>        
+        
+    </xsl:function>
+    
+    <!-- A short wrapper -->
+    <xsl:function name="cpm:is_main" as="xs:boolean"> 
+        
+        <!-- A "native" element; not a variable -->
+        <xsl:param name="element"/>
+        
+        <xsl:apply-templates select="$element" mode="is_main"/>
+        
+    </xsl:function>
+    
+    
+    <!-- 
         Detecting preface/conclusion topics
     -->
     
@@ -577,7 +615,7 @@
         <!-- A "native" element; not a variable -->
         <xsl:param name="element"/>
 
-        <xsl:apply-templates select="$element" mode="sectype"/>        
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.sectype"/>        
 
     </xsl:function>
 
@@ -587,7 +625,7 @@
         <!-- A "native" element; not a variable -->
         <xsl:param name="element"/>
 
-        <xsl:value-of select="cpm:fastcust.sectype($element)"/>
+        <xsl:apply-templates select="$element" mode="sectype"/>
 
     </xsl:function>
 

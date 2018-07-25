@@ -40,35 +40,35 @@
     <!-- ========================== -->
 
     <xsl:template match="*" mode="cpm.dita.is_table" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_TABLE;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_TABLE;')"/>
     </xsl:template>
 
     <xsl:template match="*" mode="cpm.dita.is_tgroup" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_TGROUP;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_TGROUP;')"/>
     </xsl:template>
 
     <xsl:template match="*" mode="cpm.dita.is_colspec" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_COLSPEC;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_COLSPEC;')"/>
     </xsl:template>
 
     <xsl:template match="*" mode="cpm.dita.is_thead" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_THEAD;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_THEAD;')"/>
     </xsl:template>
 
     <xsl:template match="*" mode="cpm.dita.is_tbody" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_TBODY;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_TBODY;')"/>
     </xsl:template>
 
     <xsl:template match="*" mode="cpm.dita.is_tfoot" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_TFOOT;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_TFOOT;')"/>
     </xsl:template>
 
     <xsl:template match="*" mode="cpm.dita.is_row" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_ROW;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_ROW;')"/>
     </xsl:template>
 
     <xsl:template match="*" mode="cpm.dita.is_entry" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_ENTRY;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_ENTRY;')"/>
     </xsl:template>
 
 

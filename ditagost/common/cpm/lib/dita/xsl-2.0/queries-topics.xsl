@@ -21,7 +21,7 @@
         Detecting topic elements
     -->
     <xsl:template match="*" mode="cpm.dita.is_topic" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_TOPIC;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_TOPIC;')"/>
     </xsl:template>
     
     
@@ -29,7 +29,7 @@
         Detecting body elements
     -->
     <xsl:template match="*" mode="cpm.dita.is_body" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_BODY;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_BODY;')"/>
     </xsl:template>
 
 
@@ -96,7 +96,7 @@
         Detecting if an element is a title
     -->
     <xsl:template match="*" mode="cpm.dita.is_title" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_TITLE;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_TITLE;')"/>
     </xsl:template>
     
     
@@ -104,7 +104,7 @@
         Detecting section elements
     -->
     <xsl:template match="*" mode="cpm.dita.is_section" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_SECTION;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_SECTION;')"/>
     </xsl:template>
     
     
@@ -112,7 +112,7 @@
         Detecting div elements
     -->
     <xsl:template match="*" mode="cpm.dita.is_div" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_DIV;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_DIV;')"/>
     </xsl:template>
     
     
@@ -120,19 +120,19 @@
         Detecting core topic elements
     -->
     <xsl:template match="*" mode="cpm.dita.is_p" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_P;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_P;')"/>
     </xsl:template>      
     
     <xsl:template match="*" mode="cpm.dita.is_note" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_NOTE;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_NOTE;')"/>
     </xsl:template>
     
     <xsl:template match="*" mode="cpm.dita.is_fig" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_FIG;)"/>
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_FIG;')"/>
     </xsl:template>
     
-    <xsl:template match="*" mode="cpm.dita.is_image" as="xs:boolean">
-        <xsl:value-of select="cpm:dita.eclass(., &DITA_CLASS_IMAGE;)"/>
+    <xsl:template match="*" mode="cpm.dita.is_image" as="xs:boolean">        
+        <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_IMAGE;')"/>                
     </xsl:template>      
     
     <xsl:template match="*" mode="cpm.dita.is_block" as="xs:boolean">
