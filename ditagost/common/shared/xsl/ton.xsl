@@ -111,7 +111,7 @@
     
     <!-- A template -->
     <xsl:template match="*[contains(title, 'Перечень')]" mode="is_tontopic" as="xs:boolean">
-        
+                       
         <xsl:choose>
             <xsl:when test="title = 'Перечень сокращений'">
                 <xsl:value-of select="true()"/>
@@ -138,13 +138,6 @@
         
     </xsl:template>
         
-    <!-- A wrapper function -->
-    <xsl:function name="cpm:is_tontopic" as="xs:boolean">
-        
-        <xsl:param name="element"/>
-        
-        <xsl:value-of select="cpm:fastcust.is_tontopic($element)"/>
-        
-    </xsl:function>
+    
 
 </xsl:stylesheet>

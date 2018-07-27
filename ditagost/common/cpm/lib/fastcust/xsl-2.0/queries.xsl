@@ -42,7 +42,7 @@
 
     <!-- A default FastCust template -->
     <xsl:template match="*" mode="cpm.fastcust.lang">
-        
+
         <!-- Scope: any stage, DITA -->
 
         <!-- * represents an element of a document -->
@@ -68,7 +68,7 @@
         </xsl:choose>
 
     </xsl:template>
-    
+
     <!-- A default custom template -->
     <xsl:template match="*" mode="lang">
         <xsl:value-of select="cpm:fastcust.lang(.)"/>
@@ -86,10 +86,10 @@
 
     <!-- A FastCust default template -->
     <xsl:template match="*" mode="cpm.fastcust.is_docroot" as="xs:boolean">
-        
+
         <!-- Scope: source, complete, improved -->
 
-        <!-- * represents an element of a document -->                   
+        <!-- * represents an element of a document -->
 
         <xsl:choose>
             <xsl:when test="parent::*">
@@ -104,7 +104,7 @@
 
     <!-- A default custom template -->
     <xsl:template match="*" mode="is_docroot" as="xs:boolean">
-        <xsl:value-of select="cpm:fastcust.is_docroot(.)"/>        
+        <xsl:value-of select="cpm:fastcust.is_docroot(.)"/>
     </xsl:template>
 
 
@@ -114,20 +114,13 @@
 
     <!-- A default FastCust template -->
     <xsl:template match="*" mode="cpm.fastcust.is_topic" as="xs:boolean">
-        <xsl:message>
-            <xsl:text>Wrong! Wrong!</xsl:text>
-        </xsl:message>
         <xsl:value-of select="false()"/>
     </xsl:template>
 
-    <!-- A default custom template -->    
+    <!-- A default custom template -->
     <xsl:template match="*" mode="is_topic" as="xs:boolean">
-        <xsl:message>
-            <xsl:text>Wrong!</xsl:text>
-        </xsl:message>
         <xsl:value-of select="cpm:fastcust.is_topic(.)"/>
     </xsl:template>
-    
 
 
     <!-- 
@@ -136,6 +129,11 @@
 
     <!-- A default FastCust template -->
     <xsl:template match="*" mode="cpm.fastcust.has_subtopics" as="xs:boolean">
+
+        <!-- Scope: complete, improved -->
+
+        <!-- * represents an element of a document -->
+
         <xsl:choose>
             <xsl:when test="descendant::*[cpm:is_topic(.)]">
                 <xsl:value-of select="true()"/>
@@ -148,7 +146,7 @@
 
     <!-- A default custom template -->
     <xsl:template match="*" mode="has_subtopics" as="xs:boolean">
-        <xsl:apply-templates select="." mode="cpm.fastcust.has_subtopics"/>
+        <xsl:value-of select="cpm:fastcust.has_subtopics(.)"/>
     </xsl:template>
 
 
@@ -159,9 +157,13 @@
     <!-- A default FastCust template -->
     <xsl:template match="*" mode="cpm.fastcust.is_simple_topic" as="xs:boolean">
 
+        <!-- Scope: complete, improved -->
+
+        <!-- * represents an element of a document -->
+
         <xsl:choose>
             <xsl:when test="cpm:is_topic(.)">
-                <xsl:value-of select="not(cpm:fastcust.has_subtopics(.))"/>
+                <xsl:value-of select="not(cpm:has_subtopics(.))"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="false()"/>
@@ -172,7 +174,7 @@
 
     <!-- A default custom template -->
     <xsl:template match="*" mode="is_simple_topic" as="xs:boolean">
-        <xsl:apply-templates select="." mode="cpm.fastcust.is_simple_topic"/>
+        <xsl:value-of select="cpm:fastcust.is_simple_topic(.)"/>
     </xsl:template>
 
 
@@ -183,9 +185,13 @@
     <!-- A default FastCust template -->
     <xsl:template match="*" mode="cpm.fastcust.is_complex_topic" as="xs:boolean">
 
+        <!-- Scope: complete, improved -->
+
+        <!-- * represents an element of a document -->
+
         <xsl:choose>
             <xsl:when test="cpm:is_topic(.)">
-                <xsl:value-of select="cpm:fastcust.has_subtopics(.)"/>
+                <xsl:value-of select="cpm:has_subtopics(.)"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="false()"/>
@@ -196,7 +202,7 @@
 
     <!-- A default custom template -->
     <xsl:template match="*" mode="is_complex_topic" as="xs:boolean">
-        <xsl:apply-templates select="." mode="cpm.fastcust.is_complex_topic"/>
+        <xsl:value-of select="cpm:fastcust.is_complex_topic(.)"/>
     </xsl:template>
 
 
@@ -211,7 +217,7 @@
 
     <!-- A default custom template -->
     <xsl:template match="*" mode="is_title" as="xs:boolean">
-        <xsl:apply-templates select="." mode="cpm.fastcust.is_title"/>
+        <xsl:value-of select="cpm:fastcust.is_title(.)"/>
     </xsl:template>
 
 
@@ -219,12 +225,21 @@
         Detecting topic titles
     -->
 
-    <!-- A default FastCust template -->
-    <xsl:template match="*" mode="cpm.fastcust.is_topic_title" as="xs:boolean">
+    <!-- A default template -->
+    <xsl:template match="*[not(parent::*)]" mode="cpm.fastcust.is_topic_title" as="xs:boolean">
+        <xsl:value-of select="false()"/>
+    </xsl:template>
+    
+    <!-- A default template -->
+    <xsl:template match="*[parent::*]" mode="cpm.fastcust.is_topic_title" as="xs:boolean">
+
+        <!-- Scope: complete, improved -->
+
+        <!-- * represents an element of a document -->
 
         <xsl:choose>
-            <xsl:when test="cpm:is_topic(..)">
-                <xsl:value-of select="cpm:fastcust.is_title(.)"/>
+            <xsl:when test="cpm:is_topic(parent::*)">
+                <xsl:value-of select="cpm:is_title(.)"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="false()"/>
@@ -235,7 +250,7 @@
 
     <!-- A default custom template -->
     <xsl:template match="*" mode="is_topic_title" as="xs:boolean">
-        <xsl:apply-templates select="." mode="cpm.fastcust.is_topic_title"/>
+        <xsl:value-of select="cpm:fastcust.is_topic_title(.)"/>
     </xsl:template>
 
 
@@ -250,7 +265,7 @@
 
     <!-- A default custom template -->
     <xsl:template match="*" mode="is_topic_meta" as="xs:boolean">
-        <xsl:apply-templates select="." mode="cpm.fastcust.is_topic_meta"/>
+        <xsl:value-of select="cpm:fastcust.is_topic_meta(.)"/>
     </xsl:template>
 
 
@@ -265,10 +280,10 @@
             <xsl:when test="cpm:is_topic(.)">
                 <xsl:value-of select="false()"/>
             </xsl:when>
-            <xsl:when test="cpm:fastcust.is_topic_title(.)">
+            <xsl:when test="cpm:is_topic_title(.)">
                 <xsl:value-of select="false()"/>
             </xsl:when>
-            <xsl:when test="cpm:fastcust.is_topic_meta(.)">
+            <xsl:when test="cpm:is_topic_meta(.)">
                 <xsl:value-of select="false()"/>
             </xsl:when>
             <xsl:otherwise>
@@ -287,7 +302,7 @@
 
     <!-- A default custom template -->
     <xsl:template match="*" mode="is_untitled" as="xs:boolean">
-        <xsl:apply-templates select="." mode="cpm.fastcust.is_untitled"/>
+        <xsl:value-of select="cpm:fastcust.is_untitled(.)"/>
     </xsl:template>
 
 
@@ -297,7 +312,7 @@
     <!-- =================================== -->
 
     <!-- 
-        Detecting/generating an ID for an element
+        Detecting/generating an ID for an element (legacy!)
     -->
     <xsl:template match="*" mode="cpm.fastcust.id">
         <xsl:value-of select="cpm:misc.id(.)"/>
@@ -327,62 +342,6 @@
 
 
 
-    <!-- ====================================================== -->
-    <!--  Detecting how elements are represented in a document  -->
-    <!-- ====================================================== -->
-
-    <!-- 
-        Should an element appear in a document?
-    -->
-
-    <!-- A default FastCust template -->
-    <xsl:template match="*" mode="cpm.fastcust.is_docmamber" as="xs:boolean">
-        <xsl:value-of select="not(cpm:fastcust.is_resource(.))"/>
-    </xsl:template>
-
-    <!-- A default custom template -->
-    <xsl:template match="*" mode="is_docmamber" as="xs:boolean">
-        <xsl:apply-templates select="." mode="cpm.fastcust.is_docmamber"/>
-    </xsl:template>
-
-
-    <!-- 
-        Should an element appear in a TOC?
-    -->
-
-    <!-- A default FastCust template -->
-    <xsl:template match="*" mode="cpm.fastcust.is_tocmamber" as="xs:boolean">
-
-        <xsl:choose>
-            <xsl:when test="cpm:fastcust.is_auxiliary(.)">
-                <xsl:value-of select="false()"/>
-            </xsl:when>
-            <xsl:when test="cpm:fastcust.is_cover(.)">
-                <xsl:value-of select="false()"/>
-            </xsl:when>
-            <xsl:when test="cpm:fastcust.is_resource(.)">
-                <xsl:value-of select="false()"/>
-            </xsl:when>
-            <xsl:when test="cpm:fastcust.is_toctopic(.)">
-                <xsl:value-of select="false()"/>
-            </xsl:when>
-            <xsl:when test="cpm:fastcust.is_untitled(.)">
-                <xsl:value-of select="false()"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="cpm:is_topic(.)"/>
-            </xsl:otherwise>
-        </xsl:choose>
-
-    </xsl:template>
-
-    <!-- A default custom template -->
-    <xsl:template match="*" mode="is_tocmamber" as="xs:boolean">
-        <xsl:apply-templates select="." mode="cpm.fastcust.is_tocmamber"/>
-    </xsl:template>
-
-
-
     <!-- ======================= -->
     <!--  Detecting topic types  -->
     <!-- ======================= -->
@@ -392,10 +351,9 @@
     -->
     <xsl:template match="*" mode="is_appendix" as="xs:boolean">
 
-        <!-- * is an element of a document -->
+        <!-- Scope: complete, improved -->
 
-        <!-- Depends on a source markup language & customization -->
-        <!-- SHOULD be overloaded somewhere outside              -->
+        <!-- * represents an element of a document -->
 
         <xsl:value-of select="false()"/>
 
@@ -407,10 +365,9 @@
     -->
     <xsl:template match="*" mode="is_auxiliary" as="xs:boolean">
 
-        <!-- * is an element of a document -->
+        <!-- Scope: complete, improved -->
 
-        <!-- Depends on a source markup language     -->
-        <!-- SHOULD be overloaded somewhere outside  -->
+        <!-- * represents an element of a document -->
 
         <xsl:value-of select="false()"/>
 
@@ -421,10 +378,12 @@
         Detecting cover page topics
     -->
 
-    <!-- A default working template -->
+    <!-- A default template -->
     <xsl:template match="*" mode="cpm.fastcust.is_cover" as="xs:boolean">
 
-        <!-- * is an element of a document -->
+        <!-- Scope: complete, improved -->
+
+        <!-- * represents an element of a document -->
 
         <xsl:value-of select="name() = 'cpm:cover'"/>
 
@@ -432,7 +391,7 @@
 
     <!-- A custom working template -->
     <xsl:template match="*" mode="is_cover" as="xs:boolean">
-        <xsl:apply-templates select="." mode="cpm.fastcust.is_cover"/>
+        <xsl:value-of select="cpm:fastcust.is_cover(.)"/>
     </xsl:template>
 
 
@@ -440,16 +399,18 @@
         Detecting topics of a main part
     -->
 
-    <!-- A default working template -->
+    <!-- A default template -->
     <xsl:template match="*" mode="cpm.fastcust.is_main" as="xs:boolean">
 
-        <!-- * is an element of a document -->
+        <!-- Scope: complete, improved, flat -->
 
-        <xsl:value-of select="cpm:fastcust.sectype(.) = 'main'"/>
+        <!-- * represents an element of a document -->
+
+        <xsl:value-of select="cpm:sectype(.) = 'main'"/>
 
     </xsl:template>
 
-    <!-- A custom working template -->
+    <!-- A custom template -->
     <xsl:template match="*" mode="is_main" as="xs:boolean">
         <xsl:value-of select="cpm:fastcust.is_main(.)"/>
     </xsl:template>
@@ -460,10 +421,9 @@
     -->
     <xsl:template match="*" mode="is_prefconcl" as="xs:boolean">
 
-        <!-- * is an element of a document -->
+        <!-- Scope: complete, improved, flat -->
 
-        <!-- Depends on a source markup language & customization -->
-        <!-- SHOULD be overloaded somewhere outside              -->
+        <!-- * represents an element of a document -->
 
         <xsl:value-of select="false()"/>
 
@@ -473,12 +433,13 @@
     <!-- 
         Detecting resource topics
     -->
+
+    <!-- A custom template -->
     <xsl:template match="*" mode="is_resource" as="xs:boolean">
 
-        <!-- * is an element of a document -->
+        <!-- Scope: source -->
 
-        <!-- Depends on a source markup language & customization -->
-        <!-- SHOULD be overloaded somewhere outside              -->
+        <!-- * represents an element of a document -->
 
         <xsl:value-of select="false()"/>
 
@@ -489,13 +450,15 @@
         Detecting TOC topics
     -->
 
-    <!-- A default working template -->
+    <!-- A default template -->
     <xsl:template match="*" mode="cpm.fastcust.is_toctopic" as="xs:boolean">
 
-        <!-- * is an element of a document -->
+        <!-- Scope: complete, improved, flat -->
+
+        <!-- * represents an element of a document -->
 
         <xsl:choose>
-            <xsl:when test="cpm:fastcust.is_simple_topic(.)">
+            <xsl:when test="cpm:is_simple_topic(.)">
                 <xsl:choose>
                     <xsl:when test="descendant::cpm:toc">
                         <xsl:value-of select="true()"/>
@@ -515,9 +478,9 @@
 
     </xsl:template>
 
-    <!-- A custom working template -->
+    <!-- A custom template -->
     <xsl:template match="*" mode="is_toctopic" as="xs:boolean">
-        <xsl:apply-templates select="." mode="cpm.fastcust.is_toctopic"/>
+        <xsl:value-of select="cpm:fastcust.is_toctopic(.)"/>
     </xsl:template>
 
 
@@ -528,10 +491,10 @@
     <!-- A default working template -->
     <xsl:template match="*" mode="cpm.fastcust.is_tontopic" as="xs:boolean">
 
-        <!-- * is an element of a document -->
+        <!-- * is an element of a document -->                
 
         <xsl:choose>
-            <xsl:when test="cpm:fastcust.is_simple_topic(.)">
+            <xsl:when test="cpm:is_simple_topic(.)">
                 <xsl:choose>
                     <xsl:when test="descendant::cpm:ton">
                         <xsl:value-of select="true()"/>
@@ -552,95 +515,123 @@
     </xsl:template>
 
     <!-- A custom working template -->
-    <xsl:template match="*" mode="is_tontopic" as="xs:boolean">
-        <xsl:apply-templates select="." mode="cpm.fastcust.is_tontopic"/>
+    <xsl:template match="*" mode="is_tontopic" as="xs:boolean">        
+        <xsl:value-of select="cpm:fastcust.is_tontopic(.)"/>
     </xsl:template>
 
 
     <!-- 
-        Detecting an a topic type
+        Detecting topic types
     -->
+    
+    <!-- A default template for a common case -->
+    <xsl:template match="*" mode="cpm.fastcust.sectype"/>
+    
+    <!-- A default template for a cover page -->
+    <xsl:template match="*[cpm:is_cover(.)]" mode="cpm.fastcust.sectype">
+        <xsl:text>cover</xsl:text>
+    </xsl:template>
+        
+    <!-- A default template for complete and improved document elements -->
+    <xsl:template match="*[cpm:is_topic(.)]" mode="cpm.fastcust.sectype">
 
-    <!-- A default FastCust template -->
-    <xsl:template match="*" mode="cpm.fastcust.sectype">
-
-        <!-- 
-            * represents an element of a complete document.
-        -->
-
-        <!-- 
-            OVERLOAD: never! 
-        -->
+        <!-- * represents an element of a complete document -->
 
         <xsl:choose>
-
-            <xsl:when test="@cpm:sectype">
-                <xsl:value-of select="@cpm:sectype"/>
+            <xsl:when test="cpm:is_appendix(.)">
+                <xsl:text>appendix</xsl:text>
             </xsl:when>
-
+            <xsl:when test="cpm:is_auxiliary(.)">
+                <xsl:text>auxiliary</xsl:text>
+            </xsl:when>            
+            <xsl:when test="cpm:is_prefconcl(.)">
+                <xsl:text>prefconcl</xsl:text>
+            </xsl:when>
+            <xsl:when test="cpm:is_resource(.)">
+                <xsl:text>resource</xsl:text>
+            </xsl:when>
+            <xsl:when test="cpm:is_toctopic(.)">
+                <xsl:text>toctopic</xsl:text>
+            </xsl:when>
+            <xsl:when test="cpm:is_tontopic(.)">
+                <xsl:text>tontopic</xsl:text>
+            </xsl:when>
             <xsl:otherwise>
-                                
-                <xsl:choose>
-                    <xsl:when test="cpm:is_appendix(.)">
-                        <xsl:text>appendix</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="cpm:is_auxiliary(.)">
-                        <xsl:text>auxiliary</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="cpm:is_cover(.)">
-                        <xsl:text>cover</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="cpm:is_prefconcl(.)">
-                        <xsl:text>prefconcl</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="cpm:is_resource(.)">
-                        <xsl:text>resource</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="cpm:is_toctopic(.)">
-                        <xsl:text>toctopic</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="cpm:is_tontopic(.)">
-                        <xsl:text>tontopic</xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>main</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-                
+                <xsl:text>main</xsl:text>
             </xsl:otherwise>
+        </xsl:choose>
 
+    </xsl:template>
+       
+    <!-- A title inherits a parent's section type -->
+    <xsl:template match="*[cpm:is_topic_title(.)]" mode="cpm.fastcust.sectype">          
+        <xsl:value-of select="cpm:sectype(..)"/>
+    </xsl:template>
+    
+    <!-- A default template for flat document elements (always wins!) -->
+    <xsl:template match="*[@cpm:sectype]" mode="cpm.fastcust.sectype" priority="2">
+        <xsl:value-of select="@cpm:sectype"/>
+    </xsl:template>
+
+    <!-- A default custom template -->
+    <xsl:template match="*" mode="sectype">                
+        <xsl:value-of select="cpm:fastcust.sectype(.)"/>
+    </xsl:template>
+
+
+
+    <!-- ====================================================== -->
+    <!--  Detecting how elements are represented in a document  -->
+    <!-- ====================================================== -->
+
+    <!-- 
+        Should an element appear in a document?
+    -->
+
+    <!-- A default template -->
+    <xsl:template match="*" mode="cpm.fastcust.is_docmamber" as="xs:boolean">
+        <xsl:value-of select="not(cpm:is_resource(.))"/>
+    </xsl:template>
+
+    <!-- A custom template -->
+    <xsl:template match="*" mode="is_docmamber" as="xs:boolean">
+        <xsl:value-of select="cpm:fastcust.is_docmamber(.)"/>
+    </xsl:template>
+
+
+    <!-- 
+        Should an element appear in a TOC?
+    -->
+
+    <!-- A default template -->
+    <xsl:template match="*" mode="cpm.fastcust.is_tocmamber" as="xs:boolean">
+
+        <xsl:choose>
+            <xsl:when test="cpm:is_auxiliary(.)">
+                <xsl:value-of select="false()"/>
+            </xsl:when>
+            <xsl:when test="cpm:is_cover(.)">
+                <xsl:value-of select="false()"/>
+            </xsl:when>
+            <xsl:when test="cpm:is_resource(.)">
+                <xsl:value-of select="false()"/>
+            </xsl:when>
+            <xsl:when test="cpm:is_toctopic(.)">
+                <xsl:value-of select="false()"/>
+            </xsl:when>
+            <xsl:when test="cpm:is_untitled(.)">
+                <xsl:value-of select="false()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="cpm:is_topic(.)"/>
+            </xsl:otherwise>
         </xsl:choose>
 
     </xsl:template>
 
-    <!-- A default custom template -->
-    <xsl:template match="*" mode="sectype">
-
-        <!-- 
-            * represents an element of a complete document.
-        -->
-
-        <!-- 
-            OVERLOAD: in a particular customization. 
-        -->
-
-        <xsl:value-of select="cpm:fastcust.sectype(.)"/>
-
-    </xsl:template>
-
-    <!-- A title inherits a parent's section type -->
-    <xsl:template match="*[cpm:is_title(.)]" mode="cpm.fastcust.sectype">
-
-        <!-- 
-            * represents an element of a complete document.
-        -->
-
-        <!-- 
-            OVERLOAD: perhaps in a particular customization.  
-        -->
-
-        <xsl:value-of select="cpm:sectype(..)"/>
-
+    <!-- A custom template -->
+    <xsl:template match="*" mode="is_tocmamber" as="xs:boolean">
+        <xsl:value-of select="cpm:fastcust.is_tocmamber(.)"/>
     </xsl:template>
 
 
@@ -653,76 +644,51 @@
         Calculating or retrieving a level of an element
     -->
 
-    <!-- A default working template for a common element -->
+    <!-- A default template for a common case -->
     <xsl:template match="*" mode="cpm.fastcust.level">
+        <xsl:value-of select="0"/>
+    </xsl:template>    
+
+    <!-- Excluding redundant elements -->
+    <xsl:template match="*[not(cpm:is_docmamber(.))]" mode="cpm.fastcust.level" priority="2">
+        <xsl:value-of select="-1"/>
+    </xsl:template>
+
+    <!-- A default template for complex topics -->
+    <xsl:template match="*[cpm:is_complex_topic(.)]" mode="cpm.fastcust.level">
         <xsl:value-of select="0"/>
     </xsl:template>
 
-    <xsl:template match="*[cpm:fastcust.is_complex_topic(.)]" mode="cpm.fastcust.level">
-
-        <xsl:choose>
-
-            <!-- Banning resource topics -->
-            <xsl:when test="not(cpm:fastcust.is_docmamber(.))">
-                <xsl:value-of select="-1"/>
-            </xsl:when>
-
-            <!-- Calculating a level of a "true" topic -->
-            <xsl:otherwise>
-                <xsl:value-of select="0"/>
-                <xsl:message>
-                    <xsl:text>0.0.0.0</xsl:text>
-                </xsl:message>
-            </xsl:otherwise>
-
-        </xsl:choose>
-
-
-
+    <!-- A default template for simple topics -->
+    <xsl:template match="*[cpm:is_simple_topic(.)]" mode="cpm.fastcust.level">
+        <xsl:value-of select="count(ancestor::*[cpm:is_topic(.)]) + 1"/>
     </xsl:template>
 
-    <!-- A default working template for topics -->
-    <xsl:template match="*[cpm:fastcust.is_simple_topic(.)]" mode="cpm.fastcust.level">
+    <!-- A default template for topic titles -->
+    <xsl:template match="*[cpm:is_topic_title(.)]" mode="cpm.fastcust.level">
 
         <xsl:choose>
-
-            <!-- Banning resource topics -->
-            <xsl:when test="not(cpm:fastcust.is_docmamber(.))">
-                <xsl:value-of select="-1"/>
-            </xsl:when>
-
-            <!-- Calculating a level of a "true" topic -->
-            <xsl:otherwise>
-                <xsl:value-of select="count(ancestor::*[cpm:is_topic(.)]) + 1"/>
-                <xsl:message>
-                    <xsl:value-of select="count(ancestor::*[cpm:is_topic(.)]) + 1"/>
-                </xsl:message>
-            </xsl:otherwise>
-
-        </xsl:choose>
-
-    </xsl:template>
-
-    <!-- A default working template for super section titles -->
-    <xsl:template match="*[cpm:fastcust.is_topic_title(.)]" mode="cpm.fastcust.level">
-
-        <xsl:choose>
-            <xsl:when test="cpm:fastcust.is_complex_topic(..)">
+            <xsl:when test="cpm:is_complex_topic(..)">
                 <xsl:value-of select="count(ancestor::*[cpm:is_topic(.)])"/>
             </xsl:when>
-            <xsl:when test="not(../@cpm:level) and cpm:fastcust.is_simple_topic(..)">
-                <xsl:value-of select="cpm:fastcust.level(..)"/>
+            <xsl:when test="cpm:is_simple_topic(..)">
+                <xsl:value-of select="cpm:level(..)"/>
             </xsl:when>
-            <xsl:when test="../@cpm:level">
-                <xsl:value-of select="../@cpm:level"/>
-            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="0"/>
+            </xsl:otherwise>
         </xsl:choose>
 
     </xsl:template>
+    
+    <!-- A default template for flat document elements (always wins!) -->
+    <xsl:template match="*[@cpm:level]" mode="cpm.fastcust.level" priority="2">
+        <xsl:value-of select="@cpm:level"/>
+    </xsl:template>
 
-    <!-- A custom working template -->
+    <!-- A custom template -->
     <xsl:template match="*" mode="level">
-        <xsl:apply-templates select="." mode="cpm.fastcust.level"/>
+        <xsl:value-of select="cpm:fastcust.level(.)"/>
     </xsl:template>
 
 
@@ -954,30 +920,5 @@
     <xsl:template match="*" mode="title">
         <xsl:apply-templates select="." mode="cpm.fastcust.title"/>
     </xsl:template>
-
-
-    <xsl:template match="*" mode="cpm.fastcust.is_appendix" as="xs:boolean">
-
-        <xsl:choose>
-            <xsl:when test="cpm:is_topic(.)">
-                <xsl:variable name="pid">
-                    <xsl:value-of select="cpm:fastcust.parent_id(.)"/>
-                </xsl:variable>
-                <xsl:choose>
-                    <xsl:when test="cpm:fastcust.is_appendix(ancestor::*[cpm:misc.id(.) = $pid])">
-                        <xsl:value-of select="true()"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:apply-templates select="." mode="is_appendix"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="false()"/>
-            </xsl:otherwise>
-        </xsl:choose>
-
-    </xsl:template>
-
 
 </xsl:stylesheet>

@@ -788,7 +788,7 @@
         -->
 
         <!-- Inserting a full number unless an element has a title -->
-        <xsl:if test="not(*[cpm:fastcust.is_title(.)])">
+        <xsl:if test="not(*[cpm:is_title(.)])">
             <xsl:value-of select="cpm:fastcust.full_number(.)"/>
         </xsl:if>
         

@@ -131,7 +131,7 @@
 
             <!-- The case when a TOC/TON is global -->
             <xsl:otherwise>
-                <xsl:value-of select="cpm:misc.id(ancestor::*[cpm:fastcust.is_docroot(.)])"/>
+                <xsl:value-of select="cpm:misc.id(ancestor::*[cpm:is_docroot(.)])"/>
             </xsl:otherwise>
 
         </xsl:choose>
@@ -238,7 +238,7 @@
         <xsl:variable name="ml" select="number(cpm:misc.defnuminf($maxlevel))"/>
 
         <xsl:variable name="tmp" as="xs:boolean"
-            select="cpm:fastcust.is_tocmamber($element) and (cpm:fastcust.numlevel($element) &lt;= $ml)"/>
+            select="cpm:is_tocmamber($element) and (cpm:fastcust.numlevel($element) &lt;= $ml)"/>
 
         <xsl:value-of select="boolean($tmp)"/>
 
