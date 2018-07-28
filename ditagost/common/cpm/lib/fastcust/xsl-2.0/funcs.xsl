@@ -604,7 +604,7 @@
     <!-- An API function -->
     <xsl:function name="cpm:is_toctopic" as="xs:boolean">
         <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="is_toctopic"/>        
+        <xsl:apply-templates select="$element" mode="is_toctopic"/>
     </xsl:function>
 
 
@@ -620,7 +620,7 @@
 
     <!-- An API function -->
     <xsl:function name="cpm:is_tontopic" as="xs:boolean">
-        <xsl:param name="element"/>                  
+        <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_tontopic"/>
     </xsl:function>
 
@@ -682,50 +682,23 @@
     <!-- 
         Calculating a numbering level of an element
     -->
+
+    <!-- A wrapper function -->
     <xsl:function name="cpm:fastcust.numlevel">
-
-        <!-- An element of a complete document -->
         <xsl:param name="element"/>
-
-        <xsl:variable name="tmp">
-
-            <xsl:choose>
-
-                <!-- ... for a flat document -->
-                <xsl:when test="$element/@cpm:numlevel">
-                    <xsl:value-of select="$element/@cpm:numlevel"/>
-                </xsl:when>
-
-                <!-- ... for an improved document -->
-                <xsl:otherwise>
-                    <xsl:apply-templates select="$element" mode="numlevel"/>
-                </xsl:otherwise>
-
-            </xsl:choose>
-
-        </xsl:variable>
-
-        <!-- Making a function more reliable -->
-        <xsl:choose>
-            <xsl:when test="$tmp castable as xs:decimal">
-                <xsl:value-of select="number($tmp)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="0"/>
-            </xsl:otherwise>
-        </xsl:choose>
-
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numlevel"/>
     </xsl:function>
 
-
-    <!-- 
-        Calculating a numbering level of an element (a short form)
-    -->
+    <!-- An API function -->
     <xsl:function name="cpm:numlevel">
 
         <xsl:param name="element"/>
 
-        <xsl:value-of select="cpm:fastcust.numlevel($element)"/>
+        <xsl:variable name="numlevel">
+            <xsl:apply-templates select="$element" mode="numlevel"/>
+        </xsl:variable>
+
+        <xsl:value-of select="cpm:misc.defnum0($numlevel)"/>
 
     </xsl:function>
 
@@ -757,96 +730,70 @@
     <!-- 
         Retrieving a numbering sequence name of an element
     -->
-    <xsl:function name="cpm:fastcust.numseqname">
-
-        <!-- A "native" element; not a variable -->
-        <xsl:param name="element"/>
-
-        <xsl:choose>
-
-            <!-- ... for a flat document -->
-            <xsl:when test="$element/@cpm:numseqname">
-                <xsl:value-of select="$element/@cpm:numseqname"/>
-            </xsl:when>
-
-            <!-- ... for ane improved document -->
-            <xsl:otherwise>
-                <xsl:apply-templates select="$element" mode="numseqname"/>
-            </xsl:otherwise>
-
-        </xsl:choose>
-
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numseqname">        
+        <xsl:param name="element"/>       
+        
+        <!--
+        <xsl:if test="name($element)='table' and $element/title">
+            <xsl:message>                
+                <xsl:text>table!! </xsl:text>
+                <xsl:value-of select="$element/title"/>
+            </xsl:message>            
+        </xsl:if>
+        -->
+        
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numseqname"/>
     </xsl:function>
 
-
-    <xsl:function name="cpm:fastcust.numseq">
-
+    <!-- An API function -->
+    <xsl:function name="cpm:numseqname">
         <xsl:param name="element"/>
-
-        <xsl:apply-templates select="$element" mode="numseq"/>
-
+        <xsl:apply-templates select="$element" mode="numseqname"/>
     </xsl:function>
 
 
     <!-- 
-        Retrieving a number caption, e.g. Table, Figure, etc. 
+        Calculating a local number of an element
     -->
-    <xsl:function name="cpm:fastcust.caption">
 
-        <!-- A "native" element; not a variable -->
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.locnumber">
         <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.locnumber"/>
+    </xsl:function>
 
-        <xsl:choose>
-
-            <!-- ... for a flat document -->
-            <xsl:when test="$element/@cpm:caption">
-                <xsl:value-of select="$element/@cpm:caption"/>
-            </xsl:when>
-
-            <!-- ... for an improved document -->
-            <xsl:otherwise>
-                <xsl:apply-templates select="$element" mode="caption"/>
-            </xsl:otherwise>
-
-        </xsl:choose>
-
+    <!-- An API function -->
+    <xsl:function name="cpm:locnumber">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="locnumber"/>
     </xsl:function>
 
 
     <!-- 
-        Retrieving a number navigation caption, e.g. Table, Figure, etc. 
+        Retrieving a higher element number
     -->
-    <xsl:function name="cpm:fastcust.navcaption">
 
-        <!-- A "native" element; not a variable -->
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.hinumber">
         <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.hinumber"/>
+    </xsl:function>
 
-        <xsl:choose>
-
-            <!-- ... for a flat document -->
-            <xsl:when test="$element/@cpm:navcaption">
-                <xsl:value-of select="$element/@cpm:navcaption"/>
-            </xsl:when>
-
-            <!-- ... for a flat document (@navcaption is not defined) -->
-            <xsl:when test="not($element/@cpm:navcaption) and $element/@cpm:caption">
-                <xsl:value-of select="$element/@cpm:caption"/>
-            </xsl:when>
-
-            <!-- ... for an improved document -->
-            <xsl:otherwise>
-                <xsl:apply-templates select="$element" mode="navcaption"/>
-            </xsl:otherwise>
-
-        </xsl:choose>
-
+    <!-- An API function -->
+    <xsl:function name="cpm:hinumber">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="hinumber"/>
     </xsl:function>
 
 
     <!-- 
-        Calculating an element number (fast mode)
+        Calculating an element number (regular mode)
     -->
-    <xsl:function name="cpm:fastcust.fastnumber">
+
+    <!-- A wrapper function for a fast mode -->
+    <xsl:function name="cpm:fastcust.number">
 
         <!-- A "native" element; not a variable -->
         <xsl:param name="element"/>
@@ -857,130 +804,105 @@
         <!-- A higher numbering sequence -->
         <xsl:param name="hinumseq"/>
 
-        <xsl:choose>
-
-            <!-- ... for a flat document -->
-            <xsl:when test="$element/@cpm:number">
-                <xsl:value-of select="$element/@cpm:number"/>
-            </xsl:when>
-
-            <!-- ... for an improved document -->
-            <xsl:otherwise>
-                <xsl:apply-templates select="$element" mode="number">
-                    <xsl:with-param name="hinumber" select="$hinumber"/>
-                    <xsl:with-param name="hinumseq" select="$hinumseq"/>
-                </xsl:apply-templates>
-            </xsl:otherwise>
-
-        </xsl:choose>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.number">
+            <xsl:with-param name="hinumber" select="$hinumber"/>
+            <xsl:with-param name="hinumseq" select="$hinumseq"/>
+        </xsl:apply-templates>
 
     </xsl:function>
 
-
-    <!-- 
-        Calculating an element number (regular mode)
-    -->
+    <!-- A wrapper function for a regular mode -->
     <xsl:function name="cpm:fastcust.number">
-
-        <!-- A "native" element; not a variable -->
         <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.number"/>
+    </xsl:function>
 
-        <xsl:choose>
+    <!-- An API function for a fast mode -->
+    <xsl:function name="cpm:number">
+        <xsl:param name="element"/>
+        <xsl:param name="hinumber"/>
+        <xsl:param name="hinumseq"/>
+        <xsl:apply-templates select="$element" mode="number">
+            <xsl:with-param name="hinumber" select="$hinumber"/>
+            <xsl:with-param name="hinumseq" select="$hinumseq"/>
+        </xsl:apply-templates>
+    </xsl:function>
 
-            <!-- ... for a flat document -->
-            <xsl:when test="$element/@cpm:number">
-                <xsl:value-of select="$element/@cpm:number"/>
-            </xsl:when>
+    <!-- An API function for a regular mode -->
+    <xsl:function name="cpm:number">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="number"/>
+    </xsl:function>
 
-            <!-- ... for an improved document -->
-            <xsl:otherwise>
-                <xsl:apply-templates select="$element" mode="number"/>
-            </xsl:otherwise>
 
-        </xsl:choose>
+    <!-- 
+        Retrieving an element caption 
+    -->
 
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.caption">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.caption"/>
+    </xsl:function>
+
+    <!-- An API function -->
+    <xsl:function name="cpm:caption">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="caption"/>
+    </xsl:function>
+
+
+    <!-- 
+        Retrieving a number navigation caption, e.g. Table, Figure, etc. 
+    -->
+
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.navcaption">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.navcaption"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:navcaption">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="navcaption"/>
     </xsl:function>
 
 
     <!-- 
         Assembling a full number for an element
     -->
+    
+    <!-- A wrapper function -->
     <xsl:function name="cpm:fastcust.full_number">
-
-        <!-- A "native" element; not a variable -->
         <xsl:param name="element"/>
-
-        <!-- Improved document & flat document-->
-        <xsl:variable name="tmp">
-
-            <xsl:choose>
-
-                <!-- ... for a flat document -->
-                <xsl:when test="$element/@cpm:full-number">
-                    <xsl:value-of select="$element/@cpm:full-number"/>
-                </xsl:when>
-
-                <xsl:when test="not($element/@cpm:full-number) and $element/@cpm:level"/>
-
-                <!-- ... for an improved document -->
-                <xsl:otherwise>
-
-                    <xsl:variable name="caption">
-                        <xsl:value-of select="cpm:fastcust.caption($element)"/>
-                    </xsl:variable>
-
-                    <xsl:value-of select="substring-before($caption, '%n')"/>
-                    <xsl:value-of select="cpm:fastcust.number($element)"/>
-                    <xsl:value-of select="substring-after($caption, '%n')"/>
-
-                </xsl:otherwise>
-
-            </xsl:choose>
-
-        </xsl:variable>
-
-        <xsl:value-of select="string($tmp)"/>
-
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.full_number"/>
     </xsl:function>
-
-
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:full_number">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="full_number"/>
+    </xsl:function>
+    
+    
     <!-- 
-        Assembling a full number for an element
+        Assembling a full navigation number for an element
     -->
+    
+    <!-- A wrapper function -->
     <xsl:function name="cpm:fastcust.nav_full_number">
-
-        <!-- A "native" element; not a variable -->
         <xsl:param name="element"/>
-
-        <!-- Improved document & flat document-->
-        <xsl:variable name="tmp">
-
-            <xsl:choose>
-
-                <xsl:when test="not($element/@cpm:nav-full-number) and $element/@cpm:level"/>
-
-                <!-- ... for an improved document -->
-                <xsl:otherwise>
-
-                    <xsl:variable name="navcaption">
-                        <xsl:value-of select="cpm:fastcust.navcaption($element)"/>
-                    </xsl:variable>
-
-                    <xsl:value-of select="substring-before($navcaption, '%n')"/>
-                    <xsl:value-of select="cpm:fastcust.number($element)"/>
-                    <xsl:value-of select="substring-after($navcaption, '%n')"/>
-
-                </xsl:otherwise>
-
-            </xsl:choose>
-
-        </xsl:variable>
-
-        <xsl:value-of select="string($tmp)"/>
-
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.nav_full_number"/>
     </xsl:function>
-
-
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:nav_full_number">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="nav_full_number"/>
+    </xsl:function>
+    
+    
     <!-- 
         Extracting a separator between a full number and a title
     -->

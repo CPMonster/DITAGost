@@ -338,13 +338,13 @@
 
             <!-- Detecting a numbering sequence name for an element -->
             <xsl:variable name="numseqname">
-                <xsl:value-of select="cpm:fastcust.numseqname(.)"/>
+                <xsl:value-of select="cpm:numseqname(.)"/>
             </xsl:variable>
 
             <!-- Calculating a number of an element -->
             <xsl:variable name="number">
                 <xsl:if test="$numseqname != ''">
-                    <xsl:value-of select="cpm:fastcust.fastnumber(., $hinumber, $hinumseq)"/>
+                    <xsl:value-of select="cpm:number(., $hinumber, $hinumseq)"/>
                 </xsl:if>
             </xsl:variable>
 
@@ -358,13 +358,14 @@
             <!-- Detecting numbering properties for a numbered element -->
             <xsl:if test="$numseqname != ''">
                 <xsl:copy-of select="cpm:misc.attr('cpm:numseqname', $numseqname)"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:base', cpm:fastcust.base($numseq))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:number', $number)"/>
-                <xsl:copy-of select="cpm:misc.attr('cpm:caption', cpm:fastcust.caption(.))"/>
-                <xsl:copy-of select="cpm:misc.attr('cpm:navcaption', cpm:fastcust.navcaption(.))"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:caption', cpm:caption(.))"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:navcaption', cpm:navcaption(.))"/>
                 <xsl:copy-of
-                    select="cpm:misc.attr('cpm:full-number', cpm:fastcust.numbers.format($number, $numseq))"/>
+                    select="cpm:misc.attr('cpm:full-number', cpm:fastcust.numformat($number, $numseq))"/>
                 <xsl:copy-of
-                    select="cpm:misc.attr('cpm:nav-full-number', cpm:fastcust.numbers.format($number, $numseq))"/>
+                    select="cpm:misc.attr('cpm:nav-full-number', cpm:fastcust.numformat($number, $numseq))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:title', cpm:fastcust.title(.))"/>
             </xsl:if>
 

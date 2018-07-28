@@ -3193,103 +3193,99 @@
       </xsl:choose>
    </xsl:template>
    <xsl:template match="*" mode="cpm.fastcust.explicit_caption"/>
-   <xsl:template match="*" mode="cpm.fastcust.numseqname"/>
-   <xsl:template match="title[cpm:sectype(.)='auxiliary']" mode="cpm.fastcust.numseqname">
+   <xsl:template match="title[cpm:sectype(.)='auxiliary']" mode="numseqname">
       <xsl:text>Без номеров</xsl:text>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.numseqname">
+                 mode="numseqname">
       <xsl:text>Разделы</xsl:text>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=2 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.numseqname">
+                 mode="numseqname">
       <xsl:text>Разделы</xsl:text>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=3 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.numseqname">
+                 mode="numseqname">
       <xsl:text>Разделы</xsl:text>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=4 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.numseqname">
+                 mode="numseqname">
       <xsl:text>Разделы</xsl:text>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=5 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.numseqname">
+                 mode="numseqname">
       <xsl:text>Разделы</xsl:text>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=6 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.numseqname">
+                 mode="numseqname">
       <xsl:text>Разделы</xsl:text>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='appendix']"
-                 mode="cpm.fastcust.numseqname">
+                 mode="numseqname">
       <xsl:text>Приложения</xsl:text>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=2 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.numseqname">
+                 mode="numseqname">
       <xsl:text>Разделы приложений</xsl:text>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=3 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.numseqname">
+                 mode="numseqname">
       <xsl:text>Разделы приложений</xsl:text>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=4 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.numseqname">
+                 mode="numseqname">
       <xsl:text>Разделы приложений</xsl:text>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=5 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.numseqname">
+                 mode="numseqname">
       <xsl:text>Разделы приложений</xsl:text>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=6 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.numseqname">
+                 mode="numseqname">
       <xsl:text>Разделы приложений</xsl:text>
    </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)!='appendix']//table/title"
-                 mode="cpm.fastcust.numseqname">
+   <xsl:template match="*[cpm:sectype(.)!='appendix']//table/title" mode="numseqname">
       <xsl:text>Таблицы</xsl:text>
    </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='appendix']//table/title"
-                 mode="cpm.fastcust.numseqname">
+   <xsl:template match="*[cpm:sectype(.)='appendix']//table/title" mode="numseqname">
       <xsl:text>Таблицы в приложении</xsl:text>
    </xsl:template>
-   <xsl:template match="fig" mode="cpm.fastcust.numseqname">
+   <xsl:template match="fig" mode="numseqname">
       <xsl:text>fo:block</xsl:text>
    </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='main']//fig/title" mode="cpm.fastcust.numseqname">
+   <xsl:template match="*[cpm:sectype(.)='main']//fig/title" mode="numseqname">
       <xsl:text>Рисунки</xsl:text>
    </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='appendix']//fig/title" mode="cpm.fastcust.numseqname">
+   <xsl:template match="*[cpm:sectype(.)='appendix']//fig/title" mode="numseqname">
       <xsl:text>Рисунки в приложении</xsl:text>
    </xsl:template>
-   <xsl:template match="ul[ancestor::li]|ul[cpm:in_table(.)]" mode="cpm.fastcust.numseqname">
+   <xsl:template match="ul[ancestor::li]|ul[cpm:in_table(.)]" mode="numseqname">
       <xsl:text>Блок списка</xsl:text>
    </xsl:template>
-   <xsl:template match="ol" mode="cpm.fastcust.numseqname">
+   <xsl:template match="ol" mode="numseqname">
       <xsl:text>Блок списка</xsl:text>
    </xsl:template>
-   <xsl:template match="ol[ancestor::li]|ol[cpm:in_table(.)]" mode="cpm.fastcust.numseqname">
+   <xsl:template match="ol[ancestor::li]|ol[cpm:in_table(.)]" mode="numseqname">
       <xsl:text>Блок списка</xsl:text>
    </xsl:template>
-   <xsl:template match="ol/li[not(ancestor::li) and position()=1]"
-                 mode="cpm.fastcust.numseqname">
+   <xsl:template match="ol/li[not(ancestor::li) and position()=1]" mode="numseqname">
       <xsl:text>Пункт списка</xsl:text>
    </xsl:template>
-   <xsl:template match="ol/li[ancestor::li or position()!=1]" mode="cpm.fastcust.numseqname">
+   <xsl:template match="ol/li[ancestor::li or position()!=1]" mode="numseqname">
       <xsl:text>Пункт списка</xsl:text>
    </xsl:template>
-   <xsl:template match="steps" mode="cpm.fastcust.numseqname">
+   <xsl:template match="steps" mode="numseqname">
       <xsl:text>Блок списка</xsl:text>
    </xsl:template>
-   <xsl:template match="step[position()=1]" mode="cpm.fastcust.numseqname">
+   <xsl:template match="step[position()=1]" mode="numseqname">
       <xsl:text>Пункт списка</xsl:text>
    </xsl:template>
-   <xsl:template match="step[position()!=1]" mode="cpm.fastcust.numseqname">
+   <xsl:template match="step[position()!=1]" mode="numseqname">
       <xsl:text>Пункт списка</xsl:text>
    </xsl:template>
-   <xsl:template match="title[cpm:sectype(.)='auxiliary']" mode="cpm.fastcust.numseq">
+   <xsl:template match="title[cpm:sectype(.)='auxiliary']" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3298,9 +3294,9 @@
       </xsl:call-template>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.numseq">
+                 mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3309,9 +3305,9 @@
       </xsl:call-template>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=2 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.numseq">
+                 mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3320,9 +3316,9 @@
       </xsl:call-template>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=3 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.numseq">
+                 mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3331,9 +3327,9 @@
       </xsl:call-template>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=4 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.numseq">
+                 mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3342,9 +3338,9 @@
       </xsl:call-template>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=5 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.numseq">
+                 mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3353,9 +3349,9 @@
       </xsl:call-template>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=6 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.numseq">
+                 mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3363,10 +3359,9 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='appendix']"
-                 mode="cpm.fastcust.numseq">
+   <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='appendix']" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3375,9 +3370,9 @@
       </xsl:call-template>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=2 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.numseq">
+                 mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3386,9 +3381,9 @@
       </xsl:call-template>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=3 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.numseq">
+                 mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3397,9 +3392,9 @@
       </xsl:call-template>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=4 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.numseq">
+                 mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3408,9 +3403,9 @@
       </xsl:call-template>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=5 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.numseq">
+                 mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3419,9 +3414,9 @@
       </xsl:call-template>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=6 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.numseq">
+                 mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3429,9 +3424,9 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)!='appendix']//table/title" mode="cpm.fastcust.numseq">
+   <xsl:template match="*[cpm:sectype(.)!='appendix']//table/title" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3439,9 +3434,9 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='appendix']//table/title" mode="cpm.fastcust.numseq">
+   <xsl:template match="*[cpm:sectype(.)='appendix']//table/title" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3449,9 +3444,9 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="fig" mode="cpm.fastcust.numseq">
+   <xsl:template match="fig" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3459,9 +3454,9 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='main']//fig/title" mode="cpm.fastcust.numseq">
+   <xsl:template match="*[cpm:sectype(.)='main']//fig/title" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3469,9 +3464,9 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='appendix']//fig/title" mode="cpm.fastcust.numseq">
+   <xsl:template match="*[cpm:sectype(.)='appendix']//fig/title" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3479,9 +3474,9 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="ul[ancestor::li]|ul[cpm:in_table(.)]" mode="cpm.fastcust.numseq">
+   <xsl:template match="ul[ancestor::li]|ul[cpm:in_table(.)]" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3489,9 +3484,9 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="ol" mode="cpm.fastcust.numseq">
+   <xsl:template match="ol" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3499,9 +3494,9 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="ol[ancestor::li]|ol[cpm:in_table(.)]" mode="cpm.fastcust.numseq">
+   <xsl:template match="ol[ancestor::li]|ol[cpm:in_table(.)]" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3509,9 +3504,9 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="ol/li[not(ancestor::li) and position()=1]" mode="cpm.fastcust.numseq">
+   <xsl:template match="ol/li[not(ancestor::li) and position()=1]" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3519,9 +3514,9 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="ol/li[ancestor::li or position()!=1]" mode="cpm.fastcust.numseq">
+   <xsl:template match="ol/li[ancestor::li or position()!=1]" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3529,9 +3524,9 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="steps" mode="cpm.fastcust.numseq">
+   <xsl:template match="steps" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3539,9 +3534,9 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="step[position()=1]" mode="cpm.fastcust.numseq">
+   <xsl:template match="step[position()=1]" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
@@ -3549,9 +3544,9 @@
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>
-   <xsl:template match="step[position()!=1]" mode="cpm.fastcust.numseq">
+   <xsl:template match="step[position()!=1]" mode="numseq">
       <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="cpm.fastcust.numseqname"/>
+         <xsl:apply-templates select="." mode="numseqname"/>
       </xsl:variable>
       <xsl:call-template name="cpm.fastcust.numseq">
          <xsl:with-param name="name">
