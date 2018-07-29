@@ -313,13 +313,7 @@
 
     <!-- An API function -->
     <xsl:function name="cpm:is_topic" as="xs:boolean">
-        <xsl:param name="element"/>
-        <xsl:message>
-            <xsl:if test="count($element) &gt; 1">
-                <xsl:value-of select="name($element[1])"/>
-                <xsl:value-of select="count($element)"/>
-            </xsl:if>
-        </xsl:message>
+        <xsl:param name="element"/>       
         <xsl:apply-templates select="$element" mode="is_topic"/>
     </xsl:function>
 
@@ -733,17 +727,7 @@
     
     <!-- A wrapper function -->
     <xsl:function name="cpm:fastcust.numseqname">        
-        <xsl:param name="element"/>       
-        
-        <!--
-        <xsl:if test="name($element)='table' and $element/title">
-            <xsl:message>                
-                <xsl:text>table!! </xsl:text>
-                <xsl:value-of select="$element/title"/>
-            </xsl:message>            
-        </xsl:if>
-        -->
-        
+        <xsl:param name="element"/>                               
         <xsl:apply-templates select="$element" mode="cpm.fastcust.numseqname"/>
     </xsl:function>
 
@@ -751,6 +735,23 @@
     <xsl:function name="cpm:numseqname">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="numseqname"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Retrieving a base numbering sequence name
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numbase">        
+        <xsl:param name="element"/>                       
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numbase"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:numbase">
+        <xsl:param name="element"/>                        
+        <xsl:apply-templates select="$element" mode="numbase"/>                
     </xsl:function>
 
 

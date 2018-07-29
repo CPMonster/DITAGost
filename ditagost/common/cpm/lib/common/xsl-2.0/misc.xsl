@@ -8,9 +8,9 @@
         Detecting or generating an ID for an element
     -->
     <xsl:function name="cpm:misc.id">
-        
+
         <xsl:param name="element"/>
-        
+
         <xsl:choose>
             <xsl:when test="$element/@id">
                 <xsl:value-of select="$element/@id"/>
@@ -19,7 +19,7 @@
                 <xsl:value-of select="generate-id($element)"/>
             </xsl:otherwise>
         </xsl:choose>
-        
+
     </xsl:function>
 
 
@@ -106,6 +106,8 @@
     <!-- 
         Detecting elements vs. text
     -->
+    
+    <!-- Any element works -->
     <xsl:function name="cpm:misc.is_element" as="xs:boolean">
 
         <xsl:param name="data"/>
@@ -118,6 +120,30 @@
 
         <xsl:choose>
             <xsl:when test="$tmp/wrapper/*">
+                <xsl:value-of select="true()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="false()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+
+    </xsl:function>
+
+    <!-- Checking an element name -->
+    <xsl:function name="cpm:misc.is_element" as="xs:boolean">
+
+        <xsl:param name="data"/>
+
+        <xsl:param name="elname"/>
+
+        <xsl:variable name="tmp">
+            <wrapper>
+                <xsl:copy-of select="$data"/>
+            </wrapper>
+        </xsl:variable>
+
+        <xsl:choose>
+            <xsl:when test="$tmp/wrapper/*[name() = $elname]">
                 <xsl:value-of select="true()"/>
             </xsl:when>
             <xsl:otherwise>
@@ -147,17 +173,17 @@
         </xsl:choose>
 
     </xsl:function>
-    
-    
+
+
     <!-- 
         Returns a default numeric value if a value is 0
     -->
     <xsl:function name="cpm:misc.defnum">
-        
+
         <xsl:param name="value"/>
-        
+
         <xsl:param name="default"/>
-        
+
         <xsl:choose>
             <xsl:when test="$value != 0">
                 <xsl:value-of select="$value"/>
@@ -166,18 +192,18 @@
                 <xsl:value-of select="$default"/>
             </xsl:otherwise>
         </xsl:choose>
-        
+
     </xsl:function>
-    
-    
+
+
     <!-- 
         Taking a number; zero is a default value
     -->
     <xsl:function name="cpm:misc.defnum0">
-        
+
         <!-- A value pretending to be numeric -->
         <xsl:param name="val"/>
-        
+
         <xsl:choose>
             <xsl:when test="$val castable as xs:decimal">
                 <xsl:value-of select="number($val)"/>
@@ -186,18 +212,18 @@
                 <xsl:value-of select="0"/>
             </xsl:otherwise>
         </xsl:choose>
-        
+
     </xsl:function>
-    
-    
+
+
     <!-- 
         Taking a number; 1 is a default value
     -->
     <xsl:function name="cpm:misc.defnum1">
-        
+
         <!-- A value pretending to be numeric -->
         <xsl:param name="val"/>
-        
+
         <xsl:choose>
             <xsl:when test="$val castable as xs:decimal">
                 <xsl:value-of select="number($val)"/>
@@ -206,25 +232,25 @@
                 <xsl:value-of select="1"/>
             </xsl:otherwise>
         </xsl:choose>
-        
+
     </xsl:function>
-    
-    
+
+
     <!-- 
         Taking a number; the infinity is a default value
     -->
-    
+
     <!-- Generating the actual infinity -->
     <xsl:template name="cpm.misc.infinity">
         <xsl:value-of select="999999999"/>
     </xsl:template>
-    
+
     <!-- A wrapper function -->
     <xsl:function name="cpm:misc.defnuminf">
-        
+
         <!-- A value pretending to be numeric -->
         <xsl:param name="val"/>
-        
+
         <xsl:choose>
             <xsl:when test="$val castable as xs:decimal">
                 <xsl:value-of select="number($val)"/>
@@ -233,19 +259,19 @@
                 <xsl:call-template name="cpm.misc.infinity"/>
             </xsl:otherwise>
         </xsl:choose>
-        
+
     </xsl:function>
-    
-           
+
+
     <!-- 
         Returns a default sequence if a sequence is empty
     -->
     <xsl:function name="cpm:misc.defseq">
-        
+
         <xsl:param name="seq"/>
-        
+
         <xsl:param name="defseq"/>
-        
+
         <xsl:choose>
             <xsl:when test="exists($seq)">
                 <xsl:copy-of select="$seq"/>
@@ -254,7 +280,7 @@
                 <xsl:copy-of select="$defseq"/>
             </xsl:otherwise>
         </xsl:choose>
-        
+
     </xsl:function>
-    
+
 </xsl:stylesheet>

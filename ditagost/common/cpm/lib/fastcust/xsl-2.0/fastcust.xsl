@@ -358,7 +358,7 @@
             <!-- Detecting numbering properties for a numbered element -->
             <xsl:if test="$numseqname != ''">
                 <xsl:copy-of select="cpm:misc.attr('cpm:numseqname', $numseqname)"/>
-                <xsl:copy-of select="cpm:misc.attr('cpm:base', cpm:fastcust.base($numseq))"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:numbase', cpm:numbase($numseq/numseq))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:number', $number)"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:caption', cpm:caption(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:navcaption', cpm:navcaption(.))"/>
