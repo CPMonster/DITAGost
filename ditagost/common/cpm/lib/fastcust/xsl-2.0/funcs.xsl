@@ -674,6 +674,175 @@
     <!-- ============================================ -->
 
     <!-- 
+        Retrieving a numbering sequence name of an element
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numseqname">        
+        <xsl:param name="element"/>                               
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numseqname"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:numseqname">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="numseqname"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Retrieving a numeration type for an element
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numtype">        
+        <xsl:param name="element"/>                               
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numtype"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:numtype">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="numtype"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Retrieving a numeration mode for an element
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.nummode">        
+        <xsl:param name="element"/>                               
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.nummode"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:nummode">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="nummode"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Retrieving an initial number
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.start_from">        
+        <xsl:param name="element"/>                               
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.start_from"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:start_from">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="start_from"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Retrieving an alphabet
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numchars">        
+        <xsl:param name="element"/>                               
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numchars"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:numchars">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="numchars"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Retrieving a base numbering sequence name
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numbase">        
+        <xsl:param name="element"/>                       
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numbase"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:numbase">
+        <xsl:param name="element"/>                        
+        <xsl:apply-templates select="$element" mode="numbase"/>                
+    </xsl:function>
+    
+    <!-- 
+        Retrieving a separator for a decimal number 
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numsep">        
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numsep"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:numsep">        
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="numsep"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Retrieving an element caption 
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.caption">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.caption"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:caption">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="caption"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Retrieving a number navigation caption, e.g. Table, Figure, etc. 
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.navcaption">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.navcaption"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:navcaption">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="navcaption"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Retrieving a separator for linking a number to a base number 
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numbasesep">        
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numbasesep"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:numbasesep">        
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="numbasesep"/>
+    </xsl:function>
+
+
+    <!-- 
         Calculating a numbering level of an element
     -->
 
@@ -718,40 +887,6 @@
 
         <xsl:value-of select="boolean($numlevel1 = $numlevel2)"/>
 
-    </xsl:function>
-
-
-    <!-- 
-        Retrieving a numbering sequence name of an element
-    -->
-    
-    <!-- A wrapper function -->
-    <xsl:function name="cpm:fastcust.numseqname">        
-        <xsl:param name="element"/>                               
-        <xsl:apply-templates select="$element" mode="cpm.fastcust.numseqname"/>
-    </xsl:function>
-
-    <!-- An API function -->
-    <xsl:function name="cpm:numseqname">
-        <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="numseqname"/>
-    </xsl:function>
-    
-    
-    <!-- 
-        Retrieving a base numbering sequence name
-    -->
-    
-    <!-- A wrapper function -->
-    <xsl:function name="cpm:fastcust.numbase">        
-        <xsl:param name="element"/>                       
-        <xsl:apply-templates select="$element" mode="cpm.fastcust.numbase"/>
-    </xsl:function>
-    
-    <!-- An API function -->
-    <xsl:function name="cpm:numbase">
-        <xsl:param name="element"/>                        
-        <xsl:apply-templates select="$element" mode="numbase"/>                
     </xsl:function>
 
 
@@ -837,40 +972,6 @@
 
 
     <!-- 
-        Retrieving an element caption 
-    -->
-
-    <!-- A wrapper function -->
-    <xsl:function name="cpm:fastcust.caption">
-        <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="cpm.fastcust.caption"/>
-    </xsl:function>
-
-    <!-- An API function -->
-    <xsl:function name="cpm:caption">
-        <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="caption"/>
-    </xsl:function>
-
-
-    <!-- 
-        Retrieving a number navigation caption, e.g. Table, Figure, etc. 
-    -->
-
-    <!-- A wrapper function -->
-    <xsl:function name="cpm:fastcust.navcaption">
-        <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="cpm.fastcust.navcaption"/>
-    </xsl:function>
-    
-    <!-- An API function -->
-    <xsl:function name="cpm:navcaption">
-        <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="navcaption"/>
-    </xsl:function>
-
-
-    <!-- 
         Assembling a full number for an element
     -->
     
@@ -904,31 +1005,7 @@
     </xsl:function>
     
     
-    <!-- 
-        Extracting a separator between a full number and a title
-    -->
-    <xsl:function name="cpm:fastcust.numsep">
-
-        <xsl:param name="element"/>
-
-        <xsl:variable name="ft">
-            <xsl:value-of select="cpm:fastcust.full_title($element)"/>
-        </xsl:variable>
-
-        <xsl:variable name="fn">
-            <xsl:value-of select="cpm:fastcust.full_number($element)"/>
-        </xsl:variable>
-
-        <xsl:variable name="ti">
-            <xsl:value-of select="cpm:fastcust.title($element)"/>
-        </xsl:variable>
-
-        <xsl:value-of select="substring-before(substring-after($ft, $fn), $ti)"/>
-
-    </xsl:function>
-
-
-
+    
     <!-- ================== -->
     <!--  Cross references  -->
     <!-- ================== -->

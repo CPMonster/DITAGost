@@ -358,10 +358,15 @@
             <!-- Detecting numbering properties for a numbered element -->
             <xsl:if test="$numseqname != ''">
                 <xsl:copy-of select="cpm:misc.attr('cpm:numseqname', $numseqname)"/>
-                <xsl:copy-of select="cpm:misc.attr('cpm:numbase', cpm:numbase($numseq/numseq))"/>
-                <xsl:copy-of select="cpm:misc.attr('cpm:number', $number)"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:numtype', cpm:numtype(.))"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:nummode', cpm:nummode(.))"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:start-from', cpm:start_from(.))"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:numbase', cpm:numbase(.))"/>                
                 <xsl:copy-of select="cpm:misc.attr('cpm:caption', cpm:caption(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:navcaption', cpm:navcaption(.))"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:numsep', cpm:numsep(.))"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:numbasesep', cpm:numbasesep(.))"/>                                
+                <xsl:copy-of select="cpm:misc.attr('cpm:number', $number)"/>
                 <xsl:copy-of
                     select="cpm:misc.attr('cpm:full-number', cpm:fastcust.numformat($number, $numseq))"/>
                 <xsl:copy-of
@@ -968,11 +973,11 @@
         <!-- Resolving issues in the draft FO -->
         <xsl:variable name="fofinal_xml">
 
-            <!--
+            
             <xsl:comment>#####################</xsl:comment>
             <xsl:copy-of select="$improved_xml"/>
             <xsl:comment>#####################</xsl:comment>
-            -->
+            
 
             <xsl:apply-templates select="$fodraft_xml/*" mode="cpm.fastcust.fofinal"/>
 
