@@ -854,39 +854,97 @@
 
     <!-- An API function -->
     <xsl:function name="cpm:numlevel">
-
         <xsl:param name="element"/>
-
         <xsl:variable name="numlevel">
             <xsl:apply-templates select="$element" mode="numlevel"/>
         </xsl:variable>
-
         <xsl:value-of select="cpm:misc.defnum0($numlevel)"/>
-
     </xsl:function>
 
 
     <!-- 
-        Comparing numbering lavels of two elements
+        Testing two elements for standing on the same numbering level
     -->
-    <xsl:function name="cpm:fastcust.eqnumlevel" as="xs:boolean">
-
-        <!-- An element -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.eqnumlevel" as="xs:boolean">        
+        <xsl:param name="element1"/>        
+        <xsl:param name="element2"/>               
+        <xsl:apply-templates select="$element1" mode="cpm.fastcust.eqnumlevel">
+            <xsl:with-param name="candidate" select="$element2"/>
+        </xsl:apply-templates>    
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:eqnumlevel" as="xs:boolean">                
+        <xsl:param name="element1"/>                
+        <xsl:param name="element2"/>        
+        <xsl:apply-templates select="$element1" mode="eqnumlevel">
+            <xsl:with-param name="candidate" select="$element2"/>
+        </xsl:apply-templates>        
+    </xsl:function>
+    
+    
+    <!-- 
+        Testing two elements for being included to the same numbering sequence
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.eqnumseq" as="xs:boolean">        
+        <xsl:param name="element1"/>        
+        <xsl:param name="element2"/>               
+        <xsl:apply-templates select="$element1" mode="cpm.fastcust.eqnumseq">
+            <xsl:with-param name="candidate" select="$element2"/>
+        </xsl:apply-templates>    
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:eqnumseq" as="xs:boolean">                
+        <xsl:param name="element1"/>                
+        <xsl:param name="element2"/>        
+        <xsl:apply-templates select="$element1" mode="eqnumseq">
+            <xsl:with-param name="candidate" select="$element2"/>
+        </xsl:apply-templates>        
+    </xsl:function>
+    
+    
+    <!-- 
+        Detecting a "numbering parent" of an element
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numparent">        
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numparent"/>        
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:numparent">        
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="numparent"/>        
+    </xsl:function>
+    
+    
+    <!-- 
+        Testing an element for being a "numbering sibling" to a given one 
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.is_numsibling" as="xs:boolean">
         <xsl:param name="element1"/>
-
-        <!-- Another one -->
         <xsl:param name="element2"/>
-
-        <xsl:variable name="numlevel1">
-            <xsl:value-of select="cpm:fastcust.numlevel($element1)"/>
-        </xsl:variable>
-
-        <xsl:variable name="numlevel2">
-            <xsl:value-of select="cpm:fastcust.numlevel($element2)"/>
-        </xsl:variable>
-
-        <xsl:value-of select="boolean($numlevel1 = $numlevel2)"/>
-
+        <xsl:apply-templates select="$element1" mode="cpm.fastcust.is_numsibling">
+            <xsl:with-param name="candidate" select="$element2"/>
+        </xsl:apply-templates>        
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:is_numsibling" as="xs:boolean">
+        <xsl:param name="element1"/>
+        <xsl:param name="element2"/>
+        <xsl:apply-templates select="$element1" mode="is_numsibling">
+            <xsl:with-param name="candidate" select="$element2"/>
+        </xsl:apply-templates>        
     </xsl:function>
 
 
@@ -970,6 +1028,38 @@
         <xsl:apply-templates select="$element" mode="number"/>
     </xsl:function>
 
+
+    <!-- 
+        Formatting a number for an element
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numformat">        
+        <xsl:param name="element"/>
+        <xsl:param name="number"/>
+        <xsl:param name="caption"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numformat">
+            <xsl:with-param name="number" select="$number"/>
+            <xsl:with-param name="caption" select="$caption"/>
+        </xsl:apply-templates>                    
+    </xsl:function>
+    
+    <!-- An API function (advanced) -->
+    <xsl:function name="cpm:numformat">
+        <xsl:param name="element"/>
+        <xsl:param name="number"/>
+        <xsl:param name="caption"/>
+        <xsl:apply-templates select="$element" mode="numformat">
+            <xsl:with-param name="number" select="$number"/>
+            <xsl:with-param name="caption" select="$caption"/>
+        </xsl:apply-templates>
+    </xsl:function>
+    
+    <!-- An API function (simple) -->
+    <xsl:function name="cpm:numformat">
+        <xsl:param name="element"/>        
+        <xsl:apply-templates select="$element" mode="numformat"/>            
+    </xsl:function>
 
     <!-- 
         Assembling a full number for an element

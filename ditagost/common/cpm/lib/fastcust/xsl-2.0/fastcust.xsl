@@ -368,9 +368,9 @@
                 <xsl:copy-of select="cpm:misc.attr('cpm:numbasesep', cpm:numbasesep(.))"/>                                
                 <xsl:copy-of select="cpm:misc.attr('cpm:number', $number)"/>
                 <xsl:copy-of
-                    select="cpm:misc.attr('cpm:full-number', cpm:fastcust.numformat($number, $numseq))"/>
+                    select="cpm:misc.attr('cpm:full-number', cpm:numformat(., $number, cpm:caption(.)))"/>
                 <xsl:copy-of
-                    select="cpm:misc.attr('cpm:nav-full-number', cpm:fastcust.numformat($number, $numseq))"/>
+                    select="cpm:misc.attr('cpm:nav-full-number', cpm:numformat(., $number, cpm:navcaption(.)))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:title', cpm:fastcust.title(.))"/>
             </xsl:if>
 

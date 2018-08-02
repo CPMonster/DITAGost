@@ -11,14 +11,16 @@
 
         <xsl:param name="element"/>
 
-        <xsl:choose>
-            <xsl:when test="$element/@id">
-                <xsl:value-of select="$element/@id"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="generate-id($element)"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:if test="cpm:misc.is_element($element)">
+            <xsl:choose>
+                <xsl:when test="$element/@id">
+                    <xsl:value-of select="$element/@id"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="generate-id($element)"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
 
     </xsl:function>
 
@@ -106,7 +108,7 @@
     <!-- 
         Detecting elements vs. text
     -->
-    
+
     <!-- Any element works -->
     <xsl:function name="cpm:misc.is_element" as="xs:boolean">
 

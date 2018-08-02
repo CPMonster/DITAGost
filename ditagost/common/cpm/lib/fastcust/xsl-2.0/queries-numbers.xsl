@@ -715,89 +715,43 @@
     <!-- ==================== -->
 
     <!-- 
-        Assembling a "decimal" number
-    -->
-    <xsl:function name="cpm:fastcust.nummerge">
-
-        <!-- A number of a higher element -->
-        <xsl:param name="hinumber"/>
-
-        <!-- A local number of a current element -->
-        <xsl:param name="locnumber"/>
-
-        <!-- A numbering sequence of a current element -->
-        <xsl:param name="locnumseq"/>
-
-        <xsl:if test="$hinumber != ''">
-            <xsl:value-of select="$hinumber"/>
-            <xsl:value-of select="cpm:numsep($locnumseq//numseq)"/>
-        </xsl:if>
-
-        <xsl:value-of select="$locnumber"/>
-
-    </xsl:function>
-
-
-    <!-- 
         Formatting a number
     -->
-    <xsl:function name="cpm:fastcust.numformat">
 
-        <xsl:param name="number"/>
+    <!-- A default template -->
+    <xsl:template match="*" mode="cpm.fastcust.numformat">
 
-        <xsl:param name="numseq"/>
+        <xsl:param name="number" select="cpm:number(.)"/>
 
-        <xsl:variable name="caption" select="cpm:caption($numseq//numseq)"/>
+        <xsl:param name="caption" select="cpm:caption(.)"/>
 
-        <xsl:choose>
-
-            <xsl:when test="$caption = ''"/>
-
-            <xsl:otherwise>
-                <xsl:analyze-string select="$caption" regex="%n">
-                    <xsl:matching-substring>
+        <xsl:analyze-string select="$caption" regex="%b|%n|%s">
+            <xsl:matching-substring>
+                <xsl:choose>
+                    <xsl:when test=". = '%b'">
+                        <xsl:value-of select="substring-before($number, cpm:numbasesep(.))"/>
+                    </xsl:when>
+                    <xsl:when test=". = '%n'">
                         <xsl:value-of select="$number"/>
-                    </xsl:matching-substring>
-                    <xsl:non-matching-substring>
-                        <xsl:value-of select="."/>
-                    </xsl:non-matching-substring>
-                </xsl:analyze-string>
-            </xsl:otherwise>
+                    </xsl:when>
+                    <xsl:when test=". = '%s'">
+                        <xsl:value-of select="cpm:numbasesep(.)"/>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:matching-substring>
+            <xsl:non-matching-substring>
+                <xsl:value-of select="."/>
+            </xsl:non-matching-substring>
+        </xsl:analyze-string>
 
-        </xsl:choose>
+    </xsl:template>
 
-    </xsl:function>
-
-
-    <!-- 
-        Formatting a number
-    -->
-    <xsl:function name="cpm:fastcust.navformat">
-
-        <xsl:param name="number"/>
-
-        <xsl:param name="numseq"/>
-
-        <xsl:variable name="navcaption" select="cpm:navcaption($numseq//numseq)"/>
-
-        <xsl:choose>
-
-            <xsl:when test="$navcaption = ''"/>
-
-            <xsl:otherwise>
-                <xsl:analyze-string select="$navcaption" regex="%n">
-                    <xsl:matching-substring>
-                        <xsl:value-of select="$number"/>
-                    </xsl:matching-substring>
-                    <xsl:non-matching-substring>
-                        <xsl:value-of select="."/>
-                    </xsl:non-matching-substring>
-                </xsl:analyze-string>
-            </xsl:otherwise>
-
-        </xsl:choose>
-
-    </xsl:function>
+    <!-- A custom template -->
+    <xsl:template match="*" mode="numformat">
+        <xsl:param name="number" select="cpm:number(.)"/>
+        <xsl:param name="caption" select="cpm:caption(.)"/>
+        <xsl:value-of select="cpm:fastcust.numformat(., $number, $caption)"/>
+    </xsl:template>
 
 
 
@@ -836,27 +790,100 @@
 
 
     <!-- 
-        Do elements belong to the same numbering sequence?
+        Testing two elements for standing on the same numbering level
     -->
 
-    <!-- A default function -->
-    <xsl:function name="cpm:fastcust.eqnumseq" as="xs:boolean">
-        <xsl:param name="element1"/>
-        <xsl:param name="element2"/>
-        <xsl:value-of select="cpm:numseqname($element1) = cpm:numseqname($element2)"/>
-    </xsl:function>
+    <!-- A default template -->
+    <xsl:template match="*" mode="cpm.fastcust.eqnumlevel" as="xs:boolean">
+        <xsl:param name="candidate"/>
+        <xsl:value-of select="cpm:numlevel(.) = cpm:numlevel($candidate)"/>
+    </xsl:template>
+
+    <!-- A custom template -->
+    <xsl:template match="*" mode="eqnumlevel" as="xs:boolean">
+        <xsl:param name="candidate"/>
+        <xsl:value-of select="cpm:fastcust.eqnumlevel(., $candidate)"/>
+    </xsl:template>
+
+
+    <!-- 
+        Testing two elements for being included to the same numbering sequence
+    -->
+
+    <!-- A default template -->
+    <xsl:template match="*" mode="cpm.fastcust.eqnumseq" as="xs:boolean">
+        <xsl:param name="candidate"/>
+        <xsl:value-of select="cpm:numseqname(.) = cpm:numseqname($candidate)"/>
+    </xsl:template>
+
+    <!-- A custom template -->
+    <xsl:template match="*" mode="eqnumseq" as="xs:boolean">
+        <xsl:param name="candidate"/>
+        <xsl:value-of select="cpm:fastcust.eqnumseq(., $candidate)"/>
+    </xsl:template>
+
+
+    <!-- 
+        Detecting an ID of a "numbering parent" of an element
+    -->
+
+    <!-- A default template -->
+    <xsl:template match="*" mode="cpm.fastcust.numparent">
+
+        <xsl:variable name="ns" select="cpm:numseqname(.)"/>
+
+        <xsl:variable name="nb" select="cpm:numbase(.)"/>
+
+        <xsl:if test="$ns != ''">
+            <xsl:value-of
+                select="cpm:misc.id(ancestor::*[cpm:numseqname(.) = $ns or cpm:numseqname(.) = $nb][1])"
+            />
+        </xsl:if>
+
+    </xsl:template>
+
+    <!-- A custom template -->
+    <xsl:template match="*" mode="numparent">
+        <xsl:param name="candidate"/>
+        <xsl:value-of select="cpm:fastcust.numparent(.)"/>
+    </xsl:template>
 
 
     <!-- 
         Do element local numbers belong to the same local sequence?
     -->
-    <xsl:function name="cpm:fastcust.is_numsibs" as="xs:boolean">
-        <xsl:param name="element1"/>
-        <xsl:param name="element2"/>
-        <xsl:value-of
-            select="cpm:fastcust.eqnumlevel($element1, $element2) and cpm:fastcust.eqnumseq($element1, $element2)"
-        />
-    </xsl:function>
+
+    <!-- A default template (unknown numbering mode) -->
+    <xsl:template match="*" mode="cpm.fastcust.is_numsibling" as="xs:boolean">
+        <xsl:param name="candidate"/>
+        <xsl:value-of select="false()"/>
+    </xsl:template>
+
+    <!-- A default template (decimal numbering mode) -->
+    <xsl:template match="*[cpm:nummode(.) = 'decimal']" mode="cpm.fastcust.is_numsibling"
+        as="xs:boolean">
+
+        <xsl:param name="candidate"/>
+
+        <xsl:value-of select="cpm:eqnumlevel(., $candidate) and cpm:eqnumseq(., $candidate)"/>
+
+    </xsl:template>
+
+    <!-- A default template (flat numbering mode) -->
+    <xsl:template match="*[cpm:nummode(.) = 'flat']" mode="cpm.fastcust.is_numsibling"
+        as="xs:boolean">
+
+        <xsl:param name="candidate"/>
+
+        <xsl:value-of select="cpm:numparent(.) = cpm:numparent($candidate)"/>
+
+    </xsl:template>
+
+    <!-- A custom template -->
+    <xsl:template match="*" mode="is_numsibling" as="xs:boolean">
+        <xsl:param name="candidate"/>
+        <xsl:value-of select="cpm:fastcust.is_numsibling(., $candidate)"/>
+    </xsl:template>
 
 
 
@@ -897,7 +924,7 @@
         <!-- Calculating an index of the element in a local sequence -->
         <xsl:variable name="index">
             <xsl:value-of
-                select="count(preceding-sibling::*[cpm:fastcust.is_numsibs(current(), .)]) + 1"/>
+                select="count(preceding-sibling::*[cpm:fastcust.is_numsibling(current(), .)]) + 1"/>
         </xsl:variable>
 
         <xsl:value-of select="cpm:fastcust.numval($index, $numseq)"/>
@@ -961,23 +988,23 @@
 
         <!-- A higher numbering sequence -->
         <xsl:param name="hinumseq"/>
-       
+
         <!-- Detecting a numbering sequence name of a higher element -->
         <xsl:variable name="hinumseqname" select="cpm:numseqname($hinumseq)"/>
-             
+
         <xsl:if test="$hinumseqname != ''">
-                                    
+
             <xsl:choose>
-                <xsl:when test="$hinumseqname = cpm:numseqname(.)">                    
+                <xsl:when test="$hinumseqname = cpm:numseqname(.)">
                     <xsl:value-of select="cpm:misc.defval($hinumber, cpm:hinumber(.))"/>
                     <xsl:value-of select="cpm:numsep(.)"/>
                 </xsl:when>
-                <xsl:when test="$hinumseqname = cpm:numbase(.)">                    
+                <xsl:when test="$hinumseqname = cpm:numbase(.)">
                     <xsl:value-of select="cpm:misc.defval($hinumber, cpm:hinumber(.))"/>
                     <xsl:value-of select="cpm:numbasesep(.)"/>
                 </xsl:when>
             </xsl:choose>
-                                           
+
         </xsl:if>
 
         <xsl:value-of select="cpm:locnumber(.)"/>
@@ -1063,8 +1090,8 @@
                         select="cpm:number(ancestor::*[cpm:numseqname(.) = $base][1])"/>
 
                     <!-- Assembling a number -->
-                    <xsl:value-of
-                        select="cpm:fastcust.nummerge($hinumber, $locnumber, $numseq//numseq)"/>
+                    <xsl:value-of select="$hinumber"/>
+                    <xsl:value-of select="$locnumber"/>
 
                 </xsl:when>
 
