@@ -672,6 +672,50 @@
     <!-- ============================================ -->
     <!--  Detecting numbering properties of elements  -->
     <!-- ============================================ -->
+    
+    <!-- 
+        Retrieving a number value by a natural index
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numval">
+        
+        <!-- A numbering sequence-->
+        <xsl:param name="numseq"/>
+        
+        <!-- An index -->
+        <xsl:param name="index"/>
+                        
+        <xsl:apply-templates select="$numseq" mode="cpm.fastcust.numval">
+            <xsl:with-param name="index" select="$index"/>
+        </xsl:apply-templates>
+        
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:numval">
+        
+        <!-- A numbering sequence-->
+        <xsl:param name="numseq"/>
+        
+        <!-- An index -->
+        <xsl:param name="index"/>
+        
+        <xsl:apply-templates select="$numseq" mode="numval">
+            <xsl:with-param name="index" select="$index"/>
+        </xsl:apply-templates>
+        
+    </xsl:function>
+    
+
+    <!-- 
+        Retrieving a numbering sequence for an element
+    -->
+    <xsl:function name="cpm:numseq">        
+        <xsl:param name="element"/>        
+        <xsl:apply-templates select="$element" mode="numseq"/>        
+    </xsl:function>
+    
 
     <!-- 
         Retrieving a numbering sequence name of an element
@@ -871,7 +915,7 @@
         <xsl:param name="element1"/>        
         <xsl:param name="element2"/>               
         <xsl:apply-templates select="$element1" mode="cpm.fastcust.eqnumlevel">
-            <xsl:with-param name="candidate" select="$element2"/>
+            <xsl:with-param name="element" select="$element2"/>
         </xsl:apply-templates>    
     </xsl:function>
     
@@ -880,7 +924,7 @@
         <xsl:param name="element1"/>                
         <xsl:param name="element2"/>        
         <xsl:apply-templates select="$element1" mode="eqnumlevel">
-            <xsl:with-param name="candidate" select="$element2"/>
+            <xsl:with-param name="element" select="$element2"/>
         </xsl:apply-templates>        
     </xsl:function>
     
@@ -894,7 +938,7 @@
         <xsl:param name="element1"/>        
         <xsl:param name="element2"/>               
         <xsl:apply-templates select="$element1" mode="cpm.fastcust.eqnumseq">
-            <xsl:with-param name="candidate" select="$element2"/>
+            <xsl:with-param name="element" select="$element2"/>
         </xsl:apply-templates>    
     </xsl:function>
     
@@ -903,7 +947,7 @@
         <xsl:param name="element1"/>                
         <xsl:param name="element2"/>        
         <xsl:apply-templates select="$element1" mode="eqnumseq">
-            <xsl:with-param name="candidate" select="$element2"/>
+            <xsl:with-param name="element" select="$element2"/>
         </xsl:apply-templates>        
     </xsl:function>
     
@@ -934,7 +978,7 @@
         <xsl:param name="element1"/>
         <xsl:param name="element2"/>
         <xsl:apply-templates select="$element1" mode="cpm.fastcust.is_numsibling">
-            <xsl:with-param name="candidate" select="$element2"/>
+            <xsl:with-param name="element" select="$element2"/>
         </xsl:apply-templates>        
     </xsl:function>
     
@@ -943,7 +987,7 @@
         <xsl:param name="element1"/>
         <xsl:param name="element2"/>
         <xsl:apply-templates select="$element1" mode="is_numsibling">
-            <xsl:with-param name="candidate" select="$element2"/>
+            <xsl:with-param name="element" select="$element2"/>
         </xsl:apply-templates>        
     </xsl:function>
 

@@ -285,4 +285,35 @@
 
     </xsl:function>
 
+
+    <!-- 
+        Assembling a Roman number
+    -->
+
+    <!-- Upper case -->
+    <xsl:function name="cpm:misc.roman_upper">
+
+        <xsl:param name="index"/>
+
+        <xsl:value-of
+            select="
+                string-join(
+                for $index in (1999)
+                return
+                    (
+                    ('', 'M', 'MM', 'MMM')[($index idiv 1000) mod 10 + 1],
+                    ('', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM')[($index idiv 100) mod 10 + 1],
+                    ('', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC')[($index idiv 10) mod 10 + 1],
+                    ('', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX')[$index mod 10 + 1]
+                    ),
+                '')"/>
+
+    </xsl:function>
+
+    <!-- Lower case -->
+    <xsl:function name="cpm:misc.roman_lower">
+        <xsl:param name="index"/>
+        <xsl:value-of select="lower-case(cpm:misc.roman_upper($index))"/>
+    </xsl:function>
+
 </xsl:stylesheet>
