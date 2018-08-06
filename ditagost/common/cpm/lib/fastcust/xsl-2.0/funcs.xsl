@@ -711,6 +711,13 @@
     <!-- 
         Retrieving a numbering sequence for an element
     -->
+    
+    <xsl:function name="cpm:fastcust.numseq">        
+        <xsl:param name="element"/>        
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numseq"/>        
+    </xsl:function>
+    
+    
     <xsl:function name="cpm:numseq">        
         <xsl:param name="element"/>        
         <xsl:apply-templates select="$element" mode="numseq"/>        

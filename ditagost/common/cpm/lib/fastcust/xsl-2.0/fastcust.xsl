@@ -262,8 +262,7 @@
 
     <xsl:template match="*[@outputclass = 'signatures']" mode="complete"/>
 
-    <xsl:template match="*[cpm:is_topic(.) and not(cpm:fastcust.is_docmamber(.))]"
-        mode="complete"/>
+    <xsl:template match="*[cpm:is_topic(.) and not(cpm:fastcust.is_docmamber(.))]" mode="complete"/>
 
 
     <!-- 
@@ -337,9 +336,7 @@
             <xsl:copy-of select="cpm:misc.attr('cpm:numlevel', cpm:numlevel(.))"/>
 
             <!-- Detecting a numbering sequence name for an element -->
-            <xsl:variable name="numseqname">
-                <xsl:value-of select="cpm:numseqname(.)"/>
-            </xsl:variable>
+            <xsl:variable name="numseqname" select="cpm:numseqname(.)"/>
 
             <!-- Calculating a number of an element -->
             <xsl:variable name="number">
@@ -349,11 +346,7 @@
             </xsl:variable>
 
             <!-- Retrieving a numbering sequence -->
-            <xsl:variable name="numseq">
-                <xsl:if test="$numseqname != ''">
-                    <xsl:apply-templates select="." mode="numseq"/>
-                </xsl:if>
-            </xsl:variable>
+            <xsl:variable name="numseq" select="cpm:numseq(.)"/>
 
             <!-- Detecting numbering properties for a numbered element -->
             <xsl:if test="$numseqname != ''">
@@ -361,11 +354,11 @@
                 <xsl:copy-of select="cpm:misc.attr('cpm:numtype', cpm:numtype(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:nummode', cpm:nummode(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:start-from', cpm:start_from(.))"/>
-                <xsl:copy-of select="cpm:misc.attr('cpm:numbase', cpm:numbase(.))"/>                
+                <xsl:copy-of select="cpm:misc.attr('cpm:numbase', cpm:numbase(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:caption', cpm:caption(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:navcaption', cpm:navcaption(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:numsep', cpm:numsep(.))"/>
-                <xsl:copy-of select="cpm:misc.attr('cpm:numbasesep', cpm:numbasesep(.))"/>                                
+                <xsl:copy-of select="cpm:misc.attr('cpm:numbasesep', cpm:numbasesep(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:number', $number)"/>
                 <xsl:copy-of
                     select="cpm:misc.attr('cpm:full-number', cpm:numformat(., $number, cpm:caption(.)))"/>
@@ -375,14 +368,10 @@
             </xsl:if>
 
             <!-- Should we proceed with a number element or with a higher number -->
-            <xsl:variable name="actual_hinumber">
-                <xsl:value-of select="cpm:misc.defval($number, $hinumber)"/>
-            </xsl:variable>
+            <xsl:variable name="actual_hinumber" select="cpm:misc.defval($number, $hinumber)"/>
 
             <!-- The same thing about a higher numbering sequence -->
-            <xsl:variable name="actual_hinumseq">
-                <xsl:copy-of select="cpm:misc.defseq($numseq, $hinumseq)"/>
-            </xsl:variable>
+            <xsl:variable name="actual_hinumseq" select="cpm:misc.defseq($numseq, $hinumseq)"/>                
 
             <!-- Improving children elements -->
             <xsl:apply-templates select="node()" mode="#current">
@@ -797,7 +786,7 @@
         <xsl:if test="not(*[cpm:is_title(.)])">
             <xsl:value-of select="cpm:fastcust.full_number(.)"/>
         </xsl:if>
-        
+
         <!-- Transforming child nodes to FO -->
         <xsl:apply-templates select="node()" mode="foxml"/>
 
@@ -973,11 +962,11 @@
         <!-- Resolving issues in the draft FO -->
         <xsl:variable name="fofinal_xml">
 
-            
+
             <xsl:comment>#####################</xsl:comment>
             <xsl:copy-of select="$improved_xml"/>
             <xsl:comment>#####################</xsl:comment>
-            
+
 
             <xsl:apply-templates select="$fodraft_xml/*" mode="cpm.fastcust.fofinal"/>
 
