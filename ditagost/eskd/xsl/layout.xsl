@@ -434,3163 +434,427 @@
 <xsl:attribute-set name="Citata_v_stroke" use-attribute-sets="Osnovnoi_wrift">
       <xsl:attribute name="font-style">italic</xsl:attribute>
    </xsl:attribute-set>
-   <xsl:template match="*[cpm:oclass(.)='border.sidebar']" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
-   </xsl:template>
-   <xsl:template match="*[cpm:oclass(.)='border.details']" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
-   </xsl:template>
-   <xsl:template match="p[cpm:oclass(.)='cover.approved']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="p[cpm:oclass(.)='cover.LU']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="p[cpm:oclass(.)='cover.title']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="p[cpm:oclass(.)='cover.subtitle']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="p[cpm:oclass(.)='cover.docnumber']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="p[cpm:oclass(.)='cover.pages']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="p[cpm:oclass(.)='cover.year']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:sectype(.)='auxiliary']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='intro']"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=2 and cpm:sectype(.)='intro']"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=3 and cpm:sectype(.)='intro']"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=4 and cpm:sectype(.)='intro']"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=2 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=3 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=4 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=5 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=6 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:sectype(.)='slacking']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='appendix']"
-                 mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=2 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=3 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=4 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=5 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=6 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:sectype(.)='toctopic']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:sectype(.)='tontopic']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="fo:leader" mode="cpm.fastcust.foname">
+   <xsl:template match="fo:leader" mode="foname">
       <xsl:text>fo:leader</xsl:text>
    </xsl:template>
-   <xsl:template match="fo:block[cpm:numlevel(.)=0 and cpm:oclass(.)='tocentry']"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="fo:block[cpm:numlevel(.)=1 and cpm:oclass(.)='tocentry']"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="fo:block[cpm:numlevel(.)=2 and cpm:oclass(.)='tocentry']"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="fo:block[cpm:numlevel(.)=3 and cpm:oclass(.)='tocentry']"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="p[cpm:noclass(.) and cpm:is_normal(.)]" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="p[cpm:in_table(.)]" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="section/title" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="table" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="tgroup" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
-   </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)!='appendix']//table/title" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='appendix']//table/title" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="thead/row" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
-   </xsl:template>
-   <xsl:template match="table[cpm:noclass(.)]//entry" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
-   </xsl:template>
-   <xsl:template match="fig" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='main']//fig/title" mode="cpm.fastcust.foname">
-      <xsl:text/>
-   </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='appendix']//fig/title" mode="cpm.fastcust.foname">
-      <xsl:text/>
-   </xsl:template>
-   <xsl:template match="fo:block[cpm:oclass(.)='image']" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
-   </xsl:template>
-   <xsl:template match="image" mode="cpm.fastcust.foname">
+   <xsl:template match="image" mode="foname">
       <xsl:text>fo:external-graphic</xsl:text>
    </xsl:template>
-   <xsl:template match="fig/p" mode="cpm.fastcust.foname">
-      <xsl:text/>
+   <xsl:template match="*[cpm:oclass(.)='border.sidebar']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Ramka._Bokovik"
+               role="{concat(name(),'/Рамка. Боковик')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-label/fo:block[cpm:noclass(.)]" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
+   <xsl:template match="*[cpm:oclass(.)='border.details']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Ramka._Wtamp" role="{concat(name(),'/Рамка. Штамп')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and cpm:noclass(.)]"
-                 mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
+   <xsl:template match="p[cpm:oclass(.)='cover.approved']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Titul._Utverjden"
+               role="{concat(name(),'/Титул. Утвержден')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and cpm:noclass(.)]"
-                 mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
+   <xsl:template match="p[cpm:oclass(.)='cover.LU']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Titul._LU" role="{concat(name(),'/Титул. ЛУ')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and cpm:noclass(.)]"
-                 mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
+   <xsl:template match="p[cpm:oclass(.)='cover.title']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Titul._Zagolovok"
+               role="{concat(name(),'/Титул. Заголовок')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-label/fo:block[cpm:in_table(.)]" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
+   <xsl:template match="p[cpm:oclass(.)='cover.subtitle']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Titul._Podzagolovok"
+               role="{concat(name(),'/Титул. Подзаголовок')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and cpm:in_table(.)]"
-                 mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
+   <xsl:template match="p[cpm:oclass(.)='cover.docnumber']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Titul._Oboznacenie"
+               role="{concat(name(),'/Титул. Обозначение')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and cpm:in_table(.)]"
-                 mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
+   <xsl:template match="p[cpm:oclass(.)='cover.pages']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Titul._Stranicy"
+               role="{concat(name(),'/Титул. Страницы')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and cpm:in_table(.)]"
-                 mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
+   <xsl:template match="p[cpm:oclass(.)='cover.year']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Titul._God" role="{concat(name(),'/Титул. Год')}"/>
    </xsl:template>
-   <xsl:template match="ul" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
+   <xsl:template match="title[cpm:sectype(.)='auxiliary']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_perecna"
+               role="{concat(name(),'/Заголовок перечня')}"/>
    </xsl:template>
-   <xsl:template match="ul[ancestor::li]|ul[cpm:in_table(.)]" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
+   <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='intro']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_1" role="{concat(name(),'/Заголовок 1')}"/>
    </xsl:template>
-   <xsl:template match="ul/li[not(ancestor::li) and position()=1]" mode="cpm.fastcust.foname">
-      <xsl:text/>
+   <xsl:template match="title[cpm:numlevel(.)=2 and cpm:sectype(.)='intro']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_2" role="{concat(name(),'/Заголовок 2')}"/>
    </xsl:template>
-   <xsl:template match="ul/li[ancestor::li or position()!=1]" mode="cpm.fastcust.foname">
-      <xsl:text/>
+   <xsl:template match="title[cpm:numlevel(.)=3 and cpm:sectype(.)='intro']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_3" role="{concat(name(),'/Заголовок 3')}"/>
    </xsl:template>
-   <xsl:template match="ol" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="ol[ancestor::li]|ol[cpm:in_table(.)]" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="ol/li[not(ancestor::li) and position()=1]" mode="cpm.fastcust.foname">
-      <xsl:text/>
-   </xsl:template>
-   <xsl:template match="ol/li[ancestor::li or position()!=1]" mode="cpm.fastcust.foname">
-      <xsl:text/>
-   </xsl:template>
-   <xsl:template match="steps" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="step[position()=1]" mode="cpm.fastcust.foname">
-      <xsl:text/>
-   </xsl:template>
-   <xsl:template match="step[position()!=1]" mode="cpm.fastcust.foname">
-      <xsl:text/>
-   </xsl:template>
-   <xsl:template match="*[cpm:oclass(.)='notecaption']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="pre" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
-   </xsl:template>
-   <xsl:template match="div[cpm:oclass(.)='form']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="div[cpm:oclass(.)='form']/p" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:sectype(.)='listregizm']" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="table[cpm:oclass(.)='listregizm']//thead/row/entry"
-                 mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
-   </xsl:template>
-   <xsl:template match="table[cpm:oclass(.)='listregizm']//tbody/row/entry"
-                 mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
-   </xsl:template>
-   <xsl:template match="table[cpm:oclass(.)='listregizm']//tbody/row" mode="cpm.fastcust.foname">
-      <xsl:value-of select="name()"/>
-   </xsl:template>
-   <xsl:template match="apiname" mode="cpm.fastcust.foname">
-      <xsl:text>fo:inline</xsl:text>
-   </xsl:template>
-   <xsl:template match="cite" mode="cpm.fastcust.foname">
-      <xsl:text>fo:inline</xsl:text>
-   </xsl:template>
-   <xsl:template match="codeph" mode="cpm.fastcust.foname">
-      <xsl:text>fo:inline</xsl:text>
-   </xsl:template>
-   <xsl:template match="filepath" mode="cpm.fastcust.foname">
-      <xsl:text>fo:inline</xsl:text>
-   </xsl:template>
-   <xsl:template match="keyword" mode="cpm.fastcust.foname">
-      <xsl:text>fo:inline</xsl:text>
-   </xsl:template>
-   <xsl:template match="menucascade" mode="cpm.fastcust.foname">
-      <xsl:text>fo:inline</xsl:text>
-   </xsl:template>
-   <xsl:template match="term" mode="cpm.fastcust.foname">
-      <xsl:text>fo:inline</xsl:text>
-   </xsl:template>
-   <xsl:template match="uicontrol" mode="cpm.fastcust.foname">
-      <xsl:text>fo:inline</xsl:text>
-   </xsl:template>
-   <xsl:template match="userinput" mode="cpm.fastcust.foname">
-      <xsl:text>fo:inline</xsl:text>
-   </xsl:template>
-   <xsl:template match="xmlatt" mode="cpm.fastcust.foname">
-      <xsl:text>fo:inline</xsl:text>
-   </xsl:template>
-   <xsl:template match="xmlelement" mode="cpm.fastcust.foname">
-      <xsl:text>fo:inline</xsl:text>
-   </xsl:template>
-   <xsl:template match="cpm:wrapper" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="cpm:keyword" mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="*[contains(@class, 'topic/body')]//p[cpm:oclass(.)='shortdesc']"
-                 mode="cpm.fastcust.foname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="*[cpm:oclass(.)='border.sidebar']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Ramka._Bokovik">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Рамка. Боковик</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="*[cpm:oclass(.)='border.details']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Ramka._Wtamp">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Рамка. Штамп</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="p[cpm:oclass(.)='cover.approved']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Titul._Utverjden">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Титул. Утвержден</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="p[cpm:oclass(.)='cover.LU']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Titul._LU">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Титул. ЛУ</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="p[cpm:oclass(.)='cover.title']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Titul._Zagolovok">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Титул. Заголовок</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="p[cpm:oclass(.)='cover.subtitle']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Titul._Podzagolovok">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Титул. Подзаголовок</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="p[cpm:oclass(.)='cover.docnumber']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Titul._Oboznacenie">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Титул. Обозначение</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="p[cpm:oclass(.)='cover.pages']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Titul._Stranicy">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Титул. Страницы</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="p[cpm:oclass(.)='cover.year']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Titul._God">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Титул. Год</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="title[cpm:sectype(.)='auxiliary']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_perecna">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок перечня</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='intro']"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_1">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 1</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=2 and cpm:sectype(.)='intro']"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_2">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 2</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=3 and cpm:sectype(.)='intro']"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_3">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 3</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=4 and cpm:sectype(.)='intro']"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_4">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 4</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="title[cpm:numlevel(.)=4 and cpm:sectype(.)='intro']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_4" role="{concat(name(),'/Заголовок 4')}"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_1">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 1</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+                 mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_1" role="{concat(name(),'/Заголовок 1')}"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=2 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_2">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 2</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+                 mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_2" role="{concat(name(),'/Заголовок 2')}"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=3 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_3">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 3</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+                 mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_3" role="{concat(name(),'/Заголовок 3')}"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=4 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_4">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 4</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+                 mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_4" role="{concat(name(),'/Заголовок 4')}"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=5 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_5">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 5</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+                 mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_5" role="{concat(name(),'/Заголовок 5')}"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=6 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_6">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 6</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+                 mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_6" role="{concat(name(),'/Заголовок 6')}"/>
    </xsl:template>
-   <xsl:template match="title[cpm:sectype(.)='slacking']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Pustoi_zagolovok">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Пустой заголовок</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="title[cpm:sectype(.)='slacking']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Pustoi_zagolovok"
+               role="{concat(name(),'/Пустой заголовок')}"/>
    </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='appendix']"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Prilojenie._Zagolovok">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Приложение. Заголовок</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='appendix']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Prilojenie._Zagolovok"
+               role="{concat(name(),'/Приложение. Заголовок')}"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=2 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_2">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 2</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+                 mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_2" role="{concat(name(),'/Заголовок 2')}"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=3 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_3">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 3</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+                 mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_3" role="{concat(name(),'/Заголовок 3')}"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=4 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_4">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 4</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+                 mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_4" role="{concat(name(),'/Заголовок 4')}"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=5 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_5">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 5</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+                 mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_5" role="{concat(name(),'/Заголовок 5')}"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=6 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_6">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 6</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+                 mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_6" role="{concat(name(),'/Заголовок 6')}"/>
    </xsl:template>
-   <xsl:template match="title[cpm:sectype(.)='toctopic']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Oglavlenie._Zagolovok">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Оглавление. Заголовок</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="title[cpm:sectype(.)='toctopic']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Oglavlenie._Zagolovok"
+               role="{concat(name(),'/Оглавление. Заголовок')}"/>
    </xsl:template>
-   <xsl:template match="title[cpm:sectype(.)='tontopic']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_perecna">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок перечня</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="title[cpm:sectype(.)='tontopic']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_perecna"
+               role="{concat(name(),'/Заголовок перечня')}"/>
    </xsl:template>
-   <xsl:template match="fo:leader" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Oglavlenie._Tocki">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Оглавление. Точки</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fo:leader" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Oglavlenie._Tocki"
+               role="{concat(name(),'/Оглавление. Точки')}"/>
    </xsl:template>
-   <xsl:template match="fo:block[cpm:numlevel(.)=0 and cpm:oclass(.)='tocentry']"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Oglavlenie_0">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Оглавление 0</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fo:block[cpm:numlevel(.)=0 and cpm:oclass(.)='tocentry']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Oglavlenie_0" role="{concat(name(),'/Оглавление 0')}"/>
    </xsl:template>
-   <xsl:template match="fo:block[cpm:numlevel(.)=1 and cpm:oclass(.)='tocentry']"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Oglavlenie_1">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Оглавление 1</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fo:block[cpm:numlevel(.)=1 and cpm:oclass(.)='tocentry']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Oglavlenie_1" role="{concat(name(),'/Оглавление 1')}"/>
    </xsl:template>
-   <xsl:template match="fo:block[cpm:numlevel(.)=2 and cpm:oclass(.)='tocentry']"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Oglavlenie_2">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Оглавление 2</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fo:block[cpm:numlevel(.)=2 and cpm:oclass(.)='tocentry']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Oglavlenie_2" role="{concat(name(),'/Оглавление 2')}"/>
    </xsl:template>
-   <xsl:template match="fo:block[cpm:numlevel(.)=3 and cpm:oclass(.)='tocentry']"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Oglavlenie_3">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Оглавление 3</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fo:block[cpm:numlevel(.)=3 and cpm:oclass(.)='tocentry']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Oglavlenie_3" role="{concat(name(),'/Оглавление 3')}"/>
    </xsl:template>
-   <xsl:template match="p[cpm:noclass(.) and cpm:is_normal(.)]" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Osnovnoi">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Основной</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="p[cpm:noclass(.) and cpm:is_normal(.)]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Osnovnoi" role="{concat(name(),'/Основной')}"/>
    </xsl:template>
-   <xsl:template match="p[cpm:in_table(.)]" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Vnutrennii_blok_teksta">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Внутренний блок текста</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="p[cpm:in_table(.)]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Vnutrennii_blok_teksta"
+               role="{concat(name(),'/Внутренний блок текста')}"/>
    </xsl:template>
-   <xsl:template match="section/title" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_4">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 4</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="section/title" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_4" role="{concat(name(),'/Заголовок 4')}"/>
    </xsl:template>
-   <xsl:template match="table" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Tablica._Blok">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Таблица. Блок</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="table" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Tablica._Blok" role="{concat(name(),'/Таблица. Блок')}"/>
    </xsl:template>
-   <xsl:template match="tgroup" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Tablica">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Таблица</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="tgroup" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Tablica" role="{concat(name(),'/Таблица')}"/>
    </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)!='appendix']//table/title" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Tablica._Nazvanie">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Таблица. Название</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="*[cpm:sectype(.)!='appendix']//table/title" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Tablica._Nazvanie"
+               role="{concat(name(),'/Таблица. Название')}"/>
    </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='appendix']//table/title" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Tablica._Nazvanie">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Таблица. Название</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="*[cpm:sectype(.)='appendix']//table/title" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Tablica._Nazvanie"
+               role="{concat(name(),'/Таблица. Название')}"/>
    </xsl:template>
-   <xsl:template match="thead/row" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Tablica._Wapka">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Таблица. Шапка</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="thead/row" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Tablica._Wapka"
+               role="{concat(name(),'/Таблица. Шапка')}"/>
    </xsl:template>
-   <xsl:template match="table[cpm:noclass(.)]//entry" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Tablica._Aceika">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Таблица. Ячейка</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="table[cpm:noclass(.)]//entry" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Tablica._Aceika"
+               role="{concat(name(),'/Таблица. Ячейка')}"/>
    </xsl:template>
-   <xsl:template match="fig" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Risunok">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Рисунок</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fig" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Risunok" role="{concat(name(),'/Рисунок')}"/>
    </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='main']//fig/title" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text/>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="*[cpm:sectype(.)='main']//fig/title" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="" role="{concat(name(),'/')}"/>
    </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='appendix']//fig/title" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text/>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="*[cpm:sectype(.)='appendix']//fig/title" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="" role="{concat(name(),'/')}"/>
    </xsl:template>
-   <xsl:template match="fo:block[cpm:oclass(.)='image']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Risunok._Izobrajenie">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Рисунок. Изображение</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fo:block[cpm:oclass(.)='image']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Risunok._Izobrajenie"
+               role="{concat(name(),'/Рисунок. Изображение')}"/>
    </xsl:template>
-   <xsl:template match="image" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text/>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="image" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="" role="{concat(name(),'/')}"/>
    </xsl:template>
-   <xsl:template match="fig/p" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text/>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fig/p" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="" role="{concat(name(),'/')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-label/fo:block[cpm:noclass(.)]" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Marker_spiska._Tekst">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Маркер списка. Текст</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fo:list-item-label/fo:block[cpm:noclass(.)]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Marker_spiska._Tekst"
+               role="{concat(name(),'/Маркер списка. Текст')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and cpm:noclass(.)]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Punkt_spiska_1._Tekst">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Пункт списка 1. Текст</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and cpm:noclass(.)]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Punkt_spiska_1._Tekst"
+               role="{concat(name(),'/Пункт списка 1. Текст')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and cpm:noclass(.)]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Punkt_spiska_2._Tekst">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Пункт списка 2. Текст</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and cpm:noclass(.)]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Punkt_spiska_2._Tekst"
+               role="{concat(name(),'/Пункт списка 2. Текст')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and cpm:noclass(.)]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Punkt_spiska_3._Tekst">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Пункт списка 3. Текст</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and cpm:noclass(.)]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Punkt_spiska_3._Tekst"
+               role="{concat(name(),'/Пункт списка 3. Текст')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-label/fo:block[cpm:in_table(.)]" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Tablica._Marker_spiska._Tekst">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Таблица. Маркер списка. Текст</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fo:list-item-label/fo:block[cpm:in_table(.)]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Tablica._Marker_spiska._Tekst"
+               role="{concat(name(),'/Таблица. Маркер списка. Текст')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and cpm:in_table(.)]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Tablica._Punkt_spiska_1._Tekst">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Таблица. Пункт списка 1. Текст</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=1 and cpm:in_table(.)]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Tablica._Punkt_spiska_1._Tekst"
+               role="{concat(name(),'/Таблица. Пункт списка 1. Текст')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and cpm:in_table(.)]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Tablica._Punkt_spiska_2._Tekst">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Таблица. Пункт списка 2. Текст</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=2 and cpm:in_table(.)]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Tablica._Punkt_spiska_2._Tekst"
+               role="{concat(name(),'/Таблица. Пункт списка 2. Текст')}"/>
    </xsl:template>
-   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and cpm:in_table(.)]"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Tablica._Punkt_spiska_3._Tekst">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Таблица. Пункт списка 3. Текст</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="fo:list-item-body[cpm:numlevel(.)=3 and cpm:in_table(.)]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Tablica._Punkt_spiska_3._Tekst"
+               role="{concat(name(),'/Таблица. Пункт списка 3. Текст')}"/>
    </xsl:template>
-   <xsl:template match="ul" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Glavnyi_spisok">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Главный список</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="ul" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Glavnyi_spisok"
+               role="{concat(name(),'/Главный список')}"/>
    </xsl:template>
-   <xsl:template match="ul[ancestor::li]|ul[cpm:in_table(.)]" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Vlojennyi_spisok">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Вложенный список</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="ul[ancestor::li]|ul[cpm:in_table(.)]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Vlojennyi_spisok"
+               role="{concat(name(),'/Вложенный список')}"/>
    </xsl:template>
-   <xsl:template match="ul/li[not(ancestor::li) and position()=1]" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Pervyi_punkt_spiska">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Первый пункт списка</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="ul/li[not(ancestor::li) and position()=1]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Pervyi_punkt_spiska"
+               role="{concat(name(),'/Первый пункт списка')}"/>
    </xsl:template>
-   <xsl:template match="ul/li[ancestor::li or position()!=1]" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Nepervyi_punkt_spiska">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Непервый пункт списка</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="ul/li[ancestor::li or position()!=1]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Nepervyi_punkt_spiska"
+               role="{concat(name(),'/Непервый пункт списка')}"/>
    </xsl:template>
-   <xsl:template match="ol" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Glavnyi_spisok">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Главный список</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="ol" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Glavnyi_spisok"
+               role="{concat(name(),'/Главный список')}"/>
    </xsl:template>
-   <xsl:template match="ol[ancestor::li]|ol[cpm:in_table(.)]" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Vlojennyi_spisok">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Вложенный список</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="ol[ancestor::li]|ol[cpm:in_table(.)]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Vlojennyi_spisok"
+               role="{concat(name(),'/Вложенный список')}"/>
    </xsl:template>
-   <xsl:template match="ol/li[not(ancestor::li) and position()=1]" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Pervyi_punkt_spiska">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Первый пункт списка</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="ol/li[not(ancestor::li) and position()=1]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Pervyi_punkt_spiska"
+               role="{concat(name(),'/Первый пункт списка')}"/>
    </xsl:template>
-   <xsl:template match="ol/li[ancestor::li or position()!=1]" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Nepervyi_punkt_spiska">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Непервый пункт списка</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="ol/li[ancestor::li or position()!=1]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Nepervyi_punkt_spiska"
+               role="{concat(name(),'/Непервый пункт списка')}"/>
    </xsl:template>
-   <xsl:template match="steps" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Glavnyi_spisok">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Главный список</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="steps" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Glavnyi_spisok"
+               role="{concat(name(),'/Главный список')}"/>
    </xsl:template>
-   <xsl:template match="step[position()=1]" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Pervyi_punkt_spiska">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Первый пункт списка</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="step[position()=1]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Pervyi_punkt_spiska"
+               role="{concat(name(),'/Первый пункт списка')}"/>
    </xsl:template>
-   <xsl:template match="step[position()!=1]" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Nepervyi_punkt_spiska">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Непервый пункт списка</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="step[position()!=1]" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Nepervyi_punkt_spiska"
+               role="{concat(name(),'/Непервый пункт списка')}"/>
    </xsl:template>
-   <xsl:template match="*[cpm:oclass(.)='notecaption']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="VNIMANIE">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>ВНИМАНИЕ</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="*[cpm:oclass(.)='notecaption']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="VNIMANIE" role="{concat(name(),'/ВНИМАНИЕ')}"/>
    </xsl:template>
-   <xsl:template match="pre" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Listing">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Листинг</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="pre" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Listing" role="{concat(name(),'/Листинг')}"/>
    </xsl:template>
-   <xsl:template match="div[cpm:oclass(.)='form']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Forma">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Форма</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="div[cpm:oclass(.)='form']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Forma" role="{concat(name(),'/Форма')}"/>
    </xsl:template>
-   <xsl:template match="div[cpm:oclass(.)='form']/p" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Abzac_v_forme">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Абзац в форме</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="div[cpm:oclass(.)='form']/p" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Abzac_v_forme" role="{concat(name(),'/Абзац в форме')}"/>
    </xsl:template>
-   <xsl:template match="title[cpm:sectype(.)='listregizm']" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Zagolovok_1">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Заголовок 1</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="title[cpm:sectype(.)='listregizm']" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Zagolovok_1" role="{concat(name(),'/Заголовок 1')}"/>
    </xsl:template>
-   <xsl:template match="table[cpm:oclass(.)='listregizm']//thead/row/entry"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="LRI._Wapka">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>ЛРИ. Шапка</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="table[cpm:oclass(.)='listregizm']//thead/row/entry" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="LRI._Wapka" role="{concat(name(),'/ЛРИ. Шапка')}"/>
    </xsl:template>
-   <xsl:template match="table[cpm:oclass(.)='listregizm']//tbody/row/entry"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="LRI._Aceika">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>ЛРИ. Ячейка</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="table[cpm:oclass(.)='listregizm']//tbody/row/entry" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="LRI._Aceika" role="{concat(name(),'/ЛРИ. Ячейка')}"/>
    </xsl:template>
-   <xsl:template match="table[cpm:oclass(.)='listregizm']//tbody/row" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="LRI._Stroka">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>ЛРИ. Строка</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="table[cpm:oclass(.)='listregizm']//tbody/row" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="LRI._Stroka" role="{concat(name(),'/ЛРИ. Строка')}"/>
    </xsl:template>
-   <xsl:template match="apiname" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Kod_v_stroke">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Код в строке</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="apiname" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Kod_v_stroke" role="{concat(name(),'/Код в строке')}"/>
    </xsl:template>
-   <xsl:template match="cite" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Citata_v_stroke">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Цитата в строке</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="cite" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Citata_v_stroke"
+               role="{concat(name(),'/Цитата в строке')}"/>
    </xsl:template>
-   <xsl:template match="codeph" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Kod_v_stroke">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Код в строке</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="codeph" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Kod_v_stroke" role="{concat(name(),'/Код в строке')}"/>
    </xsl:template>
-   <xsl:template match="filepath" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Fail">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Файл</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="filepath" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Fail" role="{concat(name(),'/Файл')}"/>
    </xsl:template>
-   <xsl:template match="keyword" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Osnovnoi_wrift">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Основной шрифт</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="keyword" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Osnovnoi_wrift"
+               role="{concat(name(),'/Основной шрифт')}"/>
    </xsl:template>
-   <xsl:template match="menucascade" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Menq">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Меню</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="menucascade" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Menq" role="{concat(name(),'/Меню')}"/>
    </xsl:template>
-   <xsl:template match="term" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Termin">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Термин</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="term" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Termin" role="{concat(name(),'/Термин')}"/>
    </xsl:template>
-   <xsl:template match="uicontrol" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Knopki_i_vse_takoe">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Кнопки и все такое</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="uicontrol" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Knopki_i_vse_takoe"
+               role="{concat(name(),'/Кнопки и все такое')}"/>
    </xsl:template>
-   <xsl:template match="userinput" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Kod_v_stroke">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Код в строке</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="userinput" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Kod_v_stroke" role="{concat(name(),'/Код в строке')}"/>
    </xsl:template>
-   <xsl:template match="xmlatt" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Kod_v_stroke">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Код в строке</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="xmlatt" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Kod_v_stroke" role="{concat(name(),'/Код в строке')}"/>
    </xsl:template>
-   <xsl:template match="xmlelement" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Kod_v_stroke">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Код в строке</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="xmlelement" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Kod_v_stroke" role="{concat(name(),'/Код в строке')}"/>
    </xsl:template>
-   <xsl:template match="cpm:wrapper" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Osnovnoi">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Основной</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="cpm:wrapper" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Osnovnoi" role="{concat(name(),'/Основной')}"/>
    </xsl:template>
-   <xsl:template match="cpm:keyword" mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Osnovnoi">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Основной</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
+   <xsl:template match="cpm:keyword" mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Osnovnoi" role="{concat(name(),'/Основной')}"/>
    </xsl:template>
    <xsl:template match="*[contains(@class, 'topic/body')]//p[cpm:oclass(.)='shortdesc']"
-                 mode="cpm.fastcust.foxml">
-      <xsl:param name="foinner"/>
-      <xsl:variable name="foname" select="cpm:fastcust.foname(.)"/>
-      <xsl:choose>
-         <xsl:when test="$foname=''"/>
-         <xsl:when test="$foname='cpm:none'">
-            <xsl:copy-of select="$foinner"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:element name="{$foname}" use-attribute-sets="Osnovnoi">
-               <xsl:attribute name="id">
-                  <xsl:value-of select="cpm:fastcust.id(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="language">
-                  <xsl:value-of select="cpm:fastcust.lang(.)"/>
-               </xsl:attribute>
-               <xsl:attribute name="role">
-                  <xsl:value-of select="name()"/>
-                  <xsl:text>/</xsl:text>
-                  <xsl:text>Основной</xsl:text>
-               </xsl:attribute>
-               <xsl:apply-templates select="." mode="foattrs"/>
-               <xsl:copy-of select="$foinner"/>
-            </xsl:element>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-   <xsl:template match="*" mode="cpm.fastcust.explicit_caption"/>
-   <xsl:template match="title[cpm:sectype(.)='auxiliary']" mode="numseqname">
-      <xsl:text>Без номеров</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="numseqname">
-      <xsl:text>Разделы</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=2 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="numseqname">
-      <xsl:text>Разделы</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=3 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="numseqname">
-      <xsl:text>Разделы</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=4 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="numseqname">
-      <xsl:text>Разделы</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=5 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="numseqname">
-      <xsl:text>Разделы</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=6 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
-                 mode="numseqname">
-      <xsl:text>Разделы</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='appendix']"
-                 mode="numseqname">
-      <xsl:text>Приложения</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=2 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="numseqname">
-      <xsl:text>Разделы приложений</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=3 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="numseqname">
-      <xsl:text>Разделы приложений</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=4 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="numseqname">
-      <xsl:text>Разделы приложений</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=5 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="numseqname">
-      <xsl:text>Разделы приложений</xsl:text>
-   </xsl:template>
-   <xsl:template match="title[cpm:numlevel(.)=6 and ancestor::*[cpm:sectype(.)='appendix']]"
-                 mode="numseqname">
-      <xsl:text>Разделы приложений</xsl:text>
-   </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)!='appendix']//table/title" mode="numseqname">
-      <xsl:text>Таблицы</xsl:text>
-   </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='appendix']//table/title" mode="numseqname">
-      <xsl:text>Таблицы в приложении</xsl:text>
-   </xsl:template>
-   <xsl:template match="fig" mode="numseqname">
-      <xsl:text>fo:block</xsl:text>
-   </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='main']//fig/title" mode="numseqname">
-      <xsl:text>Рисунки</xsl:text>
-   </xsl:template>
-   <xsl:template match="*[cpm:sectype(.)='appendix']//fig/title" mode="numseqname">
-      <xsl:text>Рисунки в приложении</xsl:text>
-   </xsl:template>
-   <xsl:template match="ul[ancestor::li]|ul[cpm:in_table(.)]" mode="numseqname">
-      <xsl:text>Блок списка</xsl:text>
-   </xsl:template>
-   <xsl:template match="ol" mode="numseqname">
-      <xsl:text>Блок списка</xsl:text>
-   </xsl:template>
-   <xsl:template match="ol[ancestor::li]|ol[cpm:in_table(.)]" mode="numseqname">
-      <xsl:text>Блок списка</xsl:text>
-   </xsl:template>
-   <xsl:template match="ol/li[not(ancestor::li) and position()=1]" mode="numseqname">
-      <xsl:text>Пункт списка</xsl:text>
-   </xsl:template>
-   <xsl:template match="ol/li[ancestor::li or position()!=1]" mode="numseqname">
-      <xsl:text>Пункт списка</xsl:text>
-   </xsl:template>
-   <xsl:template match="steps" mode="numseqname">
-      <xsl:text>Блок списка</xsl:text>
-   </xsl:template>
-   <xsl:template match="step[position()=1]" mode="numseqname">
-      <xsl:text>Пункт списка</xsl:text>
-   </xsl:template>
-   <xsl:template match="step[position()!=1]" mode="numseqname">
-      <xsl:text>Пункт списка</xsl:text>
+                 mode="fostyle">
+      <fostyle xsl:use-attribute-sets="Osnovnoi" role="{concat(name(),'/Основной')}"/>
    </xsl:template>
    <xsl:template match="title[cpm:sectype(.)='auxiliary']" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Без номеров" type="dummy" mode="decimal"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
                  mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Разделы" type="arabic" mode="decimal" caption="%n "/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=2 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
                  mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Разделы" type="arabic" mode="decimal" caption="%n "/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=3 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
                  mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Разделы" type="arabic" mode="decimal" caption="%n "/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=4 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
                  mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Разделы" type="arabic" mode="decimal" caption="%n "/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=5 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
                  mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Разделы" type="arabic" mode="decimal" caption="%n "/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=6 and cpm:sectype(.)='main' and not(starts-with(., 'Перечень'))]"
                  mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Разделы" type="arabic" mode="decimal" caption="%n "/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=1 and cpm:sectype(.)='appendix']" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Приложения" type="char" mode="decimal" chars="АБВГДЕЖИКЛМППРСТУФХЦЧШЩЭЮЯ"
+              caption="Приложение %n. "/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=2 and ancestor::*[cpm:sectype(.)='appendix']]"
                  mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Разделы приложений" type="arabic" mode="decimal" caption="%n "
+              base="Приложения"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=3 and ancestor::*[cpm:sectype(.)='appendix']]"
                  mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Разделы приложений" type="arabic" mode="decimal" caption="%n "
+              base="Приложения"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=4 and ancestor::*[cpm:sectype(.)='appendix']]"
                  mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Разделы приложений" type="arabic" mode="decimal" caption="%n "
+              base="Приложения"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=5 and ancestor::*[cpm:sectype(.)='appendix']]"
                  mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Разделы приложений" type="arabic" mode="decimal" caption="%n "
+              base="Приложения"/>
    </xsl:template>
    <xsl:template match="title[cpm:numlevel(.)=6 and ancestor::*[cpm:sectype(.)='appendix']]"
                  mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Разделы приложений" type="arabic" mode="decimal" caption="%n "
+              base="Приложения"/>
    </xsl:template>
    <xsl:template match="*[cpm:sectype(.)!='appendix']//table/title" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Таблицы" type="arabic" mode="flat" caption="Таблица %n — "/>
    </xsl:template>
    <xsl:template match="*[cpm:sectype(.)='appendix']//table/title" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Таблицы в приложении" type="arabic" mode="flat" caption="Таблица %n — "
+              base="Приложения"/>
    </xsl:template>
-   <xsl:template match="fig" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
-   </xsl:template>
+   <xsl:template match="fig" mode="numseq"/>
    <xsl:template match="*[cpm:sectype(.)='main']//fig/title" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Рисунки" type="arabic" mode="flat" caption="Рисунок %n — "/>
    </xsl:template>
    <xsl:template match="*[cpm:sectype(.)='appendix']//fig/title" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Рисунки в приложении" type="arabic" mode="flat" caption="Рисунок %n — "
+              base="Приложения"/>
    </xsl:template>
    <xsl:template match="ul[ancestor::li]|ul[cpm:in_table(.)]" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Блок списка" type="dummy" mode="decimal"/>
    </xsl:template>
    <xsl:template match="ol" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Блок списка" type="dummy" mode="decimal"/>
    </xsl:template>
    <xsl:template match="ol[ancestor::li]|ol[cpm:in_table(.)]" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Блок списка" type="dummy" mode="decimal"/>
    </xsl:template>
    <xsl:template match="ol/li[not(ancestor::li) and position()=1]" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Пункт списка" type="arabic" mode="flat" caption="%n." base="Блок списка"/>
    </xsl:template>
    <xsl:template match="ol/li[ancestor::li or position()!=1]" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Пункт списка" type="arabic" mode="flat" caption="%n." base="Блок списка"/>
    </xsl:template>
    <xsl:template match="steps" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Блок списка" type="dummy" mode="decimal"/>
    </xsl:template>
    <xsl:template match="step[position()=1]" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
+      <numseq name="Пункт списка" type="arabic" mode="flat" caption="%n." base="Блок списка"/>
    </xsl:template>
    <xsl:template match="step[position()!=1]" mode="numseq">
-      <xsl:variable name="numseqname">
-         <xsl:apply-templates select="." mode="numseqname"/>
-      </xsl:variable>
-      <xsl:call-template name="cpm.fastcust.numseq">
-         <xsl:with-param name="name">
-            <xsl:value-of select="$numseqname"/>
-         </xsl:with-param>
-      </xsl:call-template>
-   </xsl:template>
-   <xsl:template name="cpm.fastcust.numseq">
-      <xsl:param name="name"/>
-      <xsl:choose>
-         <xsl:when test="$name='Без номеров'">
-            <numseq name="Без номеров" type="dummy" mode="decimal"/>
-         </xsl:when>
-         <xsl:when test="$name='Разделы'">
-            <numseq name="Разделы" type="arabic" mode="decimal" caption="%n "/>
-         </xsl:when>
-         <xsl:when test="$name='Приложения'">
-            <numseq name="Приложения" type="char" mode="decimal" chars="АБВГДЕЖИКЛМППРСТУФХЦЧШЩЭЮЯ"
-                    caption="Приложение %n. "/>
-         </xsl:when>
-         <xsl:when test="$name='Разделы приложений'">
-            <numseq name="Разделы приложений" type="arabic" mode="decimal" caption="%n "
-                    base="Приложения"/>
-         </xsl:when>
-         <xsl:when test="$name='Таблицы'">
-            <numseq name="Таблицы" type="arabic" mode="flat" caption="Таблица %n — "/>
-         </xsl:when>
-         <xsl:when test="$name='Таблицы в приложении'">
-            <numseq name="Таблицы в приложении" type="arabic" mode="flat" caption="Таблица %n — "
-                    base="Приложения"/>
-         </xsl:when>
-         <xsl:when test="$name='Рисунки'">
-            <numseq name="Рисунки" type="arabic" mode="flat" caption="Рисунок %n — "/>
-         </xsl:when>
-         <xsl:when test="$name='Рисунки в приложении'">
-            <numseq name="Рисунки в приложении" type="arabic" mode="flat" caption="Рисунок %n — "
-                    base="Приложения"/>
-         </xsl:when>
-         <xsl:when test="$name='Блок списка'">
-            <numseq name="Блок списка" type="dummy" mode="decimal"/>
-         </xsl:when>
-         <xsl:when test="$name='Пункт списка'">
-            <numseq name="Пункт списка" type="arabic" mode="flat" caption="%n." base="Блок списка"/>
-         </xsl:when>
-      </xsl:choose>
+      <numseq name="Пункт списка" type="arabic" mode="flat" caption="%n." base="Блок списка"/>
    </xsl:template>
 </xsl:stylesheet>

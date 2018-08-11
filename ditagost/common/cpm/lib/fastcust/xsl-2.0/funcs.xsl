@@ -1112,6 +1112,7 @@
         <xsl:apply-templates select="$element" mode="numformat"/>            
     </xsl:function>
 
+
     <!-- 
         Assembling a full number for an element
     -->
@@ -1172,46 +1173,55 @@
     <!-- 
         Retrieving an element title
     -->
-    <xsl:function name="cpm:fastcust.title">
-
-        <!-- A "native" element; not a variable -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.title">        
         <xsl:param name="element"/>
-
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.title"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:title">
+        <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="title"/>
-
     </xsl:function>
 
 
     <!-- 
         Assembling a full title for an element
     -->
-    <xsl:function name="cpm:fastcust.full_title">
-
-        <!-- A "native" element; not a variable -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.full_title">        
         <xsl:param name="element"/>
-
-        <!-- Improved document & flat document-->
-
-        <xsl:value-of select="cpm:fastcust.full_number($element)"/>
-        <xsl:value-of select="cpm:fastcust.title($element)"/>
-
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.full_title"/>        
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:full_title">        
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="full_title"/>        
     </xsl:function>
 
 
     <!-- 
-        Assembling a full title TOC/TON for an element
+        Assembling a full navigation title for an element
     -->
-    <xsl:function name="cpm:fastcust.nav_full_title">
-
-        <!-- A "native" element; not a variable -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.nav_full_title">        
         <xsl:param name="element"/>
-
-        <!-- Improved document & flat document-->
-
-        <xsl:value-of select="cpm:fastcust.nav_full_number($element)"/>
-        <xsl:value-of select="cpm:fastcust.title($element)"/>
-
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.nav_full_title"/>        
     </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:nav_full_title">        
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="nav_full_title"/>        
+    </xsl:function>
+    
+
+    
 
 
 
@@ -1318,23 +1328,25 @@
 
     <!-- Detecting elements having empty output class -->
     <xsl:function name="cpm:noclass" as="xs:boolean">
-
         <xsl:param name="element"/>
-
         <xsl:value-of select="cpm:oclass($element) = ''"/>
-
     </xsl:function>
 
 
     <!-- 
         FO element name for a source element
     -->
+    
+    <!-- A wrapper function -->
     <xsl:function name="cpm:fastcust.foname">
-
         <xsl:param name="element"/>
-
-        <xsl:apply-templates select="$element" mode="foname"/>
-
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.foname"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:foname">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="foname"/>        
     </xsl:function>
 
 

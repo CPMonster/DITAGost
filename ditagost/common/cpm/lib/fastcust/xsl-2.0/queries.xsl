@@ -24,5 +24,7 @@
     <xsl:import href="queries-structure.xsl"/>
     
     <xsl:import href="queries-numbers.xsl"/>
+    
+    <xsl:import href="queries-tocton.xsl"/>
 
 </xsl:stylesheet>

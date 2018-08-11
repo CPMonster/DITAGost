@@ -371,7 +371,7 @@
             <xsl:variable name="actual_hinumber" select="cpm:misc.defval($number, $hinumber)"/>
 
             <!-- The same thing about a higher numbering sequence -->
-            <xsl:variable name="actual_hinumseq" select="cpm:misc.defseq($numseq, $hinumseq)"/>                
+            <xsl:variable name="actual_hinumseq" select="cpm:misc.defseq($numseq, $hinumseq)"/>
 
             <!-- Improving children elements -->
             <xsl:apply-templates select="node()" mode="#current">
@@ -613,20 +613,6 @@
     <!-- ==================================== -->
 
     <!-- 
-        Applying a default style to an element
-    -->
-    <xsl:attribute-set name="cpm.fastcust.default_style">
-
-        <!--            
-            OVERLOAD: strongly not recommended.                   
-        -->
-
-        <xsl:attribute name="font-family">Serif</xsl:attribute>
-
-    </xsl:attribute-set>
-
-
-    <!-- 
         Calling a customization for assembling static content
     -->
     <xsl:template match="cpm:static-content" mode="cpm.fastcust.static">
@@ -663,7 +649,7 @@
         Choosing a name for a FO element
     -->
 
-    <!-- A default working template -->
+    <!-- A default template -->
     <xsl:template match="*" mode="cpm.fastcust.foname">
 
         <!-- 
@@ -671,7 +657,7 @@
         -->
 
         <!--            
-            OVERLOAD: in a generated layout.xsl for particular elements.                      
+            OVERLOAD: never!                      
         -->
 
         <xsl:choose>
@@ -721,13 +707,17 @@
                 <xsl:text>>fo:external-graphic</xsl:text>
             </xsl:when>
             <xsl:otherwise>
+                <xsl:message>
+                    <xsl:text>!!! </xsl:text>
+                    <xsl:value-of select="name()"/>
+                </xsl:message>
                 <xsl:text>cpm:none</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
 
     </xsl:template>
 
-    <!-- A custom working template -->
+    <!-- A custom template -->
     <xsl:template match="*" mode="foname">
 
         <!-- 
@@ -735,43 +725,140 @@
         -->
 
         <!--            
-            OVERLOAD: in a customization for particular elements.                   
+            OVERLOAD: particular elements.
+            
+            Overloading is possible:
+            
+            - On a source markup level 
+            
+            - In a customization
+            
+            - In a generated layout.xsl
         -->
 
-        <xsl:apply-templates select="." mode="cpm.fastcust.foname"/>
+        <xsl:value-of select="cpm:fastcust.foname(.)"/>
 
     </xsl:template>
 
-    <!-- A wrapper function -->
-    <xsl:function name="cpm:fastcust.foname">
-        <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="foname"/>
-    </xsl:function>
+
+    <!-- 
+        Assembling mandatory attributes for a FO element
+    -->
+
+    <!-- A default template -->
+    <xsl:template match="*" mode="cpm.fastcust.fosysattrs">
+        <xsl:attribute name="id" select="cpm:misc.id(.)"/>
+        <xsl:attribute name="language" select="cpm:lang(.)"/>
+    </xsl:template>
+
+    <!-- A custom template -->
+    <xsl:template match="*" mode="fosysattrs">
+        <xsl:apply-templates select="." mode="cpm.fastcust.fosysattrs"/>
+    </xsl:template>
 
 
     <!-- 
-        Assembling attributes for common elements
+        Retrieving style attributes 
     -->
 
-    <!-- A common case -->
-    <xsl:template match="*" mode="foattrs">
+    <!-- A default template -->
+    <xsl:template match="*" mode="cpm.fastcust.fostyle">
+        <fostyle role="{name()}"/>
+    </xsl:template>
+
+    <!-- A custom template -->
+    <xsl:template match="*" mode="fostyle">
+
         <!-- 
             * represents an element of a flat document.
         -->
-        <!--            
-            OVERLOAD: in a customization for particular elements.                   
-        -->
-    </xsl:template>
 
-    <!-- A corner case: FO elements -->
-    <xsl:template match="*[cpm:fo.is_fo(.)]" mode="foattrs">
-        <xsl:copy-of select="@*[not(cpm:cpm.is_cpm(.))] except (@outputclass, @xtrf)"/>
+        <!-- 
+            OVERLOAD: in generated layout.xsl. 
+        -->
+
+        <xsl:apply-templates select="." mode="cpm.fastcust.fostyle"/>
+
     </xsl:template>
 
 
     <!-- 
-        Assembling inner FO for a FO element
+        Assembling style attributes
     -->
+
+    <!-- A default template -->
+    <xsl:template match="*" mode="cpm.fastcust.fostyleattrs">
+
+        <!-- Retrieving attributes wrapped into an element -->
+        <xsl:variable name="fostyle">
+            <xsl:apply-templates select="." mode="fostyle"/>
+        </xsl:variable>
+
+        <!-- Unpacking attributes from a wrapper element -->
+        <xsl:copy-of select="$fostyle//@*"/>
+
+    </xsl:template>
+
+    <!-- A custom template -->
+    <xsl:template match="*" mode="fostyleattrs">
+        <xsl:apply-templates select="." mode="cpm.fastcust.fostyleattrs"/>
+    </xsl:template>
+
+
+    <!-- 
+        Assembling custom and source markup attributes
+    -->
+
+    <!-- A common default template -->
+    <xsl:template match="*" mode="cpm.fastcust.foattrs"/>
+
+    <!-- A default template for a corner case: copying FO attributs -->
+    <xsl:template match="*[cpm:fo.is_fo(.)]" mode="cpm.fastcust.foattrs">
+        <xsl:copy-of select="@* except (@*[cpm:cpm.is_cpm(.)], @outputclass, @xtrf)"/>
+    </xsl:template>
+
+    <!-- A custom template for source markup elements -->
+    <xsl:template match="*" mode="foattrs">
+        <xsl:apply-templates select="." mode="cpm.fastcust.foattrs"/>
+    </xsl:template>
+
+
+    <!-- 
+        Assembling inner content for a FO element
+    -->
+
+    <!-- A default template -->
+    <xsl:template match="*" mode="cpm.fastcust.foinner">
+
+        <!-- 
+            * represents an element of a flat document.
+        -->
+
+        <!--            
+            OVERLOAD: not recommended.
+        -->
+
+        <!-- 
+            Inserting a full number unless an element has a title.
+            If the element has a title then a full number comes 
+            at the beginning of the title. 
+        -->        
+        <xsl:if test="not(*[cpm:is_title(.)])">
+            <xsl:value-of select="cpm:full_number(.)"/>
+        </xsl:if>
+        
+        <!-- 
+            ATTENTION! A template having mode="foinner"
+            is responsible for proceeding a recursive
+            procedure of parsing a flat doocument.
+        -->
+
+        <!-- Transforming child nodes to FO -->
+        <xsl:apply-templates select="node()" mode="foxml"/>
+
+    </xsl:template>
+
+    <!-- A custom template -->
     <xsl:template match="*" mode="foinner">
 
         <!-- 
@@ -779,23 +866,25 @@
         -->
 
         <!--            
-            OVERLOAD: in a customiation for particular elements.                   
+            OVERLOAD: for particular elements.
+                        
+            Overloading is possible:
+            
+            - On a source markup level
+            
+            - In a customization            
         -->
-
-        <!-- Inserting a full number unless an element has a title -->
-        <xsl:if test="not(*[cpm:is_title(.)])">
-            <xsl:value-of select="cpm:fastcust.full_number(.)"/>
-        </xsl:if>
-
-        <!-- Transforming child nodes to FO -->
-        <xsl:apply-templates select="node()" mode="foxml"/>
+                
+        <xsl:apply-templates select="." mode="cpm.fastcust.foinner"/>
 
     </xsl:template>
 
 
     <!-- 
-        A default formatting template
+        Assembling an entire FO element
     -->
+
+    <!-- A default template -->
     <xsl:template match="*" mode="cpm.fastcust.foxml">
 
         <!-- 
@@ -803,66 +892,42 @@
         -->
 
         <!--            
-            OVERLOAD: in a generated layout.xsl.                   
+            OVERLOAD: not recommended!                   
         -->
 
-        <xsl:param name="foinner"/>
-
-        <xsl:variable name="element_name">
-            <xsl:value-of select="cpm:fastcust.foname(.)"/>
-        </xsl:variable>
+        <xsl:variable name="foname" select="cpm:foname(.)"/>
 
         <xsl:choose>
 
-            <xsl:when test="$element_name = ''"/>
-
-            <xsl:when test="$element_name = 'cpm:none'">
-                <xsl:copy-of select="$foinner"/>
+            <xsl:when test="$foname = ('', 'cpm:none')">
+                <xsl:apply-templates select="." mode="foinner"/>
             </xsl:when>
 
             <xsl:otherwise>
-
-                <xsl:element name="{$element_name}" use-attribute-sets="cpm.fastcust.default_style">
-
-                    <xsl:copy-of select="cpm:misc.attr('id', cpm:misc.id(.))"/>
-                    <xsl:copy-of select="cpm:misc.attr('language', cpm:fastcust.lang(.))"/>
-                    <xsl:copy-of select="cpm:misc.attr('role', name())"/>
-
+                <xsl:element name="{$foname}">
+                    <xsl:apply-templates select="." mode="fosysattrs"/>
                     <xsl:apply-templates select="." mode="foattrs"/>
-
-                    <xsl:copy-of select="$foinner"/>
-
+                    <xsl:apply-templates select="." mode="fostyleattrs"/>
+                    <xsl:apply-templates select="." mode="foinner"/>
                 </xsl:element>
-
             </xsl:otherwise>
 
         </xsl:choose>
 
     </xsl:template>
 
-
-    <!-- 
-        Transforming a source element to a FO element 
-    -->
+    <!-- A custom template -->
     <xsl:template match="*" mode="foxml">
 
         <!-- 
             * represents an element of a flat document.
         -->
 
-        <!-- 
-            OVERLOAD: in a customization for particular elements. 
+        <!--            
+            OVERLOAD: yes, it's custom, but not recommended.                   
         -->
 
-        <!-- Transforming an element to FO -->
-        <xsl:apply-templates select="." mode="cpm.fastcust.foxml">
-
-            <xsl:with-param name="foinner">
-                <!-- Assembling inner FO for an element -->
-                <xsl:apply-templates select="." mode="foinner"/>
-            </xsl:with-param>
-
-        </xsl:apply-templates>
+        <xsl:apply-templates select="." mode="cpm.fastcust.foxml"/>
 
     </xsl:template>
 
@@ -882,8 +947,17 @@
 
             <fo:flow flow-name="xsl-region-body">
 
+                <!-- 
+                    ATTENTION! Here we enter into a recursive
+                    proceure of parsing a flat doocument. 
+                -->
                 <xsl:apply-templates select="cpm:flow/*" mode="foxml"/>
 
+                <!-- 
+                    Creating a marker at the end of document. 
+                    We need to have this marker for calculating
+                    a number of pages.
+                -->
                 <xsl:if test="position() = last()">
                     <fo:block id="cpm.fastcust.last_page"/>
                 </xsl:if>
@@ -962,11 +1036,11 @@
         <!-- Resolving issues in the draft FO -->
         <xsl:variable name="fofinal_xml">
 
-
+            <!--
             <xsl:comment>#####################</xsl:comment>
             <xsl:copy-of select="$improved_xml"/>
             <xsl:comment>#####################</xsl:comment>
-
+            -->
 
             <xsl:apply-templates select="$fodraft_xml/*" mode="cpm.fastcust.fofinal"/>
 

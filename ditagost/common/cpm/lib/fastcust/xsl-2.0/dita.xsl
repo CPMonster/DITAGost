@@ -404,11 +404,11 @@
             </xsl:variable>
             <xsl:variable name="width">
                 <xsl:value-of select="cpm:typo.get_value(@colwidth)"/>
-            </xsl:variable>
+            </xsl:variable>           
             <xsl:attribute name="column-width">
                 <xsl:value-of select="100 * $width div $total"/>
                 <xsl:text>%</xsl:text>
-            </xsl:attribute>
+            </xsl:attribute>            
         </xsl:if>
     </xsl:template>
 
@@ -458,10 +458,10 @@
     <xsl:template match="*[cpm:dita.is_entry(.)]" mode="foattrs">
 
         <!-- Number of rows a call spans over -->
-        <xsl:if test="@morerows">
+        <xsl:if test="@morerows">            
             <xsl:attribute name="number-rows-spanned">
                 <xsl:value-of select="@morerows + 1"/>
-            </xsl:attribute>
+            </xsl:attribute>            
         </xsl:if>
 
         <!-- Number of columns a call spans over -->

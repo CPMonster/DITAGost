@@ -6,7 +6,7 @@
     Level:      Library
     
     Part:       FastCust
-    Module:     numbers.xsl
+    Module:     queries-numbers.xsl
     
     Scope:      Generic
     
@@ -52,7 +52,9 @@
     </xsl:template>
 
     <!-- A default template (should be overloaded in a generated layout.xsl) -->
-    <xsl:template match="*" mode="cpm.fastcust.numseqname"/>
+    <xsl:template match="*" mode="cpm.fastcust.numseqname">
+        <xsl:value-of select="cpm:numseqname(cpm:numseq(.))"/>        
+    </xsl:template>
 
     <!-- A titled element has the same numbering with its title -->
     <xsl:template match="*[*[cpm:is_title(.)]]" mode="cpm.fastcust.numseqname">
@@ -583,7 +585,7 @@
     -->
 
     <!-- A default template (should be overloaded in a generated layout.xsl) -->
-    <xsl:template match="*" mode="cpm.fastcust.numseq">
+    <xsl:template match="*" mode="cpm.fastcust.numseq">                        
         <numseq type="dummy"/>
     </xsl:template>
 
@@ -621,7 +623,7 @@
             select="count(preceding::*[name(current()) = name(.) and cpm:is_numsibling(current(), .)]) + 1"/>
         
         <!-- Assembling a local number value, e.g. IV -->
-        <xsl:value-of select="cpm:fastcust.numval($index, cpm:numseq(.))"/>
+        <xsl:value-of select="cpm:fastcust.numval(cpm:numseq(.), $index)"/>
 
     </xsl:template>
 
@@ -770,6 +772,46 @@
             </xsl:otherwise>
         </xsl:choose>
 
+    </xsl:template>
+    
+    
+    <!-- 
+        Assembling a full number for an element
+    -->
+    
+    <!-- A common default template -->
+    <xsl:template match="*" mode="cpm.fastcust.full_number">
+        <xsl:value-of select="cpm:numformat(.)"/>
+    </xsl:template>
+        
+    <!-- A default template for a flat document -->    
+    <xsl:template match="*[@cpm:full-number]" mode="cpm.fastcust.full_number">
+        <xsl:value-of select="@cpm:full-number"/>
+    </xsl:template>
+    
+    <!-- A custom template -->
+    <xsl:template match="*" mode="full_number">
+        <xsl:value-of select="cpm:fastcust.full_number(.)"/>        
+    </xsl:template>
+    
+    
+    <!-- 
+        Assembling a navigation full number for an element
+    -->
+    
+    <!-- A common default template -->
+    <xsl:template match="*" mode="cpm.fastcust.nav_full_number">
+        <xsl:value-of select="cpm:numformat(., cpm:number(.), cpm:navcaption(.))"/>
+    </xsl:template>
+    
+    <!-- A default template for a flat document -->    
+    <xsl:template match="*[@cpm:nav_full-number]" mode="cpm.fastcust.nav_full_number">
+        <xsl:value-of select="@cpm:nav_full-number"/>
+    </xsl:template>
+    
+    <!-- A custom template -->
+    <xsl:template match="*" mode="nav_full_number">
+        <xsl:value-of select="cpm:fastcust.nav_full_number(.)"/>        
     </xsl:template>
    
 </xsl:stylesheet>

@@ -684,41 +684,4 @@
         <xsl:value-of select="cpm:fastcust.level(.)"/>
     </xsl:template>
 
-
-
-    <!-- ================ -->
-    <!--  TOC properties  -->
-    <!-- ================ -->
-
-    <!-- 
-        Taking a title of an element
-    -->
-
-    <!-- A default working template -->
-    <xsl:template match="*" mode="cpm.fastcust.title">
-
-        <!-- * is an element of a document -->
-
-        <xsl:choose>
-            <xsl:when test="@title">
-                <xsl:value-of select="@title"/>
-            </xsl:when>
-            <xsl:when test="name() = 'title'">
-                <xsl:value-of select="."/>
-            </xsl:when>
-            <xsl:when test="title">
-                <xsl:value-of select="title"/>
-            </xsl:when>
-            <xsl:when test="*[cpm:fastcust.is_title(.)]">
-                <xsl:value-of select="*[cpm:fastcust.is_title(.)]"/>
-            </xsl:when>
-        </xsl:choose>
-
-    </xsl:template>
-
-    <!-- A custom working template -->
-    <xsl:template match="*" mode="title">
-        <xsl:apply-templates select="." mode="cpm.fastcust.title"/>
-    </xsl:template>
-
 </xsl:stylesheet>
