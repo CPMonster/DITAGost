@@ -20,6 +20,11 @@
     exclude-result-prefixes="xs cpm"
     version="2.0">
     
+    <!-- 
+        Modules
+    -->
+    
+    <!-- FastCust wrapper functions -->
     <xsl:import href="funcs.xsl"/>
         
     
@@ -28,20 +33,20 @@
     -->
     
     <!-- A default template -->
-    <xsl:template match="*" mode="cpm.fastcust.title">
+    <xsl:template match="*" mode="cpm.fastcust.title" >
         
         <!-- * represents an element of a document -->
         
         <xsl:choose>
             <xsl:when test="cpm:is_title(.)">
                 <xsl:value-of select="."/>
-            </xsl:when> 
-            <xsl:when test="@title">
-                <xsl:value-of select="@title"/>
-            </xsl:when>                       
+            </xsl:when>                                   
             <xsl:when test="*[cpm:is_title(.)]">
                 <xsl:value-of select="*[cpm:is_title(.)]"/>
             </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="@title"/>
+            </xsl:otherwise>
         </xsl:choose>
         
     </xsl:template>
@@ -64,7 +69,7 @@
     
     <!-- A custom template -->
     <xsl:template match="*" mode="full_title">        
-        <xsl:value-of select="cpm:fastcust.full_number(.)"/>               
+        <xsl:value-of select="cpm:fastcust.full_title(.)"/>               
     </xsl:template>
     
     
@@ -80,7 +85,8 @@
     
     <!-- A custom template -->
     <xsl:template match="*" mode="nav_full_title">        
-        <xsl:value-of select="cpm:fastcust.nav_full_number(.)"/>               
+        <xsl:value-of select="cpm:nav_full_number(.)"/>      
+        <xsl:value-of select="cpm:title(.)"/>  
     </xsl:template>
         
 </xsl:stylesheet>

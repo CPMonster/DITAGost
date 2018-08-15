@@ -15,17 +15,14 @@
 <!-- * * ** *** ***** ******** ************* ********************* -->  
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:cpm="http://cpmonster.com/xmlns/cpm"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="cpm xs" version="2.0">
 
     <!-- 
         Modules
     -->
 
-    <!-- Wrapper functions -->
+    <!-- FastCust wrapper functions -->
     <xsl:import href="funcs.xsl"/>
-
-    <!-- Cross references -->
-    <xsl:import href="crossrefs.xsl"/>
 
 
 
@@ -90,11 +87,11 @@
         <cpm:ton numseq="{$numseqname}">
 
             <xsl:copy-of select="cpm:misc.attr('scopeid', $scopeid)"/>
-            
+
             <xsl:if test="$scopeid = ''">
                 <xsl:copy-of select="cpm:misc.attr('scope', $scope)"/>
             </xsl:if>
-            
+
             <xsl:copy-of select="cpm:misc.attr('outputclass', $outputclass)"/>
 
         </cpm:ton>
@@ -172,13 +169,35 @@
         -->
 
         <!-- Assembling TOC entry text -->
-        <xsl:value-of select="cpm:fastcust.nav_full_title(.)"/>
+        <!--
+        <xsl:value-of select="cpm:full_title(.)"/>
+        -->
+        
+        <!-- 
+            TBD: fix a bug, get rid from the workaround.
+        -->
+        
+        <xsl:variable name="hinumber" select="cpm:hinumber(.)"/>
+        <xsl:variable name="locnumber" select="cpm:locnumber(.)"/>
+
+        <xsl:if test="$hinumber != ''">
+            <xsl:value-of select="cpm:hinumber(.)"/>
+            <xsl:value-of select="cpm:numsep(.)"/>
+        </xsl:if>
+
+        <xsl:if test="$locnumber != ''">
+            <xsl:value-of select="cpm:locnumber(.)"/>
+            <xsl:text> </xsl:text>
+        </xsl:if>                       
+
+        <xsl:value-of select="cpm:title(.)"/>
+
 
         <!-- Assembling a representation for dots or anything else -->
         <fo:leader/>
 
         <!-- Assembling a page number -->
-        <fo:page-number-citation ref-id="{cpm:fastcust.refid(.)}"/>
+        <fo:page-number-citation ref-id="{cpm:refid(.)}"/>
 
     </xsl:template>
 
@@ -238,7 +257,7 @@
         <xsl:variable name="ml" select="number(cpm:misc.defnuminf($maxlevel))"/>
 
         <xsl:variable name="tmp" as="xs:boolean"
-            select="cpm:is_tocmamber($element) and (cpm:fastcust.numlevel($element) &lt;= $ml)"/>
+            select="cpm:is_tocmamber($element) and (cpm:numlevel($element) &lt;= $ml)"/>
 
         <xsl:value-of select="boolean($tmp)"/>
 
@@ -263,16 +282,13 @@
         <xsl:param name="hinumseq"/>
 
         <!-- Detecting a target numbering sequence name -->
-        <xsl:variable name="numseqname">
-            <xsl:value-of select="cpm:fastcust.numseqname(.)"/>
-        </xsl:variable>
+        <xsl:variable name="numseqname" select="cpm:numseqname(.)"/>
 
         <!-- Detecting an ID of a TOC scope section ID  -->
         <xsl:variable name="scopeid" select="cpm:fastcust.scopeid(.)"/>
 
         <!-- Detecting a TOC initial level -->
-        <xsl:variable name="baselevel"
-            select="cpm:fastcust.numlevel(ancestor::*[cpm:misc.id(.) = $scopeid])"/>
+        <xsl:variable name="baselevel" select="cpm:numlevel(ancestor::*[cpm:misc.id(.) = $scopeid])"/>
 
         <xsl:variable name="maxlevel" select="@maxlevel"/>
 

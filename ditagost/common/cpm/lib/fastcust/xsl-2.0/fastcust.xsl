@@ -636,11 +636,11 @@
                   processing error. 
         -->
 
-        <xsl:if test="$static_content != ''">
-            <fo:static-content flow-name="{@region-name}">
-                <xsl:copy-of select="$static_content"/>
+        <xsl:if test="cpm:misc.is_element($static_content)">
+            <fo:static-content flow-name="{@region-name}">                
+                <xsl:apply-templates select="$static_content/*" mode="foxml"/>                
             </fo:static-content>
-        </xsl:if>
+        </xsl:if>                
 
     </xsl:template>
 
@@ -704,13 +704,9 @@
                 <xsl:text>>fo:table-cell</xsl:text>
             </xsl:when>
             <xsl:when test="cpm:is_external_graphic(.)">
-                <xsl:text>>fo:external-graphic</xsl:text>
+                <xsl:text>fo:external-graphic</xsl:text>
             </xsl:when>
-            <xsl:otherwise>
-                <xsl:message>
-                    <xsl:text>!!! </xsl:text>
-                    <xsl:value-of select="name()"/>
-                </xsl:message>
+            <xsl:otherwise>                
                 <xsl:text>cpm:none</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
@@ -899,17 +895,48 @@
 
         <xsl:choose>
 
+            <!-- 
+                The case when an element of a flat document
+                doesn't give a FO element. This is common
+                for redundant wrappers, etc.
+                
+                An empty string can come out from cpm:foname() if 
+                a template having @mode="foname" is defined for 
+                the context element and does something wrong. Check 
+                your customization stylesheets or a generated layout.xsl.
+
+                The 'cpm:none' can come out from cpm:foname() if 
+                a default template having @mode="cpm.fastcust.foname" 
+                failed to detect a type of element behaviour: block,
+                inline, table, etc. A source markup layer is probably 
+                not aware of the context element. 
+            -->
             <xsl:when test="$foname = ('', 'cpm:none')">
                 <xsl:apply-templates select="." mode="foinner"/>
             </xsl:when>
 
+            <!-- 
+                The case when an element of a flat document
+                gets transform to a FO element. 
+            -->
             <xsl:otherwise>
+                
                 <xsl:element name="{$foname}">
+                
+                    <!-- Attributes crucial for FactCust (@id, @lang, @role) -->
                     <xsl:apply-templates select="." mode="fosysattrs"/>
+                    
+                    <!-- Attributes a customization assembled explicitly -->
                     <xsl:apply-templates select="." mode="foattrs"/>
+                    
+                    <!-- Attributes of styles (from generated layout.xsl)-->
                     <xsl:apply-templates select="." mode="fostyleattrs"/>
+                    
+                    <!-- Inner FO content we put into a FO element -->
                     <xsl:apply-templates select="." mode="foinner"/>
+                    
                 </xsl:element>
+                
             </xsl:otherwise>
 
         </xsl:choose>
@@ -1035,12 +1062,13 @@
 
         <!-- Resolving issues in the draft FO -->
         <xsl:variable name="fofinal_xml">
-
-            <!--
+        
+            <!--    
             <xsl:comment>#####################</xsl:comment>
             <xsl:copy-of select="$improved_xml"/>
             <xsl:comment>#####################</xsl:comment>
             -->
+            
 
             <xsl:apply-templates select="$fodraft_xml/*" mode="cpm.fastcust.fofinal"/>
 

@@ -562,27 +562,19 @@
     <!-- A footer -->
     <xsl:template name="cover_footer">
 
-        <xsl:variable name="footer">
-            <p outputclass="cover.year">
-                <xsl:value-of select="cpm:ditagost.year()"/>
-            </p>
-        </xsl:variable>
-
-        <xsl:apply-templates select="$footer/*" mode="foxml"/>
+        <p outputclass="cover.year">
+            <xsl:value-of select="cpm:ditagost.year()"/>
+        </p>       
 
     </xsl:template>
 
     <!-- An entire border -->
     <xsl:template name="cpm.ditagost.eskd.cover_static">
 
-        <xsl:variable name="border">
-            <xsl:call-template name="cpm.ditagost.eskd.A4p_border">
-                <xsl:with-param name="border_filename" select="'ESKD-A4P-Cover.svg'"/>
-            </xsl:call-template>
-            <xsl:call-template name="cpm.ditagost.eskd.sidebar"/>
-        </xsl:variable>
-
-        <xsl:apply-templates select="$border/*" mode="foxml"/>
+        <xsl:call-template name="cpm.ditagost.eskd.A4p_border">
+            <xsl:with-param name="border_filename" select="'ESKD-A4P-Cover.svg'"/>
+        </xsl:call-template>
+        <xsl:call-template name="cpm.ditagost.eskd.sidebar"/>        
 
     </xsl:template>
 
@@ -706,16 +698,12 @@
     <!-- An entire border -->
     <xsl:template name="cpm.ditagost.eskd.toc_first_static">
 
-        <xsl:variable name="border">
-            <xsl:call-template name="cpm.ditagost.eskd.A4p_border">
-                <xsl:with-param name="border_filename" select="'ESKD-A4P-1stPage-F2.svg'"/>
-            </xsl:call-template>
-            <xsl:call-template name="cpm.ditagost.eskd.toc_first_legend"/>
-            <xsl:call-template name="cpm.ditagost.eskd.sidebar"/>
-        </xsl:variable>
-
-        <xsl:apply-templates select="$border/*" mode="foxml"/>
-
+        <xsl:call-template name="cpm.ditagost.eskd.A4p_border">
+            <xsl:with-param name="border_filename" select="'ESKD-A4P-1stPage-F2.svg'"/>
+        </xsl:call-template>
+        <xsl:call-template name="cpm.ditagost.eskd.toc_first_legend"/>
+        <xsl:call-template name="cpm.ditagost.eskd.sidebar"/>
+        
     </xsl:template>
 
 
@@ -778,15 +766,11 @@
     <!-- An entire border -->
     <xsl:template name="cpm.ditagost.eskd.regular_A4p_static">
 
-        <xsl:variable name="border">
-            <xsl:call-template name="cpm.ditagost.eskd.A4p_border">
-                <xsl:with-param name="border_filename" select="'ESKD-A4P-Main-F2a.svg'"/>
-            </xsl:call-template>
-            <xsl:call-template name="cpm.ditagost.eskd.regular_A4p_legend"/>
-            <xsl:call-template name="cpm.ditagost.eskd.sidebar"/>
-        </xsl:variable>
-
-        <xsl:apply-templates select="$border/*" mode="foxml"/>
+        <xsl:call-template name="cpm.ditagost.eskd.A4p_border">
+            <xsl:with-param name="border_filename" select="'ESKD-A4P-Main-F2a.svg'"/>
+        </xsl:call-template>
+        <xsl:call-template name="cpm.ditagost.eskd.regular_A4p_legend"/>
+        <xsl:call-template name="cpm.ditagost.eskd.sidebar"/>        
 
     </xsl:template>
 
@@ -801,14 +785,10 @@
     <!-- An entire border -->
     <xsl:template name="cpm.ditagost.eskd.regular_A4l_static">
 
-        <xsl:variable name="border">
-            <xsl:call-template name="cpm.ditagost.eskd.A4l_border">
-                <xsl:with-param name="border_filename" select="'ESKD-A4L-Main-F2a.svg'"/>
-            </xsl:call-template>
-            <xsl:call-template name="cpm.ditagost.eskd.regular_A4l_legend"/>
-        </xsl:variable>
-
-        <xsl:apply-templates select="$border/*" mode="foxml"/>
+        <xsl:call-template name="cpm.ditagost.eskd.A4l_border">
+            <xsl:with-param name="border_filename" select="'ESKD-A4L-Main-F2a.svg'"/>
+        </xsl:call-template>
+        <xsl:call-template name="cpm.ditagost.eskd.regular_A4l_legend"/>        
 
     </xsl:template>
 
