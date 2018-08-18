@@ -99,11 +99,11 @@
     <xsl:template match="*" mode="is_table_cell" as="xs:boolean">
         <xsl:value-of select="cpm:dita.is_entry(.)"/>
     </xsl:template>
-    
+
     <xsl:template match="*" mode="is_external_graphic" as="xs:boolean">
         <xsl:value-of select="cpm:dita.is_image(.)"/>
     </xsl:template>
-        
+
 
 
     <!-- 
@@ -178,7 +178,7 @@
     <!-- 
         Detecting if an element is a topic 
     -->
-    <xsl:template match="*" mode="is_topic" as="xs:boolean">        
+    <xsl:template match="*" mode="is_topic" as="xs:boolean">
         <xsl:value-of select="cpm:dita.is_topic(.)"/>
     </xsl:template>
 
@@ -404,11 +404,11 @@
             </xsl:variable>
             <xsl:variable name="width">
                 <xsl:value-of select="cpm:typo.get_value(@colwidth)"/>
-            </xsl:variable>           
+            </xsl:variable>
             <xsl:attribute name="column-width">
                 <xsl:value-of select="100 * $width div $total"/>
                 <xsl:text>%</xsl:text>
-            </xsl:attribute>            
+            </xsl:attribute>
         </xsl:if>
     </xsl:template>
 
@@ -458,10 +458,10 @@
     <xsl:template match="*[cpm:dita.is_entry(.)]" mode="foattrs">
 
         <!-- Number of rows a call spans over -->
-        <xsl:if test="@morerows">            
+        <xsl:if test="@morerows">
             <xsl:attribute name="number-rows-spanned">
                 <xsl:value-of select="@morerows + 1"/>
-            </xsl:attribute>            
+            </xsl:attribute>
         </xsl:if>
 
         <!-- Number of columns a call spans over -->
@@ -737,7 +737,7 @@
         Selecting a wrapper FO element name for a cross reference
     -->
     <xsl:template match="xref" mode="foname">
-        <xsl:text>cpm:none</xsl:text>
+        <xsl:text>fo:inline</xsl:text>
     </xsl:template>
 
 
@@ -745,32 +745,42 @@
     <!-- 
         Assembling a FO representation for a cross reference
     -->
-    <xsl:template match="xref" mode="foinner">
 
+    <!-- Transforming a cross-reference to a number placeholder -->
+    <xsl:template match="xref" mode="cpm.fastcust.improve">
+
+        <!-- Extracting target element IF from xref/@href -->
         <xsl:variable name="refid">
             <xsl:choose>
-                <xsl:when test="contains(@href, '/')">
-                    <xsl:value-of select="substring-after(@href, '/')"/>
+                <xsl:when test="contains(@href, '#')">
+                    <xsl:variable name="tail" select="substring-after(@href, '#')"/>
+                    <xsl:choose>
+                        <xsl:when test="contains($tail, '/')">
+                            <xsl:value-of select="substring-after($tail, '/')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$tail"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:value-of select="substring-after(@href, '#')"/>
+                    <xsl:value-of select="@href"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
 
-        <xsl:variable name="actual_refid" select="cpm:fastcust.refid(root(.)//*[@id = $refid])"/>
+        <xsl:apply-templates select="root(.)//*[ends-with(@id, $refid)]"
+            mode="cpm.fastcust.number_placeholder">
+            <xsl:with-param name="src" select="name()"/>
+        </xsl:apply-templates>
+           
+    </xsl:template>
 
-        <!--<fo:basic-link internal-destination="{$actual_refid}">-->
-
-        <xsl:if test=". != ''">
-            <xsl:value-of select="."/>
-            <xsl:text>&#160;</xsl:text>
-        </xsl:if>
-
-        <xsl:value-of select="cpm:fastcust.number(root(.)//*[@id = $refid])"/>
-
-        <!--</fo:basic-link>-->
-
+    <!-- Transforming a number placeholder to FO -->
+    <xsl:template match="cpm:number[@src = 'xref']" mode="foxml">
+        <fo:basic-link internal-destination="{@refid}">
+            <xsl:value-of select="cpm:number(root(.)//*[@id = current()/@refid])"/>
+        </fo:basic-link>
     </xsl:template>
 
 

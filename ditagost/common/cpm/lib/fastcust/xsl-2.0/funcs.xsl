@@ -978,6 +978,29 @@
 
 
     <!-- 
+        Detecting elements that have a chance to belong to the same local sequence
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.is_locmate" as="xs:boolean">
+        <xsl:param name="element1"/>
+        <xsl:param name="element2"/>
+        <xsl:apply-templates select="$element1" mode="cpm.fastcust.is_locmate">
+            <xsl:with-param name="element" select="$element2"/>
+        </xsl:apply-templates>        
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:is_locmate" as="xs:boolean">
+        <xsl:param name="element1"/>
+        <xsl:param name="element2"/>
+        <xsl:apply-templates select="$element1" mode="is_locmate">
+            <xsl:with-param name="element" select="$element2"/>
+        </xsl:apply-templates>        
+    </xsl:function>
+
+
+    <!-- 
         Testing an element for being a "numbering sibling" to a given one 
     -->
 

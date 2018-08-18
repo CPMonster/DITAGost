@@ -6,7 +6,7 @@
     Level:      Library
     
     Part:       FastCust
-    Module:     crossrefs.xsl 
+    Module:     queries-crossrefs.xsl 
     
     Scope:      Generic, FO
     
@@ -45,6 +45,17 @@
     <!-- A custom template -->
     <xsl:template match="*" mode="refid">
         <xsl:value-of select="cpm:fastcust.refid(.)"/>
+    </xsl:template>
+
+
+    <!-- 
+        Assembling a number placeholder for an element
+    -->
+    <xsl:template match="*" mode="cpm.fastcust.number_placeholder">
+        <xsl:param name="src" select="''"/>
+        <cpm:number refid="{cpm:refid(.)}">
+            <xsl:copy-of select="cpm:misc.attr('src', $src)"/>
+        </cpm:number>
     </xsl:template>
 
 </xsl:stylesheet>

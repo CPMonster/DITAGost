@@ -440,6 +440,316 @@
    <xsl:template match="image" mode="foname">
       <xsl:text>fo:external-graphic</xsl:text>
    </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Шрифт']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Wrift" role="{concat(name(),'/Шрифт')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Базовый']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Bazovyi" role="{concat(name(),'/Базовый')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Блок основного текста']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Blok_osnovnogo_teksta"
+               role="{concat(name(),'/Блок основного текста')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Блок иллюстрации']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Blok_illqstracii"
+               role="{concat(name(),'/Блок иллюстрации')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Внутренний блок текста']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Vnutrennii_blok_teksta"
+               role="{concat(name(),'/Внутренний блок текста')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Основной шрифт']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Osnovnoi_wrift"
+               role="{concat(name(),'/Основной шрифт')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Верхний колонтитул. Обозначение']" mode="fostyle"
+                 priority="2">
+      <fostyle xsl:use-attribute-sets="Verhnii_kolontitul._Oboznacenie"
+               role="{concat(name(),'/Верхний колонтитул. Обозначение')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Верхний колонтитул. Номер страницы']" mode="fostyle"
+                 priority="2">
+      <fostyle xsl:use-attribute-sets="Verhnii_kolontitul._Nomer_stranicy"
+               role="{concat(name(),'/Верхний колонтитул. Номер страницы')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Заголовок']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Zagolovok" role="{concat(name(),'/Заголовок')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Пустой заголовок']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Pustoi_zagolovok"
+               role="{concat(name(),'/Пустой заголовок')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Заголовок по центру']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Zagolovok_po_centru"
+               role="{concat(name(),'/Заголовок по центру')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Заголовок с отступом']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Zagolovok_s_otstupom"
+               role="{concat(name(),'/Заголовок с отступом')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Заголовок перечня']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Zagolovok_perecna"
+               role="{concat(name(),'/Заголовок перечня')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Заголовок 1']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Zagolovok_1" role="{concat(name(),'/Заголовок 1')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Заголовок 2']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Zagolovok_2" role="{concat(name(),'/Заголовок 2')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Заголовок 3']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Zagolovok_3" role="{concat(name(),'/Заголовок 3')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Заголовок 4']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Zagolovok_4" role="{concat(name(),'/Заголовок 4')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Заголовок 5']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Zagolovok_5" role="{concat(name(),'/Заголовок 5')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Заголовок 6']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Zagolovok_6" role="{concat(name(),'/Заголовок 6')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Основной']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Osnovnoi" role="{concat(name(),'/Основной')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Список']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Spisok" role="{concat(name(),'/Список')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Главный список']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Glavnyi_spisok"
+               role="{concat(name(),'/Главный список')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Главный список в таблице']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Glavnyi_spisok_v_tablice"
+               role="{concat(name(),'/Главный список в таблице')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Вложенный список']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Vlojennyi_spisok"
+               role="{concat(name(),'/Вложенный список')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Пункт списка']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Punkt_spiska" role="{concat(name(),'/Пункт списка')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Первый пункт списка']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Pervyi_punkt_spiska"
+               role="{concat(name(),'/Первый пункт списка')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Непервый пункт списка']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Nepervyi_punkt_spiska"
+               role="{concat(name(),'/Непервый пункт списка')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Пункт списка. Текст']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Punkt_spiska._Tekst"
+               role="{concat(name(),'/Пункт списка. Текст')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Маркер списка. Текст']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Marker_spiska._Tekst"
+               role="{concat(name(),'/Маркер списка. Текст')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Пункт списка 1. Текст']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Punkt_spiska_1._Tekst"
+               role="{concat(name(),'/Пункт списка 1. Текст')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Пункт списка 2. Текст']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Punkt_spiska_2._Tekst"
+               role="{concat(name(),'/Пункт списка 2. Текст')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Пункт списка 3. Текст']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Punkt_spiska_3._Tekst"
+               role="{concat(name(),'/Пункт списка 3. Текст')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица. Пункт списка. Текст']" mode="fostyle"
+                 priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica._Punkt_spiska._Tekst"
+               role="{concat(name(),'/Таблица. Пункт списка. Текст')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица. Маркер списка. Текст']" mode="fostyle"
+                 priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica._Marker_spiska._Tekst"
+               role="{concat(name(),'/Таблица. Маркер списка. Текст')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица. Пункт списка 1. Текст']" mode="fostyle"
+                 priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica._Punkt_spiska_1._Tekst"
+               role="{concat(name(),'/Таблица. Пункт списка 1. Текст')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица. Пункт списка 2. Текст']" mode="fostyle"
+                 priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica._Punkt_spiska_2._Tekst"
+               role="{concat(name(),'/Таблица. Пункт списка 2. Текст')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица. Пункт списка 3. Текст']" mode="fostyle"
+                 priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica._Punkt_spiska_3._Tekst"
+               role="{concat(name(),'/Таблица. Пункт списка 3. Текст')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Рисунок']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Risunok" role="{concat(name(),'/Рисунок')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Рисунок. Изображение']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Risunok._Izobrajenie"
+               role="{concat(name(),'/Рисунок. Изображение')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Рисунок. Подпись']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Risunok._Podpisx"
+               role="{concat(name(),'/Рисунок. Подпись')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица. Блок']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica._Blok" role="{concat(name(),'/Таблица. Блок')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица. Название']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica._Nazvanie"
+               role="{concat(name(),'/Таблица. Название')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica" role="{concat(name(),'/Таблица')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица. Шапка']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica._Wapka"
+               role="{concat(name(),'/Таблица. Шапка')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица. Строка']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica._Stroka"
+               role="{concat(name(),'/Таблица. Строка')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица. Пустая строка']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica._Pustaa_stroka"
+               role="{concat(name(),'/Таблица. Пустая строка')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица. Ячейка']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica._Aceika"
+               role="{concat(name(),'/Таблица. Ячейка')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица. Подзаголовок']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica._Podzagolovok"
+               role="{concat(name(),'/Таблица. Подзаголовок')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица. Номер строки']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica._Nomer_stroki"
+               role="{concat(name(),'/Таблица. Номер строки')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Таблица. Итог по строке']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Tablica._Itog_po_stroke"
+               role="{concat(name(),'/Таблица. Итог по строке')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='ВНИМАНИЕ']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="VNIMANIE" role="{concat(name(),'/ВНИМАНИЕ')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Листинг']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Listing" role="{concat(name(),'/Листинг')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Форма']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Forma" role="{concat(name(),'/Форма')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Абзац в форме']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Abzac_v_forme" role="{concat(name(),'/Абзац в форме')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Приложение. Заголовок']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Prilojenie._Zagolovok"
+               role="{concat(name(),'/Приложение. Заголовок')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Рамка. Боковик']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Ramka._Bokovik"
+               role="{concat(name(),'/Рамка. Боковик')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Рамка. Штамп']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Ramka._Wtamp" role="{concat(name(),'/Рамка. Штамп')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Рамка. Крупный']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Ramka._Krupnyi"
+               role="{concat(name(),'/Рамка. Крупный')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Титул']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Titul" role="{concat(name(),'/Титул')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Титул. Утвержден']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Titul._Utverjden"
+               role="{concat(name(),'/Титул. Утвержден')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Титул. ЛУ']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Titul._LU" role="{concat(name(),'/Титул. ЛУ')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Титул. Центр']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Titul._Centr" role="{concat(name(),'/Титул. Центр')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Титул. Заголовок']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Titul._Zagolovok"
+               role="{concat(name(),'/Титул. Заголовок')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Титул. Подзаголовок']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Titul._Podzagolovok"
+               role="{concat(name(),'/Титул. Подзаголовок')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Титул. Обозначение']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Titul._Oboznacenie"
+               role="{concat(name(),'/Титул. Обозначение')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Титул. Страницы']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Titul._Stranicy"
+               role="{concat(name(),'/Титул. Страницы')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Титул. Год']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Titul._God" role="{concat(name(),'/Титул. Год')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Оглавление. Заголовок']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Oglavlenie._Zagolovok"
+               role="{concat(name(),'/Оглавление. Заголовок')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Оглавление. Точки']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Oglavlenie._Tocki"
+               role="{concat(name(),'/Оглавление. Точки')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Оглавление']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Oglavlenie" role="{concat(name(),'/Оглавление')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Оглавление 0']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Oglavlenie_0" role="{concat(name(),'/Оглавление 0')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Оглавление 1']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Oglavlenie_1" role="{concat(name(),'/Оглавление 1')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Оглавление 2']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Oglavlenie_2" role="{concat(name(),'/Оглавление 2')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Оглавление 3']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Oglavlenie_3" role="{concat(name(),'/Оглавление 3')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Строка списка']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Stroka_spiska" role="{concat(name(),'/Строка списка')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='ЛРИ. Шапка']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="LRI._Wapka" role="{concat(name(),'/ЛРИ. Шапка')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='ЛРИ. Ячейка']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="LRI._Aceika" role="{concat(name(),'/ЛРИ. Ячейка')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='ЛРИ. Строка']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="LRI._Stroka" role="{concat(name(),'/ЛРИ. Строка')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Термин']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Termin" role="{concat(name(),'/Термин')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Файл']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Fail" role="{concat(name(),'/Файл')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Меню']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Menq" role="{concat(name(),'/Меню')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Пользовательский ввод']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Polxzovatelxskii_vvod"
+               role="{concat(name(),'/Пользовательский ввод')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Код в строке']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Kod_v_stroke" role="{concat(name(),'/Код в строке')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Кнопки и все такое']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Knopki_i_vse_takoe"
+               role="{concat(name(),'/Кнопки и все такое')}"/>
+   </xsl:template>
+   <xsl:template match="*[cpm:oclass(.)='Цитата в строке']" mode="fostyle" priority="2">
+      <fostyle xsl:use-attribute-sets="Citata_v_stroke"
+               role="{concat(name(),'/Цитата в строке')}"/>
+   </xsl:template>
    <xsl:template match="*[cpm:oclass(.)='border.sidebar']" mode="fostyle">
       <fostyle xsl:use-attribute-sets="Ramka._Bokovik"
                role="{concat(name(),'/Рамка. Боковик')}"/>

@@ -166,32 +166,13 @@
         <!-- 
             * represents a section, a table, or any other element 
             that we include into a TOC or a TON.
-        -->
-
-        <!-- Assembling TOC entry text -->
-        <!--
-        <xsl:value-of select="cpm:full_title(.)"/>
-        -->
+        -->                        
         
-        <!-- 
-            TBD: fix a bug, get rid from the workaround.
-        -->
-        
-        <xsl:variable name="hinumber" select="cpm:hinumber(.)"/>
-        <xsl:variable name="locnumber" select="cpm:locnumber(.)"/>
+        <!-- Inserting a placeholder instead of a target element number -->
+        <xsl:apply-templates select="." mode="cpm.fastcust.number_placeholder"/>
 
-        <xsl:if test="$hinumber != ''">
-            <xsl:value-of select="cpm:hinumber(.)"/>
-            <xsl:value-of select="cpm:numsep(.)"/>
-        </xsl:if>
-
-        <xsl:if test="$locnumber != ''">
-            <xsl:value-of select="cpm:locnumber(.)"/>
-            <xsl:text> </xsl:text>
-        </xsl:if>                       
-
+        <!-- Inserting an element title -->
         <xsl:value-of select="cpm:title(.)"/>
-
 
         <!-- Assembling a representation for dots or anything else -->
         <fo:leader/>

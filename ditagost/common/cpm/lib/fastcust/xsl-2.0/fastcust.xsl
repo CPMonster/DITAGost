@@ -637,10 +637,10 @@
         -->
 
         <xsl:if test="cpm:misc.is_element($static_content)">
-            <fo:static-content flow-name="{@region-name}">                
-                <xsl:apply-templates select="$static_content/*" mode="foxml"/>                
+            <fo:static-content flow-name="{@region-name}">
+                <xsl:apply-templates select="$static_content/*" mode="foxml"/>
             </fo:static-content>
-        </xsl:if>                
+        </xsl:if>
 
     </xsl:template>
 
@@ -706,7 +706,7 @@
             <xsl:when test="cpm:is_external_graphic(.)">
                 <xsl:text>fo:external-graphic</xsl:text>
             </xsl:when>
-            <xsl:otherwise>                
+            <xsl:otherwise>
                 <xsl:text>cpm:none</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
@@ -820,6 +820,14 @@
 
 
     <!-- 
+        Transforming a placeholder to an actual number
+    -->
+    <xsl:template match="cpm:number" mode="foxml">        
+        <xsl:value-of select="cpm:nav_full_number(root(.)//*[@id = current()/@refid])"/>
+    </xsl:template>
+
+
+    <!-- 
         Assembling inner content for a FO element
     -->
 
@@ -838,11 +846,11 @@
             Inserting a full number unless an element has a title.
             If the element has a title then a full number comes 
             at the beginning of the title. 
-        -->        
+        -->
         <xsl:if test="not(*[cpm:is_title(.)])">
             <xsl:value-of select="cpm:full_number(.)"/>
         </xsl:if>
-        
+
         <!-- 
             ATTENTION! A template having mode="foinner"
             is responsible for proceeding a recursive
@@ -870,7 +878,7 @@
             
             - In a customization            
         -->
-                
+
         <xsl:apply-templates select="." mode="cpm.fastcust.foinner"/>
 
     </xsl:template>
@@ -920,23 +928,23 @@
                 gets transform to a FO element. 
             -->
             <xsl:otherwise>
-                
+
                 <xsl:element name="{$foname}">
-                
+
                     <!-- Attributes crucial for FactCust (@id, @lang, @role) -->
                     <xsl:apply-templates select="." mode="fosysattrs"/>
-                    
+
                     <!-- Attributes a customization assembled explicitly -->
                     <xsl:apply-templates select="." mode="foattrs"/>
-                    
+
                     <!-- Attributes of styles (from generated layout.xsl)-->
                     <xsl:apply-templates select="." mode="fostyleattrs"/>
-                    
+
                     <!-- Inner FO content we put into a FO element -->
                     <xsl:apply-templates select="." mode="foinner"/>
-                    
+
                 </xsl:element>
-                
+
             </xsl:otherwise>
 
         </xsl:choose>
@@ -1062,16 +1070,14 @@
 
         <!-- Resolving issues in the draft FO -->
         <xsl:variable name="fofinal_xml">
-        
-            <!--    
+
+            <!--
             <xsl:comment>#####################</xsl:comment>
             <xsl:copy-of select="$improved_xml"/>
             <xsl:comment>#####################</xsl:comment>
             -->
-            
 
             <xsl:apply-templates select="$fodraft_xml/*" mode="cpm.fastcust.fofinal"/>
-
 
         </xsl:variable>
 
