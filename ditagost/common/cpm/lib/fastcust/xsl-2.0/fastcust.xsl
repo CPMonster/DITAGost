@@ -355,6 +355,7 @@
                 <xsl:copy-of select="cpm:misc.attr('cpm:nummode', cpm:nummode(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:start-from', cpm:start_from(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:numbase', cpm:numbase(.))"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:numbaselevel', cpm:numbaselevel(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:caption', cpm:caption(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:navcaption', cpm:navcaption(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:numsep', cpm:numsep(.))"/>

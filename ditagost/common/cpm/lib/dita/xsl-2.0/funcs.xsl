@@ -365,6 +365,15 @@
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="cpm.dita.is_inline"/>
     </xsl:function>
+    
+    
+    <!-- 
+        Detecting text align for a table column 
+    -->
+    <xsl:function name="cpm:dita.colalign">
+        <xsl:param name="entry"/>
+        <xsl:apply-templates select="$entry" mode="cpm.dita.colalign"/>
+    </xsl:function>
 
 
 </xsl:stylesheet>

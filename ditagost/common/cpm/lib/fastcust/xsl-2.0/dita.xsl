@@ -479,7 +479,7 @@
 
     <!-- Wrapping cell content into a block -->
     <xsl:template match="*[cpm:dita.is_entry(.)]" mode="foinner">
-        <fo:block>
+        <fo:block text-align="{cpm:dita.colalign(.)}">
             <xsl:if test="normalize-space(.) = ''">
                 <xsl:text>&#160;</xsl:text>
             </xsl:if>
@@ -590,7 +590,11 @@
         <!-- Assembling a list item body -->
         <xsl:variable name="body">
 
-            <fo:list-item-body cpm:numlevel="{cpm:numlevel(.)}">
+            <fo:list-item-body>
+
+                <xsl:copy-of select="cpm:misc.attr('cpm:numlevel', cpm:numlevel(.))"/>
+
+                <xsl:copy-of select="cpm:misc.attr('cpm:listname', name(..))"/>
 
                 <xsl:if test="cpm:in_table(.)">
                     <xsl:attribute name="role">table</xsl:attribute>
@@ -773,7 +777,7 @@
             mode="cpm.fastcust.number_placeholder">
             <xsl:with-param name="src" select="name()"/>
         </xsl:apply-templates>
-           
+
     </xsl:template>
 
     <!-- Transforming a number placeholder to FO -->

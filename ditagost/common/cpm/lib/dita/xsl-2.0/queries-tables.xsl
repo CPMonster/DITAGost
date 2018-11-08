@@ -102,66 +102,27 @@
     <!-- 
         Detecting a position of a column by its name 
     -->
-    <xsl:template match="&DITA_TGROUP;" as="xs:integer">
+    <xsl:template match="&DITA_TGROUP;" mode="cpm.dita.colpos" as="xs:integer">
 
-        <!-- A column name -->
+        <!-- A column name (colspec/@colname) -->
         <xsl:param name="colname"/>
-        
+
         <xsl:choose>
-            
+
             <xsl:when test="colspec[@colname = $colname]">
-                <xsl:value-of select="colspec[@colname = $colname][1]/count(preceding-sibling::colspec) + 1"/>        
+                <xsl:value-of
+                    select="colspec[@colname = $colname][1]/count(preceding-sibling::colspec) + 1"/>
             </xsl:when>
-            
+
             <xsl:otherwise>
                 <xsl:value-of select="0"/>
             </xsl:otherwise>
-            
-        </xsl:choose>
-               
-    </xsl:template>
-    
-    
-    <!-- 
-        Calculating a number of columns a entry spans over
-    -->
-
-    <!-- A working template -->
-    <xsl:template match="*" mode="cpm.dita.colspans" as="xs:integer">
-
-        <!-- 
-            * represents a table entry element.
-        -->
-
-        <xsl:choose>
-
-            <xsl:when test="@morecols">
-                <xsl:value-of select="number(@morecols) + 1"/>
-            </xsl:when>
-
-            <xsl:when test="@namest and @nameend">
-
-                <xsl:variable name="pos1">
-                    <xsl:value-of select="cpm:dita.colpos(&DITA_MY_TGROUP;, @namest)"/>
-                </xsl:variable>
-
-                <xsl:variable name="pos2">
-                    <xsl:value-of select="cpm:dita.colpos(&DITA_MY_TGROUP;, @nameend)"/>
-                </xsl:variable>
-
-                <xsl:value-of select="$pos2 - $pos1 + 1"/>
-
-            </xsl:when>
-
-            <xsl:otherwise>
-                <xsl:value-of select="1"/>
-            </xsl:otherwise>
 
         </xsl:choose>
 
     </xsl:template>
 
-        
+
     <!-- 
         Calculating column positions for entries
     -->
@@ -198,10 +159,11 @@
     </xsl:template>
 
     <!-- A wrapper template for an element nested into a cell -->
-    <xsl:template match="&DITA_NOT_ENTRY;" mode="cpm.dita.colpos" as="xs:integer">
+    <xsl:template match="*[not(cpm:dita.is_entry(.) or cpm:dita.is_tgroup(.))]"
+        mode="cpm.dita.colpos" as="xs:integer">
 
         <!-- 
-            * represents an element nested into an entry.
+            * represents an element nested into an entry
         -->
 
         <xsl:choose>
@@ -218,7 +180,47 @@
 
     </xsl:template>
 
-   
+
+    <!-- 
+        Calculating a number of columns a entry spans over
+    -->
+
+    <!-- A working template -->
+    <xsl:template match="*" mode="cpm.dita.colspans" as="xs:integer">
+
+        <!-- 
+            * represents a table entry element
+        -->
+
+        <xsl:choose>
+
+            <xsl:when test="@morecols">
+                <xsl:value-of select="number(@morecols) + 1"/>
+            </xsl:when>
+
+            <xsl:when test="@namest and @nameend">
+
+                <xsl:variable name="pos1">
+                    <xsl:value-of select="cpm:dita.colpos(&DITA_MY_TGROUP;, @namest)"/>
+                </xsl:variable>
+
+                <xsl:variable name="pos2">
+                    <xsl:value-of select="cpm:dita.colpos(&DITA_MY_TGROUP;, @nameend)"/>
+                </xsl:variable>
+
+                <xsl:value-of select="$pos2 - $pos1 + 1"/>
+
+            </xsl:when>
+
+            <xsl:otherwise>
+                <xsl:value-of select="1"/>
+            </xsl:otherwise>
+
+        </xsl:choose>
+
+    </xsl:template>
+
+
 
     <!-- ============================= -->
     <!--  Extracting data from tables  -->
@@ -251,7 +253,7 @@
     </xsl:template>
 
     <!-- A wrapper function -->
-    <xsl:template match="*" name="cpm.dita.headings_id">        
+    <xsl:template match="*" name="cpm.dita.headings_id">
         <xsl:apply-templates select="." mode="cpm.dita.headings_id"/>
     </xsl:template>
 
@@ -259,7 +261,7 @@
     <xsl:template match="*" mode="cpm.dita.headings">
 
         <xsl:variable name="headings_id">
-            <xsl:apply-templates select="." mode="cpm.dita.headings_id"/>            
+            <xsl:apply-templates select="." mode="cpm.dita.headings_id"/>
         </xsl:variable>
 
         <xsl:copy-of select="root(.)//*[generate-id() = $headings_id]"/>
@@ -363,7 +365,7 @@
 
     <!-- 
         Retrieving cell content by row alias and column alias
-    -->    
+    -->
     <xsl:template match="*" mode="cpm.dita.rowcol_inner">
         <xsl:param name="row_id"/>
         <xsl:param name="col_aliases"/>
@@ -375,62 +377,62 @@
     </xsl:template>
 
     <xsl:template match="*" mode="cpm.dita.rowcol">
-        
+
         <!-- 
             * represents a table element or any child of a table. 
         -->
-                
+
         <!-- A row alias list -->
         <xsl:param name="row_aliases"/>
-        
+
         <!-- A column alias list -->
         <xsl:param name="col_aliases"/>
-        
+
         <!-- A column headings row (a copy is allowed) -->
         <xsl:param name="headings"/>
-        
+
         <!-- A leading column alias list -->
         <xsl:param name="leading_col_aliases"/>
-        
+
         <!-- Retrieving an ID of a target row -->
         <xsl:variable name="row_id">
             <xsl:value-of
                 select="cpm:dita.row_id_by_heading($row_aliases, $headings, $leading_col_aliases)"/>
         </xsl:variable>
-        
+
         <!-- Retrieving a value -->
         <xsl:apply-templates select="." mode="cpm.dita.rowcol_inner">
             <xsl:with-param name="row_id" select="$row_id"/>
             <xsl:with-param name="col_aliases" select="$col_aliases"/>
             <xsl:with-param name="headings" select="$headings"/>
         </xsl:apply-templates>
-        
+
     </xsl:template>
-    
-     
+
+
     <!-- 
         Retrieving a column caption
     -->
     <xsl:template match="*" name="cpm.dita.colcap">
-        
+
         <!-- 
             * represents a table entry or an element nested into 
               a table entry. 
         -->
-                
+
         <xsl:variable name="headings">
             <xsl:apply-templates select="." mode="cpm.dita.headings"/>
         </xsl:variable>
-        
+
         <xsl:variable name="colpos" as="xs:integer">
             <xsl:value-of select="cpm:dita.colpos(.)"/>
         </xsl:variable>
-        
+
         <xsl:value-of select="$headings/*/*[$colpos]"/>
-        
+
     </xsl:template>
-    
-    
+
+
     <!-- 
         Checking a column caption against an alias list
     -->
@@ -440,7 +442,7 @@
             * represents a table entry or an element 
               nested into a table entry. 
         -->
-        
+
         <!-- An alias list -->
         <xsl:param name="aliases"/>
 
@@ -449,6 +451,38 @@
         </xsl:variable>
 
         <xsl:value-of select="cpm:props.match($colcap, $aliases)"/>
+
+    </xsl:template>
+
+
+    <!--
+        Detecting text align for a entry
+    -->
+    <xsl:template match="*" mode="cpm.dita.colalign"/>
+
+    <xsl:template match="&DITA_ENTRY;" mode="cpm.dita.colalign">
+
+        <xsl:variable name="tmp">
+            <xsl:choose>
+                <xsl:when test="@align">
+                    <xsl:value-of select="@align"/>
+                </xsl:when>
+                <xsl:when test="not(@align)">
+                    <xsl:variable name="cp" select="cpm:dita.colpos(.)"/>
+                    <xsl:value-of
+                        select="ancestor::&DITA_TGROUP;[1]/colspec[position()=$cp]/@align"/>                    
+                </xsl:when>
+            </xsl:choose>
+        </xsl:variable>
+       
+        <xsl:choose>
+            <xsl:when test="$tmp != ''">
+                <xsl:value-of select="$tmp"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>left</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
 
     </xsl:template>
 

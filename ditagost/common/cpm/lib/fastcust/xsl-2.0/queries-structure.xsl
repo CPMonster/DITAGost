@@ -6,7 +6,7 @@
     Level:      Library
     
     Part:       FastCust
-    Module:     queries.xsl
+    Module:     queries-structure.xsl
     
     Scope:      Generic
     
@@ -263,6 +263,26 @@
 
 
     <!-- 
+        Detecting elements having titles
+    -->
+    
+    <!-- A default template -->   
+    <xsl:template match="*" mode="cpm.fastcust.has_title" as="xs:boolean">                
+        <xsl:value-of select="false()"/>        
+    </xsl:template>
+    
+    <!-- A default template for elements having titles -->                
+    <xsl:template match="*[*[cpm:is_title(.)]]" mode="cpm.fastcust.has_title" as="xs:boolean">
+        <xsl:value-of select="true()"/>
+    </xsl:template>    
+    
+    <!-- A default custom template -->
+    <xsl:template match="*" mode="has_title" as="xs:boolean">                
+        <xsl:value-of select="cpm:fastcust.has_title(.)"/>        
+    </xsl:template>
+
+
+    <!-- 
         Detecting untitled content
     -->
 
@@ -514,6 +534,21 @@
 
 
     <!-- 
+        Detecting document genres
+    -->
+    
+    <!-- A default template -->
+    <xsl:template match="*" mode="cpm.fastcust.docgenre">
+        <xsl:text>default</xsl:text>
+    </xsl:template>
+        
+    <!-- A custom template -->
+    <xsl:template match="*" mode="docgenre">
+        <xsl:value-of select="cpm:fastcust.docgenre(.)"/>
+    </xsl:template>
+    
+    
+    <!-- 
         Detecting topic types
     -->
     
@@ -628,7 +663,6 @@
     </xsl:template>
 
 
-
     <!-- ========================================================= -->
     <!--  Detecting positions of elements in a document structure  -->
     <!-- ========================================================= -->
@@ -682,6 +716,31 @@
     <!-- A custom template -->
     <xsl:template match="*" mode="level">
         <xsl:value-of select="cpm:fastcust.level(.)"/>
+    </xsl:template>
+    
+    
+    
+    <!-- =========================== -->
+    <!--  Detecting list properties  -->
+    <!-- =========================== -->
+    
+    <!-- 
+        Detecting a list name
+    -->
+    
+    <!-- A default template -->
+    <xsl:template match="*" mode="cpm.fastcust.listname">
+        <xsl:value-of select="name(ancestor-or-self::*[cpm:is_list_block(.)])"/>
+    </xsl:template>
+    
+    <!-- A formal template -->
+    <xsl:template match="*[@cpm:listname]" mode="cpm.fastcust.listname" priority="2">
+        <xsl:value-of select="@cpm:listname"/>
+    </xsl:template>
+    
+    <!-- A custom template -->
+    <xsl:template match="*" mode="listname">                              
+        <xsl:value-of select="cpm:fastcust.listname(.)"/>
     </xsl:template>
 
 </xsl:stylesheet>

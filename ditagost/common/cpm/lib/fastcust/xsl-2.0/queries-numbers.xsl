@@ -240,6 +240,42 @@
 
 
     <!-- 
+        Detecting a base level for a numbering sequence
+    -->
+
+    <!-- A default template for a numbering sequence -->
+    <xsl:template match="numseq" mode="cpm.fastcust.numbaselevel" as="xs:integer">
+        <xsl:value-of select="0"/>
+    </xsl:template>
+
+    <!-- A default template for a numbering sequence having a numbering base level -->
+    <xsl:template match="numseq[@baselevel]" mode="cpm.fastcust.numbaselevel" as="xs:integer">
+        <xsl:value-of select="cpm:misc.defnum0(@baselevel)"/>
+    </xsl:template>
+
+    <!-- A default template for an element of a document -->
+    <xsl:template match="*" mode="cpm.fastcust.numbaselevel" as="xs:integer">
+        <xsl:apply-templates select="cpm:numseq(.)" mode="#current"/>
+    </xsl:template>
+
+    <!-- ... a titled element -->
+    <xsl:template match="*[*[cpm:is_title(.)]]" mode="cpm.fastcust.numbaselevel" as="xs:integer">
+        <xsl:value-of select="cpm:numbaselevel(*[cpm:is_title(.)])"/>
+    </xsl:template>
+
+    <!-- A default template for a flat documnet (always wins) -->
+    <xsl:template match="*[@cpm:numbaselevel]" mode="cpm.fastcust.numbaselevel" as="xs:integer"
+        priority="2">
+        <xsl:value-of select="cpm:misc.defnum0(@cpm:numbaselevel)"/>
+    </xsl:template>
+
+    <!-- A custom template -->
+    <xsl:template match="*" mode="numbaselevel" as="xs:integer">
+        <xsl:value-of select="cpm:fastcust.numbaselevel(.)"/>
+    </xsl:template>
+
+
+    <!-- 
         Retrieving a caption for an element
     -->
 
@@ -521,7 +557,7 @@
 
 
     <!-- 
-        Detecting an ID of a "numbering parent" of an element
+        Detecting an ID of a "numbering parent" for an element
     -->
 
     <!-- A default template for corner cases -->
@@ -536,13 +572,97 @@
 
     <!-- A default template (for flats) -->
     <xsl:template match="*[cpm:nummode(.) = 'flat']" mode="cpm.fastcust.numparent">
-        <xsl:variable name="nb" select="cpm:numbase(.)"/>
-        <xsl:value-of select="cpm:misc.id(ancestor::*[cpm:numseqname(.) = $nb][1])"/>
+
+        <xsl:variable name="nbn" select="cpm:numbase(.)"/>
+
+        <xsl:variable name="nbl" select="cpm:numbaselevel(.)"/>
+
+        <xsl:choose>
+
+            <!-- Base numbering level is provided -->
+            <xsl:when test="$nbl != 0">
+
+                <xsl:choose>
+
+                    <!-- Base numbering name is irrelevant -->
+                    <xsl:when test="$nbn = ''">
+                        <xsl:value-of select="cpm:misc.id(ancestor::*[cpm:numlevel(.) = $nbl])"/>
+                    </xsl:when>
+
+                    <!-- Base numbering level is relevant for topics -->
+                    <xsl:when test="$nbn = '#topic'">
+                        <xsl:value-of
+                            select="cpm:misc.id(ancestor::*[cpm:is_topic(.) and cpm:numlevel(.) = $nbl])"
+                        />
+                    </xsl:when>
+
+                    <!-- Base numbering level is relevant for a particular numbering sequence -->
+                    <xsl:otherwise>
+                        <xsl:value-of
+                            select="cpm:misc.id(ancestor::*[cpm:numseqname(.) = $nbn and cpm:numlevel(.) = $nbl])"
+                        />
+                    </xsl:otherwise>
+
+                </xsl:choose>
+            </xsl:when>
+
+            <!-- Base numbering level is irrelevant -->
+            <xsl:otherwise>
+                <xsl:value-of select="cpm:misc.id(ancestor::*[cpm:numseqname(.) = $nbn][1])"/>
+            </xsl:otherwise>
+
+        </xsl:choose>
+
     </xsl:template>
 
     <!-- A custom template -->
     <xsl:template match="*" mode="numparent">
         <xsl:value-of select="cpm:fastcust.numparent(.)"/>
+    </xsl:template>
+
+
+    <!-- 
+        Detecting a local flat indexing group of an element
+    -->
+
+    <!-- A default template for a common element -->
+    <xsl:template match="*" mode="cpm.fastcust.numidxmode"/>
+
+    <!-- A default template for a decimal numbering mode -->
+    <xsl:template match="*[cpm:nummode(.) = 'decimal']" mode="cpm.fastcust.numidxmode">
+        <xsl:text>decimals</xsl:text>
+    </xsl:template>
+
+    <!-- A default template for a flat numbering mode -->
+    <xsl:template match="*[cpm:nummode(.) = 'flat']" mode="cpm.fastcust.numidxmode">
+
+        <xsl:choose>
+            <xsl:when test="cpm:is_topic(.)">
+                <xsl:text>topics</xsl:text>
+            </xsl:when>
+            <xsl:when test="cpm:is_list_item_body(.)">
+                <xsl:text>items</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="cpm:numbase(.) = ''">
+                        <xsl:text>globals</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="cpm:numbase(.) != ''">
+                        <xsl:text>locals</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>other</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+
+    </xsl:template>
+
+    <!-- Custom template -->
+    <xsl:template match="*" mode="numidxmode">
+        <xsl:value-of select="cpm:fastcust.numidxmode(.)"/>
     </xsl:template>
 
 
@@ -556,62 +676,38 @@
         <xsl:value-of select="false()"/>
     </xsl:template>
 
+    <!-- A default template (decimal numbering mode) -->
+    <xsl:template match="*[cpm:numidxmode(.) = 'decimals']" mode="cpm.fastcust.is_locmate"
+        as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:value-of select="cpm:eqnumlevel(., $element) and cpm:eqnumseq(., $element)"/>
+    </xsl:template>
+
     <!-- Numbering topics in a flat mode -->
-    <xsl:template match="*[cpm:nummode(.) = 'flat' and cpm:is_topic(.)]"
-        mode="cpm.fastcust.is_locmate" as="xs:boolean">
+    <xsl:template match="*[cpm:numidxmode(.) = 'topics']" mode="cpm.fastcust.is_locmate"
+        as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:value-of select="cpm:is_topic($element) and cpm:eqnumseq(., $element)"/>
     </xsl:template>
 
     <!-- Numbering list items in a flat mode -->
-    <xsl:template match="*[cpm:nummode(.) = 'flat' and cpm:is_list_item_body(.)]"
-        mode="cpm.fastcust.is_locmate" as="xs:boolean">
+    <xsl:template match="*[cpm:numidxmode(.) = 'items']" mode="cpm.fastcust.is_locmate"
+        as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:value-of select="cpm:is_list_item_body($element) and cpm:eqnumseq(., $element)"/>
     </xsl:template>
 
     <!-- Numbering titled elements in a flat mode -->
-    <xsl:template match="*[cpm:nummode(.) = 'flat' and *[cpm:is_title(.)]]"
+    <xsl:template match="*[cpm:numidxmode(.) = ('globals', 'locals')]"
         mode="cpm.fastcust.is_locmate" as="xs:boolean">
         <xsl:param name="element"/>
-        <xsl:value-of select="$element/*[cpm:is_title(.)] and cpm:eqnumseq(., $element)"/>
+        <xsl:value-of select="cpm:eqnumseq(., $element)"/>
     </xsl:template>
 
     <!-- A custom template -->
     <xsl:template match="*" mode="is_locmate" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:value-of select="cpm:fastcust.is_locmate(., $element)"/>
-    </xsl:template>
-
-
-    <!-- 
-        Do element local numbers belong to the same local sequence?
-    -->
-
-    <!-- A default template (unknown numbering mode) -->
-    <xsl:template match="*" mode="cpm.fastcust.is_numsibling" as="xs:boolean">
-        <xsl:param name="element"/>
-        <xsl:value-of select="false()"/>
-    </xsl:template>
-
-    <!-- A default template (decimal numbering mode) -->
-    <xsl:template match="*[cpm:nummode(.) = 'decimal']" mode="cpm.fastcust.is_numsibling"
-        as="xs:boolean">
-        <xsl:param name="element"/>
-        <xsl:value-of select="cpm:eqnumlevel(., $element) and cpm:eqnumseq(., $element)"/>
-    </xsl:template>
-
-    <!-- A default template (flat numbering mode; a common case) -->
-    <xsl:template match="*[cpm:nummode(.) = 'flat']" mode="cpm.fastcust.is_numsibling"
-        as="xs:boolean">
-        <xsl:param name="element"/>
-        <xsl:value-of select="cpm:numparent(.) = cpm:numparent($element)"/>
-    </xsl:template>
-
-    <!-- A custom template -->
-    <xsl:template match="*" mode="is_numsibling" as="xs:boolean">
-        <xsl:param name="element"/>
-        <xsl:value-of select="cpm:fastcust.is_numsibling(., $element)"/>
     </xsl:template>
 
 
@@ -630,7 +726,7 @@
     </xsl:template>
 
     <!-- A default template for titled elements -->
-    <xsl:template match="*[*[cpm:is_title(.)]]" mode="cpm.fastcust.numseq">
+    <xsl:template match="*[cpm:has_title(.)]" mode="cpm.fastcust.numseq">
         <xsl:copy-of select="cpm:numseq(*[cpm:is_title(.)])"/>
     </xsl:template>
 
@@ -645,73 +741,51 @@
     -->
 
     <!-- Supressing corner cases -->
-    <xsl:template match="*" mode="cpm.fastcust.locnumber"/>
-
-    <!-- A default template (for decimals) -->
-    <xsl:template match="*[cpm:nummode(.) = 'decimal']" mode="cpm.fastcust.locnumber">
-
-        <!-- Calculating an index of the element in a local sequence, e.g. 4 -->
-        <xsl:value-of select="count(preceding-sibling::*[cpm:is_numsibling(current(), .)]) + 1"/>
-
+    <xsl:template match="*" mode="cpm.fastcust.locindex">
+        <xsl:value-of select="0"/>
     </xsl:template>
 
-    <!-- Numbering topics in a flat mode -->
-    <xsl:template match="*[cpm:nummode(.) = 'flat' and cpm:is_topic(.)]"
-        mode="cpm.fastcust.locnumber">
-
-        <xsl:variable name="index"
-            select="count(preceding-sibling::*[cpm:is_locmate(current(), .)]) + 1"/>
-
-        <!-- Assembling a local number value, e.g. IV -->
-        <xsl:value-of select="cpm:fastcust.numval(cpm:numseq(.), $index)"/>
-
+    <!-- Numbering topics and listitems in the both modes -->
+    <xsl:template match="*[cpm:numidxmode(.) = ('decimals', 'items', 'topics')]"
+        mode="cpm.fastcust.locindex">
+        <xsl:value-of select="count(preceding-sibling::*[cpm:is_locmate(current(), .)]) + 1"/>
     </xsl:template>
 
-    <!-- Numbering list items in a flat mode -->
-    <xsl:template match="*[cpm:nummode(.) = 'flat' and cpm:is_list_item_body(.)]"
-        mode="cpm.fastcust.locnumber">
-
-        <xsl:variable name="index"
-            select="count(preceding-sibling::*[cpm:is_locmate(current(), .)]) + 1"/>
-
-        <!-- Assembling a local number value, e.g. IV -->
-        <xsl:value-of select="cpm:fastcust.numval(cpm:numseq(.), $index)"/>
-
-    </xsl:template>
-
-    <!-- Numbering title elements in a flat mode over a document -->
-    <xsl:template match="*[cpm:nummode(.) = 'flat' and *[cpm:is_title(.)] and cpm:numbase(.) = '']"
-        mode="cpm.fastcust.locnumber">
-
+    <!-- Numbering elements in a flat mode over a document -->
+    <xsl:template match="*[cpm:numidxmode(.) = 'globals']" mode="cpm.fastcust.locindex">
         <xsl:variable name="elname" select="name()"/>
-
-        <xsl:variable name="index"
+        <xsl:value-of
             select="count(preceding::*[name() = $elname and cpm:is_locmate(current(), .)]) + 1"/>
-
-        <!-- Assembling a local number value, e.g. IV -->
-        <!-- <xsl:value-of select="cpm:fastcust.numval(cpm:numseq(.), $index)"/> -->
-
-        <xsl:value-of select="$index"/>
-
     </xsl:template>
 
-    <!-- Numbering title elements in a flat mode over a base element -->
-    <xsl:template match="*[cpm:nummode(.) = 'flat' and *[cpm:is_title(.)] and cpm:numbase(.) != '']"
-        mode="cpm.fastcust.locnumber">
+    <!-- Numbering elements in a flat mode over a base element -->
+    <xsl:template match="*[cpm:numidxmode(.) = 'locals']" mode="cpm.fastcust.locindex">
+        <xsl:variable name="elname" select="name()"/>
+        <xsl:variable name="nbn" select="cpm:numbase(.)"/>
+        <xsl:variable name="bid" select="cpm:numparent(.)"/>
 
-        <xsl:variable name="index" select="count(preceding::*[cpm:is_locmate(current(), .)]) + 1"/>
+        <xsl:variable name="count_prec">
+            <xsl:choose>
+                <xsl:when test="ancestor::*[$bid = cpm:misc.id(.)]/@id">
+                    <xsl:value-of
+                        select="count(preceding::*[cpm:is_locmate(current(), .) and name() = $elname and ancestor::*[$bid = @id]])"
+                    />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of
+                        select="count(preceding::*[cpm:is_locmate(current(), .) and name() = $elname and ancestor::*[$bid = generate-id()]])"
+                    />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
 
-        <!-- Assembling a local number value, e.g. IV -->
-        <!-- <xsl:value-of select="cpm:fastcust.numval(cpm:numseq(.), $index)"/> -->
-
-        <xsl:value-of select="$index"/>
+        <xsl:value-of select="$count_prec + 1"/>
 
     </xsl:template>
-
 
     <!-- A custom template -->
-    <xsl:template match="*" mode="locnumber">
-        <xsl:value-of select="cpm:fastcust.locnumber(.)"/>
+    <xsl:template match="*" mode="locindex">
+        <xsl:value-of select="cpm:fastcust.locindex(.)"/>
     </xsl:template>
 
 
@@ -766,22 +840,13 @@
                     <xsl:value-of select="$hinumber"/>
                     <xsl:value-of select="cpm:numbasesep(.)"/>
                 </xsl:when>
-                <!--
-                <xsl:when test="$hinumber != ''">                    
-                    <xsl:value-of select="$hinumber"/>
-                    <xsl:value-of select="cpm:numsep(.)"/>
-                </xsl:when>
-                -->
-                <xsl:otherwise>
-                    <xsl:message>
-                        <xsl:value-of select="name()"/>
-                    </xsl:message>
-                </xsl:otherwise>
+                <xsl:otherwise/>
             </xsl:choose>
 
         </xsl:if>
 
-        <xsl:value-of select="cpm:numval(cpm:numseq(.), cpm:locnumber(.))"/>
+        <!-- Converting an index to a local number -->
+        <xsl:value-of select="cpm:numval(cpm:numseq(.), cpm:locindex(.))"/>
 
     </xsl:template>
 
@@ -801,15 +866,13 @@
 
         <xsl:variable name="basenumber" select="cpm:hinumber(.)"/>
 
-        <!--
         <xsl:if test="$basenumber != ''">
             <xsl:value-of select="$basenumber"/>
             <xsl:value-of select="cpm:numbasesep(.)"/>
         </xsl:if>
-        -->
 
-
-        <xsl:value-of select="cpm:locnumber(.)"/>
+        <!-- Converting an index to a local number -->
+        <xsl:value-of select="cpm:numval(cpm:numseq(.), number(cpm:locindex(.)))"/>
 
     </xsl:template>
 

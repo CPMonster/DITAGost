@@ -177,6 +177,7 @@
         <xsl:apply-templates select="$element" mode="is_inline"/>
     </xsl:function>
 
+
     <!-- 
         Detecting elements giving FO list blocks
     -->
@@ -185,6 +186,23 @@
     <xsl:function name="cpm:is_list_block" as="xs:boolean">
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_list_block"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Detecting a list name
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.listname">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.listname"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:listname">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="listname"/>
     </xsl:function>
 
 
@@ -416,7 +434,24 @@
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_topic_meta"/>
     </xsl:function>
-
+    
+    
+    <!-- 
+        Detecting elements having titles
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.has_title" as="xs:boolean">
+        <xsl:param name="element"/>        
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.has_title"/>               
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:has_title" as="xs:boolean">
+        <xsl:param name="element"/>                
+        <xsl:apply-templates select="$element" mode="has_title"/>        
+    </xsl:function>
+    
 
     <!-- 
         Detecting untitled ("slacking") content
@@ -618,7 +653,24 @@
 
 
     <!-- 
-        Detecting a type of a topic
+        Detecting a document genre
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.docgenre">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.docgenre"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:docgenre">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="docgenre"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Detecting topic types
     -->
 
     <!-- A wrapper function -->
@@ -724,6 +776,23 @@
 
 
     <!-- 
+        Detecting a local flat indexing group of an element
+    -->
+   
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numidxmode">        
+        <xsl:param name="element"/>        
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numidxmode"/>        
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:numidxmode">        
+        <xsl:param name="element"/>        
+        <xsl:apply-templates select="$element" mode="numidxmode"/>        
+    </xsl:function>
+    
+    
+    <!-- 
         Retrieving a numbering sequence name of an element
     -->
 
@@ -825,6 +894,24 @@
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="numbase"/>
     </xsl:function>
+
+
+    <!-- 
+        Retrieving a base numbering sequence name
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numbaselevel" as="xs:integer">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numbaselevel"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:numbaselevel" as="xs:integer">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="numbaselevel"/>
+    </xsl:function>
+
 
     <!-- 
         Retrieving a separator for a decimal number 
@@ -998,45 +1085,22 @@
             <xsl:with-param name="element" select="$element2"/>
         </xsl:apply-templates>        
     </xsl:function>
-
-
-    <!-- 
-        Testing an element for being a "numbering sibling" to a given one 
-    -->
-
-    <!-- A wrapper function -->
-    <xsl:function name="cpm:fastcust.is_numsibling" as="xs:boolean">
-        <xsl:param name="element1"/>
-        <xsl:param name="element2"/>
-        <xsl:apply-templates select="$element1" mode="cpm.fastcust.is_numsibling">
-            <xsl:with-param name="element" select="$element2"/>
-        </xsl:apply-templates>
-    </xsl:function>
-
-    <!-- An API function -->
-    <xsl:function name="cpm:is_numsibling" as="xs:boolean">
-        <xsl:param name="element1"/>
-        <xsl:param name="element2"/>
-        <xsl:apply-templates select="$element1" mode="is_numsibling">
-            <xsl:with-param name="element" select="$element2"/>
-        </xsl:apply-templates>
-    </xsl:function>
-
+  
 
     <!-- 
         Calculating a local number of an element
     -->
 
     <!-- A wrapper function -->
-    <xsl:function name="cpm:fastcust.locnumber">
+    <xsl:function name="cpm:fastcust.locindex">
         <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="cpm.fastcust.locnumber"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.locindex"/>
     </xsl:function>
 
     <!-- An API function -->
-    <xsl:function name="cpm:locnumber">
+    <xsl:function name="cpm:locindex">
         <xsl:param name="element"/>
-        <xsl:apply-templates select="$element" mode="locnumber"/>
+        <xsl:apply-templates select="$element" mode="locindex"/>
     </xsl:function>
 
 
