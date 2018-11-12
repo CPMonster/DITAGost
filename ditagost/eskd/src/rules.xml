@@ -290,7 +290,7 @@
                           tontopic   - топик со списком таблиц, рисунков и т.п.                  
                          
     -->
-        
+
     <!-- Рамки -->
     <element context="*[cpm:oclass(.)='border.sidebar']" style="Рамка. Боковик"/>
     <element context="*[cpm:oclass(.)='border.details']" style="Рамка. Штамп"/>
@@ -347,8 +347,7 @@
     <!-- Таблицы -->
     <element context="table" style="Таблица. Блок"/>
     <element context="tgroup" style="Таблица"/>
-    <element context="*[cpm:sectype(.)!='appendix']//table/title" style="Таблица. Название"
-        numseq="Таблицы"/>
+    <element context="table/title" style="Таблица. Название" numseq="Таблицы"/>
     <element context="*[cpm:sectype(.)='appendix']//table/title" style="Таблица. Название"
         numseq="Таблицы в приложении"/>
     <element context="thead/row" style="Таблица. Шапка"/>
@@ -356,15 +355,11 @@
 
     <!-- Рисунки -->
     <element context="fig" numseq="fo:block" style="Рисунок"/>
-    <element context="*[cpm:sectype(.)='main']//fig/title" numseq="Рисунки"
-        style="Рисунок. Название"/>
+    <element context="fig/title" numseq="Рисунки" style="Рисунок. Название"/>
     <element context="*[cpm:sectype(.)='appendix']//fig/title" style="Рисунок. Название"
         numseq="Рисунки в приложении"/>
     <element context="fo:block[cpm:oclass(.)='image']" style="Рисунок. Изображение"/>
     <element context="image" name="fo:external-graphic"/>
-    <!--
-    <element context="fig/image[not(@outputclass)]" name="fo:external-graphic"/>
-    -->
     <element context="fig/p" style="Рисунок. Описание"/>
 
     <!-- Списки -->

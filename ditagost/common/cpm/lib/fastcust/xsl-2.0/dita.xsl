@@ -181,6 +181,14 @@
     <xsl:template match="*" mode="is_topic" as="xs:boolean">
         <xsl:value-of select="cpm:dita.is_topic(.)"/>
     </xsl:template>
+    
+    
+    <!-- 
+        Detecting body elements 
+    -->
+    <xsl:template match="*" mode="is_body" as="xs:boolean">
+        <xsl:value-of select="cpm:dita.is_body(.)"/>
+    </xsl:template>
 
 
     <!-- 
@@ -270,17 +278,20 @@
     -->
 
     <!-- Retrieving a number for a chapter, subsection, etc. (non-terminal) -->
+    <!--
     <xsl:template match="title[@cpm:number]" mode="fonumber">
         <xsl:value-of select="@cpm:number"/>
     </xsl:template>
-
+    -->
 
     <!-- 
         Calculating a table number
     -->
+    <!--
     <xsl:template match="table/title" mode="fonumber">
         <xsl:value-of select="count(preceding::table/title) + 1"/>
     </xsl:template>
+    -->
 
 
 

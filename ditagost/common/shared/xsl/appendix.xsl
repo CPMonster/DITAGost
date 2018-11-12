@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- * * ** *** ***** ******** ************* ********************* --> 
 <!--
-    Product:    DITA GOST for Azimut
+    Product:    DITA GOST
     
     Level:      ESKD shared files
         

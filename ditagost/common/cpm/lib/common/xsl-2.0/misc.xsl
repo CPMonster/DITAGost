@@ -316,4 +316,21 @@
         <xsl:value-of select="lower-case(cpm:misc.roman_upper($index))"/>
     </xsl:function>
 
+
+    <!-- 
+        Supernormalize spaces
+    -->
+    <xsl:function name="cpm:misc.supernorm">
+
+        <xsl:param name="s"/>
+
+        <xsl:variable name="tmp">
+            <xsl:value-of select="translate($s, '&#xA;&#160;&#x9;', '   ')"/>
+        </xsl:variable>
+
+        <xsl:value-of select="normalize-space($tmp)"/>
+
+    </xsl:function>
+
+
 </xsl:stylesheet>

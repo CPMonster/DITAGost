@@ -121,6 +121,21 @@
     <xsl:template match="*" mode="is_topic" as="xs:boolean">
         <xsl:value-of select="cpm:fastcust.is_topic(.)"/>
     </xsl:template>
+    
+    
+    <!-- 
+        Detecting body elements
+    -->
+    
+    <!-- A default FastCust template -->
+    <xsl:template match="*" mode="cpm.fastcust.is_body" as="xs:boolean">
+        <xsl:value-of select="false()"/>
+    </xsl:template>
+    
+    <!-- A default custom template -->
+    <xsl:template match="*" mode="is_body" as="xs:boolean">
+        <xsl:value-of select="cpm:fastcust.is_body(.)"/>
+    </xsl:template>
 
 
     <!-- 
@@ -706,6 +721,11 @@
             </xsl:otherwise>
         </xsl:choose>
 
+    </xsl:template>
+        
+    <!-- Untitled text -->
+    <xsl:template match="*[cpm:is_untitled(.)]" mode="cpm.fastcust.level">
+        <xsl:value-of select="count(ancestor::*[cpm:is_topic(.)])"/>
     </xsl:template>
     
     <!-- A default template for flat document elements (always wins!) -->

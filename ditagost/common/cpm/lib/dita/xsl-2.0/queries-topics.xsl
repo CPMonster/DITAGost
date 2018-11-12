@@ -24,7 +24,7 @@
         <xsl:value-of select="cpm:dita.eclass(., '&DITA_CLASS_TOPIC;')"/>
     </xsl:template>
     
-    
+                
     <!-- 
         Detecting body elements
     -->

@@ -332,6 +332,23 @@
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="is_topic"/>
     </xsl:function>
+    
+    
+    <!-- 
+        Detecting body elements
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.is_body" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.is_body"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:is_body" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="is_body"/>
+    </xsl:function>
 
 
     <!-- 
@@ -962,8 +979,42 @@
         <xsl:param name="element"/>
         <xsl:apply-templates select="$element" mode="navcaption"/>
     </xsl:function>
-
-
+        
+    
+    <!-- 
+        Detecting element number patterns 
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numpattern">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numpattern"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:numpattern">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="numpattern"/>
+    </xsl:function>
+    
+    
+    <!-- 
+        Detecting element number patterns for TOCs, refs, etc. 
+    -->
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:fastcust.numnavpattern">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="cpm.fastcust.numnavpattern"/>
+    </xsl:function>
+    
+    <!-- An API function -->
+    <xsl:function name="cpm:numnavpattern">
+        <xsl:param name="element"/>
+        <xsl:apply-templates select="$element" mode="numnavattern"/>
+    </xsl:function>
+    
+    
     <!-- 
         Retrieving a separator for linking a number to a base number 
     -->

@@ -809,6 +809,8 @@
     <!-- 
         Extract a name from an uri omotting a type part
     -->
+    
+    <!-- A default template -->
     <xsl:template name="cpm.pathuri.get_name_without_type">
 
         <xsl:param name="uri"/>
@@ -822,6 +824,14 @@
         <xsl:value-of select="$uriseq/uri/file/name"/>
 
     </xsl:template>
+    
+    <!-- A wrapper function -->
+    <xsl:function name="cpm:pathuri.get_name_without_type">
+        <xsl:param name="uri"/>
+        <xsl:call-template name="cpm.pathuri.get_name_without_type">
+            <xsl:with-param name="uri" select="$uri"/>
+        </xsl:call-template>
+    </xsl:function>
 
 
     <!-- 

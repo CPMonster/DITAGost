@@ -19,7 +19,8 @@
     <!ENTITY NUMBERING_LATIN_FULL "ABCDEFGHIJKLMNOPQRSTUVWXYZ">
     <!ENTITY NUMBERING_DEFSEP ".">           
     <!ENTITY NUMBERING_DEFBASESEP ".">
-    <!ENTITY NUMBERING_DEFCAPTION "&#37;n. ">        
+    <!ENTITY NUMBERING_DEFCAPTION "&#37;n. ">
+    <!ENTITY NUMBERING_DEFPATTERN "1.2.3.4.5.6.7.8.9">  
 ]>
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -336,6 +337,70 @@
     <!-- A custom template -->
     <xsl:template match="*" mode="navcaption">
         <xsl:value-of select="cpm:fastcust.navcaption(.)"/>
+    </xsl:template>
+    
+    
+    <!-- 
+        Detecting an element number pattern
+    -->
+    
+    <!-- A default template for numbering sequences -->
+    <xsl:template match="numseq" mode="cpm.fastcust.numpattern">
+        <xsl:if test="@type != 'dummy'">
+            <xsl:value-of select="cpm:misc.defval(@pattern, '&NUMBERING_DEFPATTERN;')"/>
+        </xsl:if>
+    </xsl:template>
+    
+    <!-- A default template for elements -->
+    <xsl:template match="*" mode="cpm.fastcust.numpattern">
+        <xsl:apply-templates select="cpm:numseq(.)" mode="#current"/>
+    </xsl:template>
+    
+    <!-- ... a titled element -->
+    <xsl:template match="*[cpm:has_title(.)]" mode="cpm.fastcust.numpattern">
+        <xsl:value-of select="cpm:numpattern(*[cpm:is_title(.)])"/>
+    </xsl:template>
+    
+    <!-- A default template for a flat document (always wins!) -->
+    <xsl:template match="*[@cpm:numpattern]" mode="cpm.fastcust.numpattern" priority="2">
+        <xsl:value-of select="@cpm:numpattern"/>
+    </xsl:template>
+    
+    <!-- A custom template -->
+    <xsl:template match="*" mode="numpattern">
+        <xsl:value-of select="cpm:fastcust.numpattern(.)"/>
+    </xsl:template>
+    
+    
+    <!-- 
+        Detecting an element number format for navigation purposes  
+    -->
+    
+    <!-- A default template for numbering sequences -->
+    <xsl:template match="numseq" mode="cpm.fastcust.numnavpattern">
+        <xsl:if test="@type != 'dummy'">
+            <xsl:value-of select="cpm:misc.defval(@numnavpattern, cpm:numpattern(.))"/>
+        </xsl:if>
+    </xsl:template>
+    
+    <!-- A default template -->
+    <xsl:template match="*" mode="cpm.fastcust.numnavpattern">
+        <xsl:apply-templates select="cpm:numseq(.)" mode="#current"/>
+    </xsl:template>
+    
+    <!-- ... a titled element -->
+    <xsl:template match="*[cpm:has_title(.)]" mode="cpm.fastcust.numnavpattern">
+        <xsl:value-of select="cpm:numnavpattern(*[cpm:is_title(.)])"/>
+    </xsl:template>
+    
+    <!-- A default template for a flat document (always wins!) -->
+    <xsl:template match="*[@cpm:numnavpattern]" mode="cpm.fastcust.numnavpattern" priority="2">
+        <xsl:value-of select="@cpm:numnavpattern"/>
+    </xsl:template>
+    
+    <!-- A custom template -->
+    <xsl:template match="*" mode="numnavpattern">
+        <xsl:value-of select="cpm:fastcust.numnavpattern(.)"/>
     </xsl:template>
 
 

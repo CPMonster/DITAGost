@@ -358,6 +358,8 @@
                 <xsl:copy-of select="cpm:misc.attr('cpm:numbaselevel', cpm:numbaselevel(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:caption', cpm:caption(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:navcaption', cpm:navcaption(.))"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:numformat', cpm:numpattern(.))"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:numnavformat', cpm:numnavpattern(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:numsep', cpm:numsep(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:numbasesep', cpm:numbasesep(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:number', $number)"/>
