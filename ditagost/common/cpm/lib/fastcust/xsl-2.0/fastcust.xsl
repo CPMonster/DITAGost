@@ -361,12 +361,24 @@
                 <xsl:copy-of select="cpm:misc.attr('cpm:numformat', cpm:numpattern(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:numnavformat', cpm:numnavpattern(.))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:numsep', cpm:numsep(.))"/>
-                <xsl:copy-of select="cpm:misc.attr('cpm:numbasesep', cpm:numbasesep(.))"/>
+                <xsl:copy-of select="cpm:misc.attr('cpm:numbasesep', cpm:numbasesep(.))"/>                
+
+                <xsl:variable name="basenumber">
+                    <xsl:if test="cpm:nummode(.) = 'decimal' and cpm:numseqname($hinumseq) = cpm:numbase(.)">
+                        <xsl:value-of select="cpm:hinumber(.)"/>
+                    </xsl:if>
+                    <xsl:if test="cpm:nummode(.) = 'flat' and cpm:numbase(.) != ''">
+                        <xsl:value-of select="cpm:hinumber(.)"/>
+                    </xsl:if>
+                </xsl:variable>
+
+                <xsl:copy-of select="cpm:misc.attr('cpm:basenumber', $basenumber)"/>
+               
                 <xsl:copy-of select="cpm:misc.attr('cpm:number', $number)"/>
                 <xsl:copy-of
-                    select="cpm:misc.attr('cpm:full-number', cpm:numformat(., $number, cpm:caption(.)))"/>
+                    select="cpm:misc.attr('cpm:full-number', cpm:numformat(., $basenumber, $number, cpm:caption(.)))"/>
                 <xsl:copy-of
-                    select="cpm:misc.attr('cpm:nav-full-number', cpm:numformat(., $number, cpm:navcaption(.)))"/>
+                    select="cpm:misc.attr('cpm:nav-full-number', cpm:numformat(., $basenumber, $number, cpm:navcaption(.)))"/>
                 <xsl:copy-of select="cpm:misc.attr('cpm:title', cpm:fastcust.title(.))"/>
             </xsl:if>
 
@@ -825,7 +837,7 @@
     <!-- 
         Transforming a placeholder to an actual number
     -->
-    <xsl:template match="cpm:number" mode="foxml">        
+    <xsl:template match="cpm:number" mode="foxml">
         <xsl:value-of select="cpm:nav_full_number(root(.)//*[@id = current()/@refid])"/>
     </xsl:template>
 

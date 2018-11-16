@@ -338,66 +338,66 @@
     <xsl:template match="*" mode="navcaption">
         <xsl:value-of select="cpm:fastcust.navcaption(.)"/>
     </xsl:template>
-    
-    
+
+
     <!-- 
         Detecting an element number pattern
     -->
-    
+
     <!-- A default template for numbering sequences -->
     <xsl:template match="numseq" mode="cpm.fastcust.numpattern">
         <xsl:if test="@type != 'dummy'">
             <xsl:value-of select="cpm:misc.defval(@pattern, '&NUMBERING_DEFPATTERN;')"/>
         </xsl:if>
     </xsl:template>
-    
+
     <!-- A default template for elements -->
     <xsl:template match="*" mode="cpm.fastcust.numpattern">
         <xsl:apply-templates select="cpm:numseq(.)" mode="#current"/>
     </xsl:template>
-    
+
     <!-- ... a titled element -->
     <xsl:template match="*[cpm:has_title(.)]" mode="cpm.fastcust.numpattern">
         <xsl:value-of select="cpm:numpattern(*[cpm:is_title(.)])"/>
     </xsl:template>
-    
+
     <!-- A default template for a flat document (always wins!) -->
     <xsl:template match="*[@cpm:numpattern]" mode="cpm.fastcust.numpattern" priority="2">
         <xsl:value-of select="@cpm:numpattern"/>
     </xsl:template>
-    
+
     <!-- A custom template -->
     <xsl:template match="*" mode="numpattern">
         <xsl:value-of select="cpm:fastcust.numpattern(.)"/>
     </xsl:template>
-    
-    
+
+
     <!-- 
         Detecting an element number format for navigation purposes  
     -->
-    
+
     <!-- A default template for numbering sequences -->
     <xsl:template match="numseq" mode="cpm.fastcust.numnavpattern">
         <xsl:if test="@type != 'dummy'">
             <xsl:value-of select="cpm:misc.defval(@numnavpattern, cpm:numpattern(.))"/>
         </xsl:if>
     </xsl:template>
-    
+
     <!-- A default template -->
     <xsl:template match="*" mode="cpm.fastcust.numnavpattern">
         <xsl:apply-templates select="cpm:numseq(.)" mode="#current"/>
     </xsl:template>
-    
+
     <!-- ... a titled element -->
     <xsl:template match="*[cpm:has_title(.)]" mode="cpm.fastcust.numnavpattern">
         <xsl:value-of select="cpm:numnavpattern(*[cpm:is_title(.)])"/>
     </xsl:template>
-    
+
     <!-- A default template for a flat document (always wins!) -->
     <xsl:template match="*[@cpm:numnavpattern]" mode="cpm.fastcust.numnavpattern" priority="2">
         <xsl:value-of select="@cpm:numnavpattern"/>
     </xsl:template>
-    
+
     <!-- A custom template -->
     <xsl:template match="*" mode="numnavpattern">
         <xsl:value-of select="cpm:fastcust.numnavpattern(.)"/>
@@ -510,6 +510,32 @@
     <!--  Assembling numbers  -->
     <!-- ==================== -->
 
+    <!--
+    <xsl:template name="cpm.fastcust.numassemble">
+        
+        <xsl:param name="number"/>
+        
+        <xsl:param name=""></xsl:param>
+
+        <xsl:variable name="regexp">
+            <xsl:text>[^{^}]+$</xsl:text>
+        </xsl:variable>
+
+        <xsl:analyze-string select="$number" regex="{$regexp}">
+            <xsl:matching-substring>
+                <main>
+                    <xsl:value-of select="."/>
+                </main>
+            </xsl:matching-substring>
+            <xsl:non-matching-substring>
+                <xsl:
+            </xsl:non-matching-substring>
+        </xsl:analyze-string>
+
+    </xsl:template>
+    -->
+
+
     <!-- 
         Formatting a number
     -->
@@ -517,7 +543,9 @@
     <!-- A default template -->
     <xsl:template match="*" mode="cpm.fastcust.numformat">
 
-        <xsl:param name="number" select="cpm:number(.)"/>
+        <xsl:param name="basenumber" select="''"/>
+        
+        <xsl:param name="number" select="cpm:number(.)"/>                
 
         <xsl:param name="caption" select="cpm:caption(.)"/>
 
@@ -527,7 +555,7 @@
             <xsl:matching-substring>
                 <xsl:choose>
                     <xsl:when test=". = '%b'">
-                        <xsl:value-of select="substring-before($number, $numbasesep)"/>
+                        <xsl:value-of select="$basenumber"/>
                     </xsl:when>
                     <xsl:when test=". = '%n'">
                         <xsl:value-of select="$number"/>
@@ -546,9 +574,10 @@
 
     <!-- A custom template -->
     <xsl:template match="*" mode="numformat">
+        <xsl:param name="basenumber" select="''"/>
         <xsl:param name="number" select="cpm:number(.)"/>
         <xsl:param name="caption" select="cpm:caption(.)"/>
-        <xsl:value-of select="cpm:fastcust.numformat(., $number, $caption)"/>
+        <xsl:value-of select="cpm:fastcust.numformat(., $basenumber, $number, $caption)"/>
     </xsl:template>
 
 
@@ -896,14 +925,17 @@
 
         <xsl:if test="$hinumseqname != ''">
 
-            <xsl:choose>
+            <xsl:choose>                
+                <xsl:when test="$hinumseqname = cpm:numbase(.)">
+                    <!--
+                    <xsl:text>{</xsl:text>
+                    <xsl:value-of select="$hinumber"/>
+                    <xsl:text>}</xsl:text>
+                    -->
+                </xsl:when>
                 <xsl:when test="$hinumseqname = cpm:numseqname(.)">
                     <xsl:value-of select="$hinumber"/>
                     <xsl:value-of select="cpm:numsep(.)"/>
-                </xsl:when>
-                <xsl:when test="$hinumseqname = cpm:numbase(.)">
-                    <xsl:value-of select="$hinumber"/>
-                    <xsl:value-of select="cpm:numbasesep(.)"/>
                 </xsl:when>
                 <xsl:otherwise/>
             </xsl:choose>
@@ -931,10 +963,13 @@
 
         <xsl:variable name="basenumber" select="cpm:hinumber(.)"/>
 
+        <!--
         <xsl:if test="$basenumber != ''">
+            <xsl:text>{</xsl:text>
             <xsl:value-of select="$basenumber"/>
-            <xsl:value-of select="cpm:numbasesep(.)"/>
+            <xsl:text>}</xsl:text>
         </xsl:if>
+        -->
 
         <!-- Converting an index to a local number -->
         <xsl:value-of select="cpm:numval(cpm:numseq(.), number(cpm:locindex(.)))"/>
@@ -1024,7 +1059,7 @@
 
     <!-- A common default template -->
     <xsl:template match="*" mode="cpm.fastcust.nav_full_number">
-        <xsl:value-of select="cpm:numformat(., cpm:number(.), cpm:navcaption(.))"/>
+        <xsl:value-of select="cpm:numformat(., @cpm:basenumber, cpm:number(.), cpm:navcaption(.))"/>
     </xsl:template>
 
     <!-- A default template for a flat document -->

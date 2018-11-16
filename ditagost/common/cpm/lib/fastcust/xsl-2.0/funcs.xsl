@@ -1173,6 +1173,20 @@
 
 
     <!-- 
+    
+    -->
+    <!--
+    <xsl:function name="cpm:fastcust.basenumber">
+        <xsl:param name="element"/>
+        <xsl:if test="cpm:numseqname($hinumseq) = cpm:numbase(.)">
+            <xsl:value-of select="cpm:hinumber(.)"/>
+        </xsl:if>
+        
+    </xsl:function>
+    -->
+
+
+    <!-- 
         Calculating an element number (regular mode)
     -->
 
@@ -1226,9 +1240,11 @@
     <!-- A wrapper function -->
     <xsl:function name="cpm:fastcust.numformat">
         <xsl:param name="element"/>
+        <xsl:param name="basenumber"/>
         <xsl:param name="number"/>
         <xsl:param name="caption"/>
         <xsl:apply-templates select="$element" mode="cpm.fastcust.numformat">
+            <xsl:with-param name="basenumber" select="$basenumber"/>
             <xsl:with-param name="number" select="$number"/>
             <xsl:with-param name="caption" select="$caption"/>
         </xsl:apply-templates>
@@ -1237,9 +1253,11 @@
     <!-- An API function (advanced) -->
     <xsl:function name="cpm:numformat">
         <xsl:param name="element"/>
+        <xsl:param name="basenumber"/>
         <xsl:param name="number"/>
         <xsl:param name="caption"/>
         <xsl:apply-templates select="$element" mode="numformat">
+            <xsl:with-param name="basenumber" select="$basenumber"/>
             <xsl:with-param name="number" select="$number"/>
             <xsl:with-param name="caption" select="$caption"/>
         </xsl:apply-templates>

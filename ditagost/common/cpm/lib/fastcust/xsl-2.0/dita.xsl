@@ -605,7 +605,26 @@
 
                 <xsl:copy-of select="cpm:misc.attr('cpm:numlevel', cpm:numlevel(.))"/>
 
-                <xsl:copy-of select="cpm:misc.attr('cpm:listname', name(..))"/>
+                <xsl:variable name="listname" select="name(..)"/>
+                
+                <xsl:variable name="actual_listname">
+                    <xsl:choose>
+                        <xsl:when test="$listname = ('ol','ul')">
+                            <xsl:value-of select="$listname"/>
+                        </xsl:when>
+                        <xsl:when test="contains(@class,'/ul')">
+                            <xsl:text>ul</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="contains(@class,'/ol')">
+                            <xsl:text>ol</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>ol</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+
+                <xsl:copy-of select="cpm:misc.attr('cpm:listname', $actual_listname)"/>
 
                 <xsl:if test="cpm:in_table(.)">
                     <xsl:attribute name="role">table</xsl:attribute>
