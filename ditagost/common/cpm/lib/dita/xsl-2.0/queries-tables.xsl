@@ -461,7 +461,20 @@
     <xsl:template match="*" mode="cpm.dita.colalign"/>
 
     <xsl:template match="&DITA_ENTRY;" mode="cpm.dita.colalign">
+        
+        <xsl:choose>
+            <xsl:when test="@align">
+                <xsl:value-of select="@align"/>
+            </xsl:when>
+            <xsl:when test="not(@align)">
+                <xsl:variable name="cp" select="cpm:dita.colpos(.)"/>
+                <xsl:value-of
+                    select="ancestor::&DITA_TGROUP;[1]/colspec[position()=$cp]/@align"/>                    
+            </xsl:when>
+            <xsl:otherwise/>
+        </xsl:choose>
 
+        <!--
         <xsl:variable name="tmp">
             <xsl:choose>
                 <xsl:when test="@align">
@@ -474,7 +487,9 @@
                 </xsl:when>
             </xsl:choose>
         </xsl:variable>
+        -->
        
+        <!--
         <xsl:choose>
             <xsl:when test="$tmp != ''">
                 <xsl:value-of select="$tmp"/>
@@ -483,6 +498,7 @@
                 <xsl:text>left</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
+        -->
 
     </xsl:template>
 

@@ -181,8 +181,8 @@
     <xsl:template match="*" mode="is_topic" as="xs:boolean">
         <xsl:value-of select="cpm:dita.is_topic(.)"/>
     </xsl:template>
-    
-    
+
+
     <!-- 
         Detecting body elements 
     -->
@@ -490,7 +490,8 @@
 
     <!-- Wrapping cell content into a block -->
     <xsl:template match="*[cpm:dita.is_entry(.)]" mode="foinner">
-        <fo:block text-align="{cpm:dita.colalign(.)}">
+        <fo:block>
+            <xsl:copy-of select="cpm:misc.attr('text-align', cpm:dita.colalign(.))"/>
             <xsl:if test="normalize-space(.) = ''">
                 <xsl:text>&#160;</xsl:text>
             </xsl:if>
@@ -606,16 +607,16 @@
                 <xsl:copy-of select="cpm:misc.attr('cpm:numlevel', cpm:numlevel(.))"/>
 
                 <xsl:variable name="listname" select="name(..)"/>
-                
+
                 <xsl:variable name="actual_listname">
                     <xsl:choose>
-                        <xsl:when test="$listname = ('ol','ul')">
+                        <xsl:when test="$listname = ('ol', 'ul')">
                             <xsl:value-of select="$listname"/>
                         </xsl:when>
-                        <xsl:when test="contains(@class,'/ul')">
+                        <xsl:when test="contains(@class, '/ul')">
                             <xsl:text>ul</xsl:text>
                         </xsl:when>
-                        <xsl:when test="contains(@class,'/ol')">
+                        <xsl:when test="contains(@class, '/ol')">
                             <xsl:text>ol</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
@@ -813,7 +814,7 @@
     <!-- Transforming a number placeholder to FO -->
     <xsl:template match="cpm:number[@src = 'xref']" mode="foxml">
         <fo:basic-link internal-destination="{@refid}">
-            <xsl:value-of select="cpm:number(root(.)//*[@id = current()/@refid])"/>
+            <xsl:value-of select="cpm:nav_full_number(root(.)//*[@id = current()/@refid])"/>
         </fo:basic-link>
     </xsl:template>
 
